@@ -1,0 +1,24 @@
+{
+  "name": "plan_de_masa",
+  "version": "0.0.1",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lixapopescu/Plan-de-Masa-Node-Server.git"
+  },
+  "author": "Alexandra Popescu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lixapopescu/Plan-de-Masa-Node-Server/issues"
+  },
+  "homepage": "https://github.com/lixapopescu/Plan-de-Masa-Node-Server#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.12.3",
+    "mongoose": "^4.0.2",
+    "morgan": "^1.5.2"
+  }
+}
