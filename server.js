@@ -13,7 +13,7 @@ var express = require('express');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var passportLocalMongoose = require('passport-local-mongoose');
-var Retete = require('./app/models/retete');
+//var Retete = require('./app/models/retete');
 
 
 //global variables
