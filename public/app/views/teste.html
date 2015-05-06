@@ -16,7 +16,7 @@
     <meta property="og:image" content="http://plandemasa.ro/images/facebook_logo.png">
     <link rel="icon" href="../../assets/images/favicon.ico">
     <title>Teste</title>
-    <link href="../../assets/css/bootstrap.css" rel="stylesheet">
+    <link href="../../../assets/css/bootstrap.css" rel="stylesheet">
     <link href="../../assets/css/main.css" rel="stylesheet">
     <!-- Font Awesome by Dave Gandy - http://fontawesome.io -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
@@ -29,15 +29,20 @@
     <script>
     document.createElement("picture");
     </script>
-    <script href="../../assets/js/picturefill.js" async></script>
+    <script src="../../assets/js/picturefill.js" async></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="../app.js"></script>
 </head>
 
-<body>
-
-<div class="container">
-    <a href="/auth/facebook">Login with Facebook</a>
-</div>
-
+<body ng-app="testeApp" ng-controller="mainController as main">
+    <div class="container">
+        <div class="row">
+            <a href="/auth/facebook">Login with Facebook</a>
+        </div>
+        <div class="row">
+            <h2>Message: </h2> {{main.message}}
+        </div>
+    </div>
     <!-- Bootstrap core JavaScript
          ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
