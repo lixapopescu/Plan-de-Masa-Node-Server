@@ -238,6 +238,9 @@ PRICING STYLES
 .navbar .nav > li > a {
   font-size: 1.2em; }
 
-.alert{
-  background-color:#FFAF77;
+/* @media (min-width: 1200px) .navbar {
+    width: 1170px !important;
 }
+ */
+.alert {
+  background-color: #FFAF77; }

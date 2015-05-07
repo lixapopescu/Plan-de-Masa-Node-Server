@@ -90,19 +90,23 @@ app.use(express.static(__dirname + '/public'));
 var apiRoutes = require('./app/routes/api')(app, express);
 app.use('/api', apiRoutes);
 
+app.get('/plan_detalii.html', function(req, res) {
+    res.sendFile(path.join(__dirname + '/public/app/views/plan_detalii.html'));
+});
+
 /*app.get('/teste', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/app/views/pages_teste/'));
 });
 */// MAIN CATCHALL ROUTE --------------- 
 // SEND USERS TO FRONTEND ------------
 // has to be registered after API ROUTES
-// app.get('*', function(req, res) {
-//     res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
-// });
-app.get('/:thing', function(req, res) {
-    res.sendFile(req.params.thing);
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
 });
-app.get('/teste.html', function(req, res) {
+// app.get('/:thing', function(req, res) {
+//     res.sendFile(req.params.thing);
+// });
+app.get('/teste', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/app/views/teste.html'));
 });
 
