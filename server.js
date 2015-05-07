@@ -103,9 +103,6 @@ app.get('/plan_detalii.html', function(req, res) {
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
 });
-// app.get('/:thing', function(req, res) {
-//     res.sendFile(req.params.thing);
-// });
 app.get('/teste', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/app/views/teste.html'));
 });
