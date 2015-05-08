@@ -81,10 +81,13 @@ app.use(express.static(__dirname + '/public'));
 //     }
 // ));
 
-
-
 // ROUTES FOR OUR API =================
 // ====================================
+
+// MAIL ROUTES ------------------------
+var mailRoutes = require('./app/routes/mail')(app, express);
+app.use('/mail', mailRoutes);
+
 
 // API ROUTES ------------------------
 var apiRoutes = require('./app/routes/api')(app, express);

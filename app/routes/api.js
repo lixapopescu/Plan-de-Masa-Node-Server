@@ -11,14 +11,13 @@ var Plan = schemas.Plan;
 
 
 module.exports = function(app, express) {
-    debugger;
 
     var apiRouter = express.Router();
 
     // test route to make sure everything is working 
     // accessed at GET http://localhost:8080/api
-    apiRouter.get('/', function(req, res) {
-        res.json({
+    apiRouter.get('/', function(request, response) {
+        response.json({
             message: 'Test Api route - Success.'
         });
     });
