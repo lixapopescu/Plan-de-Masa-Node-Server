@@ -57,30 +57,6 @@ app.use(express.static(__dirname + '/public'));
 // app.use(passport.session());
 ///---------
 
-// ROUTES FOR AUTHENTICATION =================
-// ===========================================
-//based on tutorial on http://mherman.org/blog/2013/11/10/social-authentication-with-passport-dot-js/#.VUdnhie1Gko
-// serialize and deserialize
-// passport.serializeUser(function(user, done) {
-//     done(null, user);
-// });
-// passport.deserializeUser(function(obj, done) {
-//     done(null, obj);
-// });
-
-
-// passport.use(new FacebookStrategy({
-//         clientID: config.facebook.clientID,
-//         clientSecret: config.facebook.clientSecret,
-//         callbackURL: config.facebook.callbackURL
-//     },
-//     function(accessToken, refreshToken, profile, done) {
-//         process.nextTick(function() {
-//             return done(null, profile);
-//         });
-//     }
-// ));
-
 // ROUTES FOR OUR API =================
 // ====================================
 
@@ -93,9 +69,9 @@ app.use('/mail', mailRoutes);
 var apiRoutes = require('./app/routes/api')(app, express);
 app.use('/api', apiRoutes);
 
-app.get('/plan_detalii.html', function(req, res) {
-    res.sendFile(path.join(__dirname + '/public/app/views/plan_detalii.html'));
-});
+// app.get('/plan_detalii.html', function(req, res) {
+//     res.sendFile(path.join(__dirname + '/public/app/views/plan_detalii.html'));
+// });
 
 /*app.get('/teste', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/app/views/pages_teste/'));
@@ -103,11 +79,17 @@ app.get('/plan_detalii.html', function(req, res) {
 */// MAIN CATCHALL ROUTE --------------- 
 // SEND USERS TO FRONTEND ------------
 // has to be registered after API ROUTES
-app.get('/', function(req, res) {
+// app.get('/app.js', function(req, res) {
+//     res.sendFile(path.join(__dirname + '/public/app/app.js'));
+// });
+// app.get('/app.routes.js', function(req, res) {
+//     res.sendFile(path.join(__dirname + '/public/app/app.routes.js'));
+// });
+// app.get('/teste', function(req, res) {
+//     res.sendFile(path.join(__dirname + '/public/app/views/teste.html'));
+// });
+app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
-});
-app.get('/teste', function(req, res) {
-    res.sendFile(path.join(__dirname + '/public/app/views/teste.html'));
 });
 
 // START THE SERVER

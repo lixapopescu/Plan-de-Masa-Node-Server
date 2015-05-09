@@ -1,20 +1,22 @@
-/*SASS variables */
+/*Global variables */
 
-$main-color: #9ec35d;
-$main-color-darker: #619800;
-$contrast-color: #de4911;
-$contrast-color-lighter: #FFAF77;
-$blur-background: #ddffa2;
-$text-color: #5a5a5a;
-$pricing-background-enabled: #e2e2e2;
-$pricing-background-disabled: #e2e2e2;
+main-color = #9ec35d;
+main-color-darker = #619800;
+contrast-color = #de4911;
+contrast-color-lighter = #FFAF77;
+blur-background = #ddffa2;
+text-color = #5a5a5a;
+pricing-background-enabled = #e2e2e2;
+pricing-background-disabled = #e2e2e2;
+text-color-darker = #474747;
+
 /* GLOBAL STYLES
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
 
 body {
     padding-bottom: 40px;
-    color: $text-color;
+    color: text-color;
 }
 /* Flip around the padding for proper display in narrow viewports */
 
@@ -128,11 +130,11 @@ BACKGROUND COLORS
 ============================================================*/
 
 .db-bk-color-one {
-    background-color: $pricing-background-enabled;
+    background-color: pricing-background-enabled;
 }
 
 .db-bk-color-two {
-    background-color: $pricing-background-disabled;
+    background-color: pricing-background-disabled;
 }
 /*============================================================
 PRICING STYLES
@@ -184,7 +186,7 @@ PRICING STYLES
 }
 
 .db-pricing-eleven .price {
-    background-color: $pricing-background-enabled;
+    background-color: pricing-background-enabled;
     padding: 20px 10px 10px 10px;
     font-size: 3em;
     font-weight: 900;
@@ -192,8 +194,8 @@ PRICING STYLES
 }
 
 .db-pricing-eleven .price-disabled {
-    background-color: $pricing-background-disabled;
-    color: $contrast-color-lighter;
+    background-color: pricing-background-disabled;
+    color: contrast-color-lighter;
 }
 
 .db-pricing-eleven .price small {
@@ -204,7 +206,7 @@ PRICING STYLES
 }
 
 .db-pricing-eleven .type {
-    background-color: $contrast-color;
+    background-color: contrast-color;
     padding: 30px 10px;
     font-weight: 900;
     text-transform: uppercase;
@@ -215,8 +217,8 @@ PRICING STYLES
 }
 
 .db-pricing-eleven .type-disabled {
-    background-color: $contrast-color-lighter;
-    // color: $contrast-color;
+    background-color: contrast-color-lighter;
+    // color: contrast-color;
 }
 
 .db-pricing-eleven .pricing-footer {
@@ -289,12 +291,12 @@ PRICING STYLES
 }
 
 .btn-blur {
-    background-color: $blur-background;
-    color: $main-color-darker;
+    background-color: blur-background;
+    color: main-color-darker;
 }
 
 .glyphicon-disabled {
-    color: $contrast-color-lighter;
+    color: contrast-color-lighter;
 }
 
 //Navbar font enlarge
@@ -307,6 +309,25 @@ PRICING STYLES
 }
 
  .alert{
-  background-color:$contrast-color-lighter;
+  background-color:contrast-color-lighter;
 }
 
+a {
+    color: contrast-color;
+}
+
+#pin-container > span {
+}
+
+.navbar{
+    background-color: main-color;
+    border-color: main-color;
+}
+
+.navbar .nav > li > a{
+    color: text-color-darker;
+}
+
+.navbar-inverse .navbar-brand {
+    color: text-color-darker;
+}

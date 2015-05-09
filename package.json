@@ -9,8 +9,7 @@
     "start": "node server.js",
     "test": "mocha test/",
     "test:watch": "npm run test -- -w",
-    "css": "sass dev/assets/css/main.scss > public/assets/css/main.css",
-    "css:watch": "npm run css -- -w"
+    "css": "stylus --watch dev/assets/css/main.styl --out public/assets/css"
   },
   "homepage": "https://github.com/lixapopescu/Plan-de-Masa-Node-Server#readme",
   "repository": {

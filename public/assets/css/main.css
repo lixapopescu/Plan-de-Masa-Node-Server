@@ -1,90 +1,93 @@
-/*SASS variables */
+/*Global variables */
 /* GLOBAL STYLES
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
 body {
   padding-bottom: 40px;
-  color: #5a5a5a; }
-
+  color: #5a5a5a;
+}
 /* Flip around the padding for proper display in narrow viewports */
 .navbar-wrapper > .container {
   padding-right: 0;
-  padding-left: 0; }
-
+  padding-left: 0;
+}
 .navbar-wrapper .navbar {
   padding-right: 15px;
-  padding-left: 15px; }
-
+  padding-left: 15px;
+}
 .navbar-wrapper .navbar .container {
-  width: auto; }
-
+  width: auto;
+}
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
 /* Carousel base class */
 .carousel {
   height: 500px;
-  margin-bottom: 60px; }
-
+  margin-bottom: 60px;
+}
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
-  z-index: 10; }
-
+  z-index: 10;
+}
 /* Declare heights because of positioning of img element */
 .carousel .item {
   height: 500px;
-  background-color: #777; }
-
+  background-color: #777;
+}
 .carousel-inner > .item > img {
   position: absolute;
   top: 0;
   left: 0;
   min-width: 100%;
-  height: 500px; }
-
+  height: 500px;
+}
 /* MARKETING CONTENT
 -------------------------------------------------- */
 /* Center align the text within the three columns below the carousel */
 .marketing .col-lg-4 {
-  text-align: center; }
-
+  text-align: center;
+}
 .marketing .col-lg-6 {
-  text-align: center; }
-
+  text-align: center;
+}
 .marketing .col-lg-8 {
-  text-align: center; }
-
+  text-align: center;
+}
 .marketing .col-lg-12 {
-  text-align: center; }
-
+  text-align: center;
+}
 .marketing h2 {
-  font-weight: normal; }
-
+  font-weight: normal;
+}
 /* Featurettes
 ------------------------- */
 .featurette-divider {
   margin: 80px 0;
-  /* Space out the Bootstrap <hr> more */ }
-
+/* Space out the Bootstrap <hr> more */
+}
 /* Thin out the marketing headings */
 .featurette-heading {
   font-weight: 300;
   line-height: 1;
-  letter-spacing: -1px; }
-
+  letter-spacing: -1px;
+}
 /* RESPONSIVE CS-
 ------------------------------------------------- */
 @media (min-width: 768px) {
-  /* Bump up size of carousel content */
   .carousel-caption p {
     margin-bottom: 20px;
     font-size: 21px;
-    line-height: 1.4; }
-
+    line-height: 1.4;
+  }
   .featurette-heading {
-    font-size: 50px; } }
+    font-size: 50px;
+  }
+}
 @media (min-width: 992px) {
   .featurette-heading {
-    margin-top: 120px; } }
+    margin-top: 120px;
+  }
+}
 /*=============================================================
     Authour URL: www.designbootstrap.com
     
@@ -96,84 +99,84 @@ body {
 BACKGROUND COLORS
 ============================================================*/
 .db-bk-color-one {
-  background-color: #e2e2e2; }
-
+  background-color: #e2e2e2;
+}
 .db-bk-color-two {
-  background-color: #e2e2e2; }
-
+  background-color: #e2e2e2;
+}
 /*============================================================
 PRICING STYLES
 ==========================================================*/
 .db-padding-btm {
-  padding-bottom: 50px; }
-
+  padding-bottom: 50px;
+}
 .db-button-color-square {
   color: #fff;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0,0,0,0.5);
   border: none;
   border-radius: 0px;
   -webkit-border-radius: 0px;
-  -moz-border-radius: 0px; }
-
+  -moz-border-radius: 0px;
+}
 .db-button-color-square:hover {
   color: #fff;
-  background-color: rgba(0, 0, 0, 0.5);
-  border: none; }
-
+  background-color: rgba(0,0,0,0.5);
+  border: none;
+}
 .db-pricing-ele ven {
   margin-bottom: 30px;
   margin-top: 50px;
   text-align: center;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
   color: #fff;
-  line-height: 30px; }
-
+  line-height: 30px;
+}
 .db-pricing-eleven ul {
   list-style: none;
   margin: 0;
   text-align: center;
-  padding-left: 0px; }
-
+  padding-left: 0px;
+}
 .db-pricing-eleven ul li {
   padding-top: 10px;
   padding-bottom: 10px;
-  cursor: pointer; }
-
+  cursor: pointer;
+}
 .db-pricing-eleven ul li i {
-  margin-right: 5px; }
-
+  margin-right: 5px;
+}
 .db-pricing-eleven .price {
   background-color: #e2e2e2;
   padding: 20px 10px 10px 10px;
   font-size: 3em;
   font-weight: 900;
-  color: #de4911; }
-
+  color: #de4911;
+}
 .db-pricing-eleven .price-disabled {
   background-color: #e2e2e2;
-  color: #FFAF77; }
-
+  color: #ffaf77;
+}
 .db-pricing-eleven .price small {
   color: #5a5a5a;
   display: block;
   font-size: 0.25em;
-  margin-top: 22px; }
-
+  margin-top: 22px;
+}
 .db-pricing-eleven .type {
   background-color: #de4911;
   padding: 30px 10px;
   font-weight: 900;
   text-transform: uppercase;
-  /*font-variant: small-caps;*/
+/*font-variant: small-caps;*/
   font-size: 1.5em;
-  color: #dedede; }
-
+  color: #dedede;
+}
 .db-pricing-eleven .type-disabled {
-  background-color: #FFAF77; }
-
+  background-color: #ffaf77;
+}
 .db-pricing-eleven .pricing-footer {
-  padding: 20px; }
-
+  padding: 20px;
+}
 .db-attached > .col-lg-4,
 .db-attached > .col-lg-3,
 .db-attached > .col-md-4,
@@ -181,66 +184,78 @@ PRICING STYLES
 .db-attached > .col-sm-4,
 .db-attached > .col-sm-3 {
   padding-left: 0;
-  padding-right: 0; }
-
+  padding-right: 0;
+}
 .db-pricing-eleven.popular {
-  margin-top: 10px; }
-
+  margin-top: 10px;
+}
 .db-pricing-eleven.popular .price {
-  padding-top: 80px; }
-
+  padding-top: 80px;
+}
 /**custom **/
 .btn-action {
   font-size: 16px;
   line-height: 24px;
-  font-weight: 500; }
-
+  font-weight: 500;
+}
 .wrap {
-  white-space: normal; }
-
+  white-space: normal;
+}
 @media screen and (max-width: 768px) {
   #pricePlans .col-xs-12 {
     padding-left: 0px !important;
-    padding-right: 0px !important; }
-
+    padding-right: 0px !important;
+  }
   .db-wrapper {
-    padding-bottom: 10px; } }
+    padding-bottom: 10px;
+  }
+}
 .jumbotron img {
   margin-left: auto;
-  margin-right: auto; }
-
+  margin-right: auto;
+}
 .jumbotron {
   padding-left: 0px !important;
   padding-right: 0px !important;
   padding-bottom: 0px !important;
-  padding-top: 0px !important; }
-
+  padding-top: 0px !important;
+}
 .social-media {
-  font-size: 1.5em; }
-
+  font-size: 1.5em;
+}
 .social-media-small {
-  font-size: 1.2em; }
-
+  font-size: 1.2em;
+}
 .container {
   padding-left: 0px !important;
-  padding-right: 0px !important; }
-
+  padding-right: 0px !important;
+}
 .btn-blur {
   background-color: #ddffa2;
-  color: #619800; }
-
-.glyphicon-disabled {
-  color: #FFAF77; }
-
-.navbar-brand {
-  font-size: 1.6em; }
-
-.navbar .nav > li > a {
-  font-size: 1.2em; }
-
-/* @media (min-width: 1200px) .navbar {
-    width: 1170px !important;
+  color: #619800;
 }
- */
+.glyphicon-disabled {
+  color: #ffaf77;
+}
+.navbar-brand {
+  font-size: 1.6em;
+}
+.navbar .nav > li > a {
+  font-size: 1.2em;
+}
 .alert {
-  background-color: #FFAF77; }
+  background-color: #ffaf77;
+}
+a {
+  color: #de4911;
+}
+.navbar {
+  background-color: #9ec35d;
+  border-color: #9ec35d;
+}
+.navbar .nav > li > a {
+  color: #474747;
+}
+.navbar-inverse .navbar-brand {
+  color: #474747;
+}
