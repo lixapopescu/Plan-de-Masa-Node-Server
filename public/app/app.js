@@ -1,4 +1,4 @@
-angular.module('routerApp', ['routerRoutes', 'angularLoad'])
+angular.module('routerApp', ['routerRoutes'])
     // create the controller and inject Angular's 
     // this will be the controller for the ENTIRE site
     .controller('mainController', function() {
@@ -6,21 +6,16 @@ angular.module('routerApp', ['routerRoutes', 'angularLoad'])
         // create a bigMessage variable to display in our view
         vm.bigMessage = 'A smooth sea never made a skilled sailor.';
     })
-    .controller('pinterestWeeklyController', function() {
-        var vm = this;
-        vm.message = 'pinterest widget';
-        alert('tralala');
-        angularLoad.loadScript('//assets.pinterest.com/js/pinit.js')
-            .then(function() {
-                alert('script loaded');
-                // Script loaded succesfully.
-                // We can now start using the functions from someplugin.js
-            })
-            .catch(function() {
-                alert('ups');
-                // There was some error loading the script. Meh
-            });
-    })
+    .controller('pinterestWeeklyController', 
+        ['$scope', 
+        '$window', 
+        function($scope, $window) {
+            var vm = this;
+            vm.message = 'pinterest widget';
+            var element = $("pinBoard");
+            $window.parsePins(element.parent()[0]);
+
+    }])
     // home page specific controller
     .controller('homeController', function() {
         var vm = this;
