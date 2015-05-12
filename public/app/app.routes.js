@@ -12,7 +12,7 @@ angular.module('routerRoutes', ['ngRoute'])
         //     controllerAs: 'home'
         // })
 
-        .when('/pinterestWeekly', {
+        .when('/ce_gatesc_saptamana_asta', {
         	templateUrl: 'app/views/pages/pinterestweekly.html',
         	controller: 'pinterestWeeklyController',
         	controllerAs: 'pin'

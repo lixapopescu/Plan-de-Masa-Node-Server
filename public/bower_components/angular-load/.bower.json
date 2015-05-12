@@ -24,6 +24,5 @@
   },
   "_source": "git://github.com/urish/angular-load.git",
   "_target": "~0.2.0",
-  "_originalSource": "angular-load",
-  "_direct": true
+  "_originalSource": "angular-load"
 }

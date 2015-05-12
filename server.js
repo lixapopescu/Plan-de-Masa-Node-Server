@@ -88,7 +88,10 @@ app.use('/api', apiRoutes);
 // app.get('/teste', function(req, res) {
 //     res.sendFile(path.join(__dirname + '/public/app/views/teste.html'));
 // });
-app.get('*', function(req, res) {
+app.get('/bigData.json', function(req, res) {
+    res.sendFile(path.join(__dirname + '/bigData.json'));
+});
+app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
 });
 

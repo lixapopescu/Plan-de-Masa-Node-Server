@@ -23,14 +23,22 @@
     <meta name="p:domain_verify" content="48c84bb6a80781db6791bad65930b6c9" />
     <!-- end Pinterest integration -->
 
+    <!-- Google bot integration -->
+    <!-- Signal to Googlebot that this is an AJAX page. TODO: test it -->
+    <meta name="fragment" content="!">
+    <!-- Google bot integration -->
+
     <link rel="icon" href="../../assets/images/favicon.ico">
     <title>Plan de masa. Afla ce gatesti azi</title>
 
     <!-- external css from CDN: bootstrap & font-awesome -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome by Dave Gandy - http://fontawesome.io -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- CDN css -->
+
+    <!-- Bower stylesheets -->
+    <!-- <link rel="styleSheet" href="../../bower_components/ng-grid/ng-grid.css"/> -->
+    <link rel="styleSheet" href="../../bower_components/angular-ui-grid/ui-grid.css" />
 
     <!-- Application custom CSS -->
     <link href="../../assets/css/main.css" rel="stylesheet">
@@ -60,6 +68,14 @@
 <body ng-app="routerApp" ng-controller="mainController as main">
     <script href="../../assets/js/facebook.js"></script>
     <div class="container">
+
+        <div>Grid:</div>
+        <!-- <div id="grid1" ui-grid="{data: myData.data}" class="myGrid" ></div> -->
+        <div id="grid1" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid"></div>
+        <div ng-if='columnChanged'>
+            Column Visibility Changed - name: {{ columnChanged.name }} visible: {{ columnChanged.visible }}
+        </div>
+
         <div class="alert">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <strong>In lucru</strong>
@@ -190,7 +206,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-2 visible-md hidden-lg"></div> -->
-                                                    <a class="btn btn-default btn-action wrap" href="/pinterestWeekly" role="button">Vezi planul de saptamana asta</a>
+                                                    <a class="btn btn-default btn-action wrap" href="/ce_gatesc_saptamana_asta" role="button">Vezi planul de saptamana asta</a>
                                                 </div>
                                             </form>
                                         </div>
@@ -281,8 +297,7 @@
         </div>
     </div>
     <!-- /.container -->
-    <?php include_once( "analyticstracking.php") ?>
-    <!--TODO-->
+
     <!-- Bootstrap core JavaScript
          ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -291,6 +306,12 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     <script src="../../assets/js/custom.js"></script>
+    <!-- <script src="../../assets/js/bigdata.js"></script> TODO: remove after testing for ui-angular -->
+    <script src="../../assets/js/google_analytics.js"></script>
+    <!-- <script src="../../bower_components/angular-ui-grid/ui-grid.js"></script> -->
+    <script src="../../bower_components/angular-touch/angular-touch.js"></script>
+    <script src="../../bower_components/angular-ui-grid/ui-grid.js"></script>
+    <!-- <script src="../../bower_components/ng-grid/ng-grid-2.0.14.debug.js"></script> -->
 
     <!-- Pinterest widget -->
     <script defer="defer" type="text/javascript" async src="//assets.pinterest.com/js/pinit.js" data-pin-build="parsePins"></script>
