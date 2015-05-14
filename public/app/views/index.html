@@ -68,18 +68,73 @@
 <body ng-app="routerApp" ng-controller="mainController as main">
     <script href="../../assets/js/facebook.js"></script>
     <div class="container">
+            <div class="row">
+                <div><!-- <h2>{{main.plan.nume}}</h2>:  <-->
+                    <h2>
+                Plan {{main.plan.prima_zi | date: 'dd/MM/yyyy'}} - {{main.plan.ultima_zi | date: 'dd/MM/yyyy'}}</h2></div>
+            </div>
+        <div class="row">
+            <div class="row" id="pin-container">
+                    <a 
+                    data-pin-do="embedBoard" 
+                    href="https://www.pinterest.com/plandemasa/plan-21-2015/" 
+                    data-pin-scale-width="120" 
+                    data-pin-scale-height="120" 
+                    data-pin-board-width="1200" 
+                    id="pinBoard"       >        Urmareste dosarul "Plan #20 / 2015" de la Plan de Masa pe Pinterest.</a>
 
-        <div>Grid:</div>
-        <!-- <div id="grid1" ui-grid="{data: myData.data}" class="myGrid" ></div> -->
-        <div id="grid1" ui-grid="gridOptions" ui-grid-exporter ui-grid-selection class="grid"></div>
-        <div ng-if='columnChanged'>
-            Column Visibility Changed - name: {{ columnChanged.name }} visible: {{ columnChanged.visible }}
+
+            </div>        
+        </div>
+        <div class="ui-grid-render-container ng-isolate-scope ui-grid-render-container-body" height="200px">
+                
+            <div class="row ui-grid-header ng-scope ui-grid-top-panel ui-grid-header-viewport">
+                <!-- <div ng-repeat=""> </div> -->
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    Luni
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    Marti
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    Miercuri
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    Joi
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    Sambata
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    Duminica
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <div ng-repeat="zi in main.plan.zile | filter: {index: '1'}">
+                       <!--  <a data-pin-do="embedPin" href="{{zi.pinterest_url}}" height="30px"></a> -->
+                        <a href="{{zi.retete.origine_url}}" target="_blank">{{zi.retete.nume}}</a>
+
+                        
+                    </div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <div ng-repeat="zi in main.plan.zile | filter: {index: '2'}">
+                        <a href="{{zi.retete.origine_url}}" target="_blank">{{zi.retete.nume}}</a>
+                    </div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <div ng-repeat="zi in main.plan.zile | filter: {index: '3'}">
+                        <a href="{{zi.retete.origine_url}}" target="_blank">{{zi.retete.nume}}</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="alert">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <strong>In lucru</strong>
-            <br/> Linkurile si emailul inca nu le-am programat, dar lucrez zilnic la site.
+            <br/> Linkurile si emailul <strike>inca nu le-am programat</strike> le-am programat partial, si lucrez zilnic la site.
             <br/> Ca sa fii la curent cu ultimele dezvoltari, urmareste pagina noastra de <a href="http://www.facebook.com/plandemasa">Facebook <span class="social-media"><i class="fa fa-facebook-official"></i></span> </a>
             <br/> Participa la <a href="https://www.facebook.com/plandemasa/posts/424297831065177">discutie</a>, vrem sa stim <big>ce vrei sa imbunatatesti</big> la cum gatesti acum.
             <br/> Povesteste-ne despre:

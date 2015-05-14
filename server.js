@@ -1,6 +1,5 @@
 //"Plan de Masa" node server
 
-
 //Configuration file
 var config = require('./config');
 
@@ -11,25 +10,22 @@ var mongoose = require('mongoose'); //for interaction with mongoDB
 var path = require('path');
 var express = require('express');
 var passport = require('passport');
+var favicon = require('serve-favicon');
+var stylus = require('stylus');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var passportLocalMongoose = require('passport-local-mongoose');
+var methodOverride = require('method-override');
 //var Retete = require('./app/models/retete');
-
 
 //global variables
 var app = express(); //new express node app
 var port = config.port; //the port for the app
 var Schema = mongoose.Schema();
 
-
 // APP CONFIGURATION ==================
 // ====================================
-// use body parser so we can grab information from POST requests
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-
 // configure our app to handle CORS requests
 app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -37,57 +33,27 @@ app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
     next();
 });
-
-// log all requests to the console 
+app.set('port', config.port);
+app.set('views', path.join(__dirname, 'app/views'));
+//app.set('view engine', 'jade');
+app.use(favicon(__dirname + '/public/assets/images/favicon.ico'));
 app.use(morgan('dev'));
-
-// connect to our database (hosted on modulus.io)		
-mongoose.connect(config.database);
-
-// set static files location
-// used for requests that our frontend will make
+app.use(methodOverride('X-HTTP-Method-Override'));
+app.use(require('stylus').middleware(__dirname + '/public')); //In your html files, just include the .styl files, but use the css extension. Express will compile it from styl to css on the fly
 app.use(express.static(__dirname + '/public'));
 
-//http://mherman.org/blog/2013/11/10/social-authentication-with-passport-dot-js/#.VUdnhie1Gko
-//--------------
-// app.use(express.cookieParser());
-// app.use(express.bodyParser());
-// app.use(express.methodOverride());
-// app.use(passport.initialize());
-// app.use(passport.session());
-///---------
-
-// ROUTES FOR OUR API =================
+// DATABASE ===========================
 // ====================================
+mongoose.connect(config.database);
 
-// MAIL ROUTES ------------------------
-var mailRoutes = require('./app/routes/mail')(app, express);
-app.use('/mail', mailRoutes);
+// ROUTES =============================
+// ====================================
+app.use('/mail', require('./app/routes/mail')(app, express));
+app.use('/api', require('./app/routes/api')(app, express));
 
-
-// API ROUTES ------------------------
-var apiRoutes = require('./app/routes/api')(app, express);
-app.use('/api', apiRoutes);
-
-// app.get('/plan_detalii.html', function(req, res) {
-//     res.sendFile(path.join(__dirname + '/public/app/views/plan_detalii.html'));
-// });
-
-/*app.get('/teste', function(req, res) {
-    res.sendFile(path.join(__dirname + '/public/app/views/pages_teste/'));
-});
-*/// MAIN CATCHALL ROUTE --------------- 
-// SEND USERS TO FRONTEND ------------
-// has to be registered after API ROUTES
-// app.get('/app.js', function(req, res) {
-//     res.sendFile(path.join(__dirname + '/public/app/app.js'));
-// });
-// app.get('/app.routes.js', function(req, res) {
-//     res.sendFile(path.join(__dirname + '/public/app/app.routes.js'));
-// });
-// app.get('/teste', function(req, res) {
-//     res.sendFile(path.join(__dirname + '/public/app/views/teste.html'));
-// });
+//paths
+// app.get('/', routes.index);
+// app.get('/users', user.index);
 app.get('/bigData.json', function(req, res) {
     res.sendFile(path.join(__dirname + '/bigData.json'));
 });
@@ -97,5 +63,6 @@ app.get('/', function(req, res) {
 
 // START THE SERVER
 // ====================================
-app.listen(config.port);
-console.log('Magic happens on port ' + config.port);
+app.listen(app.get('port'), function(){
+	console.log('Express server listening on port ' + app.get('port'));
+});
