@@ -1,12 +1,14 @@
-var mainControllerCallback = function($scope, $window, $http, $filter) {
+var mainControllerCallback = function($scope, $window, $http, $filter, $modal) {
     var vm = this;
 
     vm.toggleCumparat = function(produs) {
         produs.cumparat = !produs.cumparat;
     }
 
-    vm.countCumparate = function(produse){
-        var produseCumparate = $filter('filter')(produse, {cumparat: true});
+    vm.countCumparate = function(produse) {
+        var produseCumparate = $filter('filter')(produse, {
+            cumparat: true
+        });
         return produseCumparate.length;
     }
 
@@ -25,15 +27,39 @@ var mainControllerCallback = function($scope, $window, $http, $filter) {
             vm.plan = data;
         });
 
+    $scope.items = ['item1', 'item2', 'item3'];
+    $scope.animationsEnabled = true;
+    $scope.openModal = function(size, reteta) {
+
+        var modalInstance = $modal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'app/views/pages/recipeModal.html',
+            controller: 'RecipeModalInstanceCtrl',
+            size: size,
+            resolve: {
+                reteta: function() {
+                    console.log(reteta);
+                    return reteta;
+                }
+            }
+        });
+
+        modalInstance.result.then(function(selectedItem) {
+            $scope.selected = selectedItem;
+        }, function() {
+            console.info('Modal dismissed at: ' + new Date());
+        });
+    };
 };
 
-angular.module('routerApp', ['routerRoutes', 'ngTouch'])
+angular.module('plandemasaApp', ['routerRoutes', 'ngTouch', 'ui.bootstrap'])
     // create the controller and inject Angular's 
     // this will be the controller for the ENTIRE site
     .controller('mainController', ['$scope',
         '$window',
         '$http',
         '$filter',
+        '$modal',
         mainControllerCallback
     ])
     .controller('pinterestWeeklyController', ['$scope',
@@ -60,4 +86,13 @@ angular.module('routerApp', ['routerRoutes', 'ngTouch'])
     .controller('contactController', function() {
         var vm = this;
         vm.message = 'Contact us! JK. This is just a demo.';
-    });
+    })
+    .controller('RecipeModalInstanceCtrl', function($scope, $modalInstance, reteta) {
+        var vm = this;
+        $scope.reteta = reteta;
+
+        $scope.ok = function() {
+            $modalInstance.close();
+        };
+
+    });;

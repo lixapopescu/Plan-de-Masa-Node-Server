@@ -1,0 +1,29 @@
+<div class="modal-header">
+    <h3 class="modal-title">{{reteta.nume}}</h3>
+    <i class="fa fa-user"></i> {{reteta.persoane}}
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            <div ng-repeat="categ_ingredient in reteta.ingrediente">
+                <span ng-if="reteta.ingrediente.length > 1">{{categ_ingredient.pentru}}</span>
+                <ul>
+                    <li ng-repeat="ingredient in categ_ingredient.lista | orderBy: '+ordine'">
+                        {{ingredient.nume}}
+                        <span ng-if="ingredient.cantitate">: {{ingredient.cantitate}} {{ingredient.um}} </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+            <div ng-repeat="instructiune in reteta.instructiuni | orderBy: '+ordine'">
+            	{{instructiune.ordine}}. 
+            	<span ng-if="!!instructiune.pentru" class="instructiune-pentru">{{instructiune.pentru}}</span>
+            	{{instructiune.text}}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+</div>

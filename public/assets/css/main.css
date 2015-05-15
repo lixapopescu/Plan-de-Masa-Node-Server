@@ -307,6 +307,10 @@ a {
 }
 .reteta-titlu {
   color: #5a5a5a;
+  cursor: pointer;
+}
+.reteta-titlu:hover {
+  text-decoration: underline;
 }
 .pinterest-logo {
   color: #bd2126;
@@ -331,4 +335,14 @@ a {
 .box .reteta-abreviere-logo {
   font-size: 0.6em;
   color: #a7a7a7;
+}
+.instructiune-pentru {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+.nav,
+.pagination,
+.carousel,
+.panel-title a {
+  cursor: pointer;
 }

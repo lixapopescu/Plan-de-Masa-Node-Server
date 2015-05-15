@@ -36,7 +36,7 @@ var getListaAggregate = function(request, response, sapt) {
                     },
                     //comentarii: {$push: "$comentariu"},
                     reteta_abrev: {
-                        $push: "$reteta_abrev"
+                        $addToSet: "$reteta_abrev" //distinct values only. if not => error in angular
                     },
                     tot: {
                         $sum: "$cant"

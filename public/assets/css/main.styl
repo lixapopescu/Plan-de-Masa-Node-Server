@@ -400,6 +400,10 @@ a {
 
 .reteta-titlu{
     color: text-color;
+    cursor: pointer;
+}
+.reteta-titlu:hover{
+      text-decoration: underline;
 }
 
 .pinterest-logo {
@@ -433,3 +437,11 @@ a {
     font-size: 0.6em;
     color: text-color-lighter;
 }
+
+.instructiune-pentru {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+//Original Bootstrap's CSS depends on empty href attributes to style cursors for several components (pagination, tabs etc.). But in AngularJS adding empty href attributes to link tags will cause unwanted route changes. This is why we need to remove empty href attributes from directive templates and as a result styling is not applied correctly. The remedy is simple, just add the following styling to your application:
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }

@@ -53,7 +53,7 @@ var ReteteSchema = new Schema({
     origine: String,
     origine_url: String,
     ingrediente: [IngredienteSchema],
-    intructiuni: [InstructiuniSchema]
+    instructiuni: [InstructiuniSchema]
 }, {
     collection: "retete"
 });
@@ -73,7 +73,7 @@ var ReteteZileSchema = new Schema({
         origine: String,
         origine_url: String,
         ingrediente: [IngredienteSchema],
-        intructiuni: [InstructiuniSchema]
+        instructiuni: [InstructiuniSchema]
     },
     categorie: String //category for each recipe. A recipe might be a "Side dish" one week and a "Main course" the next
 });
