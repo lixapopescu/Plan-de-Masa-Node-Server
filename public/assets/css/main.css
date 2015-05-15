@@ -282,4 +282,35 @@ a {
 }
 .capital {
   text-transform: capitalize;
+  font-weight: bold;
+}
+.box {
+  margin: 5px;
+  padding: 5px;
+  background: #d8d5d2;
+  font-size: 0.9em;
+  line-height: 1.4em;
+  float: left;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.reteta-plan {
+  border: 1px solid #5a5a5a;
+  padding: 10px;
+}
+.image-footer {
+  font-size: 0.4em;
+}
+.reteta-titlu {
+  font-size: 1.4em;
+}
+.reteta-titlu a {
+  color: #5a5a5a;
+}
+.pinterest-logo {
+  color: #bd2126;
+}
+.lista-categorie {
+  font-weight: bold;
 }

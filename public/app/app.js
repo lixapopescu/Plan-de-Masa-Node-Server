@@ -1,68 +1,49 @@
-var mainControllerCallbackGrid = function($scope, $window, uiGridConstants, $http, $interval, $q) {
-    // i18nService.setCurrentLang('ro'); //global setting
-    var fakeI18n = function(title) {
-        var deferred = $q.defer();
-        $interval(function() {
-            deferred.resolve('col: ' + title);
-        }, 1000, 1);
-        return deferred.promise;
-    };
-    $scope.gridOptions = {
-        exporterMenuCsv: false,
-        enableGridMenu: true,
-        gridMenuTitleFilter: fakeI18n,
-        columnDefs: [{
-            name: 'name'
-        }, {
-            name: 'gender',
-            enableHiding: false
-        }, {
-            name: 'company'
-        }],
-        gridMenuCustomItems: [{
-            title: 'Rotate Grid',
-            action: function($event) {
-                this.grid.element.toggleClass('rotated');
-            },
-            order: 210
-        }],
-        onRegisterApi: function(gridApi) {
-            $scope.gridApi = gridApi;
-            // interval of zero just to allow the directive to have initialized
-            $interval(function() {
-                gridApi.core.addToGridMenu(gridApi.grid, [{
-                    title: 'Dynamic item',
-                    order: 100
-                }]);
-            }, 0, 1);
-            gridApi.core.on.columnVisibilityChanged($scope, function(changedColumn) {
-                $scope.columnChanged = {
-                    name: changedColumn.colDef.name,
-                    visible: changedColumn.colDef.visible
-                };
-            });
-        }
-    };
-    $http.get('bigData.json')
-        .success(function(data) {
-            $scope.gridOptions.data = data;
-        });
-};
-
-var mainControllerCallback = function($scope, $window, uiGridConstants, $http, $interval, $q) {
+var mainControllerCallback = function($scope, $window, uiGridConstants, $http, $interval, $q, $filter) {
     var vm = this;
+
+    // var getReteteByDay = function(vm, day, $filter) {
+    //     return $filter('filter')(vm.plan.zile, {
+    //         index: day
+    //     });
+    // }
+
+    // var getLink = function(reteta) {
+    //     return '<a href="#">' + reteta.nume + '</a>';
+    // }
+
+    // $scope.planGrid = {
+    //     columnDefs: [{
+    //         name: "Luni",
+    //         // cellTemplate: '<div> <a href="#">' + this.nume + '</a> </div>'
+    //         field: "getLuni()",
+    //         cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><a href="{{row.getProperty(col.field)}}">Visible text</a></div>',
+    //         enableCellEdit: false
+    //     }, {
+    //         field: "Marti"
+    //     }, {
+    //         field: "Miercuri"
+    //     }]
+    // };
 
     $http.get('/api/plan/21/lista')
         .success(function(data) {
             vm.lista = data;
-            console.log(vm.lista);
+            // console.log(vm.lista);
         });
-    
 
     $http.get('/api/plan/21')
         .success(function(data) {
             vm.plan = data;
-            console.log(vm.plan);
+
+            // $scope.planGrid.data = [{
+            //     "Luni": $filter('filter')(vm.plan.zile, {
+            //         index: 1
+            //     })[0].retete.nume,
+            //     "getLuni": function() {
+            //         var reteta = getReteteByDay(vm, 1, $filter)[0].retete;
+            //         return reteta.nume;
+            //     }
+            // }];
         });
 
 };
@@ -76,6 +57,7 @@ angular.module('routerApp', ['routerRoutes', 'ngTouch', 'ui.grid', 'ui.grid.expo
         '$http',
         '$interval',
         '$q', //for promises
+        '$filter',
         mainControllerCallback
     ])
     .controller('pinterestWeeklyController', ['$scope',

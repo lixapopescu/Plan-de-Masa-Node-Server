@@ -36,10 +36,6 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- CDN css -->
 
-    <!-- Bower stylesheets -->
-    <!-- <link rel="styleSheet" href="../../bower_components/ng-grid/ng-grid.css"/> -->
-    <link rel="styleSheet" href="../../bower_components/angular-ui-grid/ui-grid.css" />
-
     <!-- Application custom CSS -->
     <link href="../../assets/css/main.css" rel="stylesheet">
     <!-- Application custom CSS -->
@@ -68,219 +64,187 @@
 <body ng-app="routerApp" ng-controller="mainController as main">
     <script href="../../assets/js/facebook.js"></script>
     <div class="container">
+
         <div class="row">
             <div>
-                <!-- <h2>{{main.plan.nume}}</h2>:  <-->
                 <h2>
-                Plan {{main.plan.prima_zi | date: 'dd/MM/yyyy'}} - {{main.plan.ultima_zi | date: 'dd/MM/yyyy'}}</h2></div>
-        </div>
-        <div class="row">
-            <div class="row" id="pin-container">
-                <a data-pin-do="embedBoard" href="https://www.pinterest.com/plandemasa/plan-21-2015/" data-pin-scale-width="120" data-pin-scale-height="120" data-pin-board-width="1200" id="pinBoard">        Urmareste dosarul "Plan #20 / 2015" de la Plan de Masa pe Pinterest.</a>
-
-
+                Plan {{main.plan.prima_zi | date: 'dd/MM/yyyy'}} - {{main.plan.ultima_zi | date: 'dd/MM/yyyy'}} 
+                <a href="{{main.plan.pinterest_url}}" target="_blank">                
+                <i class="fa fa-pinterest pinterest-logo"></i></a>
+                </h2>
             </div>
         </div>
-        <div class="row ui-grid-render-container ng-isolate-scope ui-grid-render-container-body" height="200px">
+    </div>
 
-            <div class="row ui-grid-header ng-scope ui-grid-top-panel ui-grid-header-viewport">
-                <!-- <div ng-repeat=""> </div> -->
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="row" ng-repeat="zi in main.plan.zile | orderBy: '+index'">
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    Luni
+                    {{zi.nume}}
                 </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    Marti
-                </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    Miercuri
-                </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    Joi
-                </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    Sambata
-                </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    Duminica
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    <div ng-repeat="zi in main.plan.zile | filter: {index: '1'}">
-                        <!--  <a data-pin-do="embedPin" href="{{zi.pinterest_url}}" height="30px"></a> -->
-                        <a href="{{zi.retete.origine_url}}" target="_blank">{{zi.retete.nume}}</a>
+                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 reteta-plan">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 reteta-titlu">
+                            <a href="{{zi.retete.origine_url}}" target="_blank">{{zi.retete.nume}}</a>
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <img src="{{zi.retete.poza}}" alt="" height="130px">
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 image-footer">
+                                    <span class="fa fa-copyright"></span>
+                                    <a href="{{zi.retete.origine_url}}" target="_blank">
+                                        <span ng-if="!!zi.retete.origine">{{zi.retete.origine}}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-
-                    </div>
-                </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    <div ng-repeat="zi in main.plan.zile | filter: {index: '2'}">
-                        <a href="{{zi.retete.origine_url}}" target="_blank">{{zi.retete.nume}}</a>
-                    </div>
-                </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    <div ng-repeat="zi in main.plan.zile | filter: {index: '3'}">
-                        <a href="{{zi.retete.origine_url}}" target="_blank">{{zi.retete.nume}}</a>
-                    </div>
-                </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    <div ng-repeat="zi in main.plan.zile | filter: {index: '4'}">
-                        <a href="{{zi.retete.origine_url}}" target="_blank">{{zi.retete.nume}}</a>
-                    </div>
-                </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    <div ng-repeat="zi in main.plan.zile | filter: {index: '6'}">
-                        <a href="{{zi.retete.origine_url}}" target="_blank">{{zi.retete.nume}}</a>
-                    </div>
-                </div>
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    <div ng-repeat="zi in main.plan.zile | filter: {index: '7'}">
-                        <a href="{{zi.retete.origine_url}}" target="_blank">{{zi.retete.nume}}</a>
-                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="row">
-            <h3>Lista de cumparaturi</h3>
-        </div>
-
-        <div class="row">
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" ng-repeat="categorie in main.lista | orderBy: '-ingrediente.length'">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 capital">
-                        {{categorie._id}} ({{categorie.ingrediente.length}})
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <div class="row" ng-repeat="produs in categorie.ingrediente">
-                            {{produs.nume}}
-                            <span ng-if="produs.total > 0">: {{produs.total}} {{produs.um}}</span>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="container" class="clearfix">
+            <div class="">
+                <div ng-repeat="categorie in main.lista | orderBy: '-ingrediente.length'">
+                    <div class="box col1">
+                        <div class="capital">
+                            {{categorie._id}} ({{categorie.ingrediente.length}})
+                        </div>
+                        <div>
+                            <div ng-repeat="produs in categorie.ingrediente | orderBy: '+ nume'">
+                                <i class="fa fa-square-o"></i>
+                                {{produs.nume}}
+                                <span ng-if="produs.total > 0">: {{produs.total}} {{produs.um}}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-            <strong>In lucru</strong>
-            <br/> Linkurile si emailul <strike>inca nu le-am programat</strike> le-am programat partial, si lucrez zilnic la site.
-            <br/> Ca sa fii la curent cu ultimele dezvoltari, urmareste pagina noastra de <a href="http://www.facebook.com/plandemasa">Facebook <span class="social-media"><i class="fa fa-facebook-official"></i></span> </a>
-            <br/> Participa la <a href="https://www.facebook.com/plandemasa/posts/424297831065177">discutie</a>, vrem sa stim <big>ce vrei sa imbunatatesti</big> la cum gatesti acum.
-            <br/> Povesteste-ne despre:
-            <ul class="list-unstyled">
-                <li class="list-inline">&bull; cand intri in bucatarie, de unde iti iei retetele </li>
-                <li class="list-inline">&bull; pentru cate persoane gatesti </li>
-                <li class="list-inline">&bull; cat timp iti ia sa gatesti, zilnic </li>
+    <div class="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>In lucru</strong>
+        <br/> Linkurile si emailul <strike>inca nu le-am programat</strike> le-am programat partial, si lucrez zilnic la site.
+        <br/> Ca sa fii la curent cu ultimele dezvoltari, urmareste pagina noastra de <a href="http://www.facebook.com/plandemasa">Facebook <span class="social-media"><i class="fa fa-facebook-official"></i></span> </a>
+        <br/> Participa la <a href="https://www.facebook.com/plandemasa/posts/424297831065177">discutie</a>, vrem sa stim <big>ce vrei sa imbunatatesti</big> la cum gatesti acum.
+        <br/> Povesteste-ne despre:
+        <ul class="list-unstyled">
+            <li class="list-inline">&bull; cand intri in bucatarie, de unde iti iei retetele </li>
+            <li class="list-inline">&bull; pentru cate persoane gatesti </li>
+            <li class="list-inline">&bull; cat timp iti ia sa gatesti, zilnic </li>
+        </ul>
+    </div>
+    <nav class="navbar navbar-inverse navbar-default">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Plan de masa</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#dece">De ce un plan de masa</a></li>
+                <li><a href="#ceprimesti">Ce primesti saptamanal</a></li>
+                <li><a href="#pricePlans">Cat costa</a></li>
+                <li><a href="#cinesuntem">Cine suntem</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="https://www.pinterest.com/plandemasa"><span class="social-media"><i class="fa fa-pinterest"></i></span></a></li>
+                <li><a href="https://www.facebook.com/plandemasa"><span class="social-media"><i class="fa fa-facebook-official"></i></span></a></li>
             </ul>
         </div>
-        <nav class="navbar navbar-inverse navbar-default">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">Plan de masa</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="#dece">De ce un plan de masa</a></li>
-                    <li><a href="#ceprimesti">Ce primesti saptamanal</a></li>
-                    <li><a href="#pricePlans">Cat costa</a></li>
-                    <li><a href="#cinesuntem">Cine suntem</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="https://www.pinterest.com/plandemasa"><span class="social-media"><i class="fa fa-pinterest"></i></span></a></li>
-                    <li><a href="https://www.facebook.com/plandemasa"><span class="social-media"><i class="fa fa-facebook-official"></i></span></a></li>
-                </ul>
-            </div>
-            <!--/.nav-collapse -->
-        </nav>
-        <div class="jumbotron">
-            <!--img class="img-responsive img-rounded" src="../../assets/images/salata_fructe.jpg" alt="Salata de fructe"-->
-            <picture>
-                <!--[if IE 9]><video style="display: none;"><![endif]-->
-                <source srcset="../../assets/images/salata_fructe_xlarge.jpg" media="(min-width: 768px)" />
-                <source srcset="../../assets/images/salata_fructe.jpg" media="(min-width: 640px)" />
-                <source srcset="../../assets/images/salata_fructe.jpg" />
-                <!--[if IE 9]></video><![endif]-->
-                <img src="../../assets/images/salata_fructe.jpg" alt="Salata de fructe" class="img-responsive" />
-            </picture>
-        </div>
-        <!-- div class="jumbotron" -->
+        <!--/.nav-collapse -->
+    </nav>
+    <div class="jumbotron">
+        <!--img class="img-responsive img-rounded" src="../../assets/images/salata_fructe.jpg" alt="Salata de fructe"-->
+        <picture>
+            <!--[if IE 9]><video style="display: none;"><![endif]-->
+            <source srcset="../../assets/images/salata_fructe_xlarge.jpg" media="(min-width: 768px)" />
+            <source srcset="../../assets/images/salata_fructe.jpg" media="(min-width: 640px)" />
+            <source srcset="../../assets/images/salata_fructe.jpg" />
+            <!--[if IE 9]></video><![endif]-->
+            <img src="../../assets/images/salata_fructe.jpg" alt="Salata de fructe" class="img-responsive" />
+        </picture>
+    </div>
+    <!-- div class="jumbotron" -->
 
-        <!-- Angular content -->
-        <div>
-            <main>
-                <!-- angular templating will go here -->
-                <!-- this is where content will be injected -->
+    <!-- Angular content -->
+    <div>
+        <main>
+            <!-- angular templating will go here -->
+            <!-- this is where content will be injected -->
 
-                <div ng-view></div>
+            <div ng-view></div>
 
-            </main>
+        </main>
 
-        </div>
-        <!-- Angular content -->
+    </div>
+    <!-- Angular content -->
 
-        <!-- Wrap the rest of the page in another container to center all the content. -->
-        <div class="container marketing">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-                    <!--1-->
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-12" id="dece">
-                        <img class="img-circle" src="../../assets/images/logo1.jpg" alt="Farfurie" width="140" height="140">
-                        <h2>De ce un plan</h2>
-                        <ul class="list-unstyled">
-                            <li class="list-inline">&bull; Economisesti pana la <big>20%</big> din cheltuielile saptamanale pentru mancare.</li>
-                            <li class="list-inline">&bull; Stii exact de ce ai nevoie in momentul cand intri in magazin.</li>
-                            <li class="list-inline">&bull; Cand gatesti, ai toate ingredientele la indemana.</li>
-                            <li class="list-inline">&bull; Ai toate retetele pregatite</li>
-                        </ul>
-                        <p><a class="btn btn-default btn-blur" href="plan_detalii.html" role="button">Detalii...</a></p>
-                    </div>
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-12" id="ceprimesti">
-                        <img class="img-circle" src="../../assets/images/plandemasaminiatura.jpg" alt="Plan de masa miniatura, din carnetel" width="140" height="140">
-                        <h2>Ce primesti saptamanal</h2>
-                        <ul class="list-unstyled">
-                            <li class="list-inline">&bull; Retete hranitoare, adaptate sezonului </li>
-                            <li class="list-inline">&bull; Planificarea retetelor pe zile, de luni pana duminica</li>
-                            <li class="list-inline">&bull; Lista de cumparaturi, impartita pe categorii</li>
-                            <li class="list-inline">&bull; Alimentatie traditionala</li>
-                        </ul>
-                        <p><a class="btn btn-default btn-blur" href="#" role="button">Detalii...</a></p>
-                    </div>
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+    <div class="container marketing">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                <!--1-->
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-12" id="dece">
+                    <img class="img-circle" src="../../assets/images/logo1.jpg" alt="Farfurie" width="140" height="140">
+                    <h2>De ce un plan</h2>
+                    <ul class="list-unstyled">
+                        <li class="list-inline">&bull; Economisesti pana la <big>20%</big> din cheltuielile saptamanale pentru mancare.</li>
+                        <li class="list-inline">&bull; Stii exact de ce ai nevoie in momentul cand intri in magazin.</li>
+                        <li class="list-inline">&bull; Cand gatesti, ai toate ingredientele la indemana.</li>
+                        <li class="list-inline">&bull; Ai toate retetele pregatite</li>
+                    </ul>
+                    <p><a class="btn btn-default btn-blur" href="plan_detalii.html" role="button">Detalii...</a></p>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" id="pricePlans">
-                    <!--1-->
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <img class="img-circle" src="../../assets/images/cos_de_cumparaturi.jpg" alt="Plan de masa logo" width="140" height="140">
-                        <h2>Cat costa</h2>
-                        <!-- Pricing snippet---->
-                        <div class="row db-padding-btm db-attached">
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                <div class="db-wrapper">
-                                    <div class="db-pricing-eleven db-bk-color-one" id="pricePlan1">
-                                        <div class="price">
-                                            0
-                                            <inf>ron</inf>
-                                            <small>un plan nou, in fiecare saptamana</small>
-                                        </div>
-                                        <div class="type">
-                                            Plan de baza
-                                        </div>
-                                        <ul>
-                                            <li><i class="glyphicon glyphicon-print"></i>Retete pentru 7 zile</li>
-                                            <li><i class="glyphicon glyphicon-time"></i>luni --> duminica</li>
-                                            <li><i class="fa fa-user-times"></i>4 persoane</li>
-                                            <li><i class="glyphicon glyphicon-ok"></i>Ingrediente variate, de sezon</li>
-                                            <li><i class="glyphicon glyphicon-ok"></i>Alimentatie traditionala</li>
-                                        </ul>
-                                        <div class="pricing-footer">
-                                            <form role="form">
-                                                <div class="row">
-                                                    <!-- 
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-12" id="ceprimesti">
+                    <img class="img-circle" src="../../assets/images/plandemasaminiatura.jpg" alt="Plan de masa miniatura, din carnetel" width="140" height="140">
+                    <h2>Ce primesti saptamanal</h2>
+                    <ul class="list-unstyled">
+                        <li class="list-inline">&bull; Retete hranitoare, adaptate sezonului </li>
+                        <li class="list-inline">&bull; Planificarea retetelor pe zile, de luni pana duminica</li>
+                        <li class="list-inline">&bull; Lista de cumparaturi, impartita pe categorii</li>
+                        <li class="list-inline">&bull; Alimentatie traditionala</li>
+                    </ul>
+                    <p><a class="btn btn-default btn-blur" href="#" role="button">Detalii...</a></p>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" id="pricePlans">
+                <!--1-->
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <img class="img-circle" src="../../assets/images/cos_de_cumparaturi.jpg" alt="Plan de masa logo" width="140" height="140">
+                    <h2>Cat costa</h2>
+                    <!-- Pricing snippet---->
+                    <div class="row db-padding-btm db-attached">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="db-wrapper">
+                                <div class="db-pricing-eleven db-bk-color-one" id="pricePlan1">
+                                    <div class="price">
+                                        0
+                                        <inf>ron</inf>
+                                        <small>un plan nou, in fiecare saptamana</small>
+                                    </div>
+                                    <div class="type">
+                                        Plan de baza
+                                    </div>
+                                    <ul>
+                                        <li><i class="glyphicon glyphicon-print"></i>Retete pentru 7 zile</li>
+                                        <li><i class="glyphicon glyphicon-time"></i>luni --> duminica</li>
+                                        <li><i class="fa fa-user-times"></i>4 persoane</li>
+                                        <li><i class="glyphicon glyphicon-ok"></i>Ingrediente variate, de sezon</li>
+                                        <li><i class="glyphicon glyphicon-ok"></i>Alimentatie traditionala</li>
+                                    </ul>
+                                    <div class="pricing-footer">
+                                        <form role="form">
+                                            <div class="row">
+                                                <!-- 
                                                     <div class="col-md-2 visible-md hidden-lg"></div>
                                                     <div class="col-md-8 col-lg-12">
                                                         <div class="form-group">
@@ -291,49 +255,48 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-2 visible-md hidden-lg"></div> -->
-                                                    <a class="btn btn-default btn-action wrap" href="/ce_gatesc_saptamana_asta" role="button">Vezi planul de saptamana asta</a>
-                                                </div>
-                                            </form>
-                                        </div>
+                                                <a class="btn btn-default btn-action wrap" href="/ce_gatesc_saptamana_asta" role="button">Vezi planul de saptamana asta</a>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                <div class="db-wrapper">
-                                    <div class="db-pricing-eleven db-bk-color-two" id="pricePlan2">
-                                        <div class="price price-disabled">
-                                            60
-                                            <inf>ron</inf>
-                                            <small>pe luna</small>
-                                        </div>
-                                        <div class="type type-disabled">
-                                            Plan Personalizat
-                                        </div>
-                                        <ul>
-                                            <li><i class="glyphicon glyphicon-print"></i>Retete pentru fiecare saptamana</li>
-                                            <li><i class="glyphicon glyphicon-time"></i>Saptamana din plan incepe cand ai nevoie</li>
-                                            <li><i class="glyphicon glyphicon-ok"></i>Retete favorite incluse mai des</li>
-                                            <!-- <li><i class="glyphicon glyphicon-ok"></i>Plan editabil</li> -->
-                                            <li><i class="glyphicon glyphicon-ok"></i>Istoricul planurilor anterioare</li>
-                                            <li><i class="glyphicon glyphicon-remove glyphicon-disabled"></i>Disponoibil in curand</li>
-                                        </ul>
-                                        <div class="pricing-footer">
-                                            <form role="form">
-                                                <div class="row">
-                                                    <div class="col-md-2 visible-md hidden-lg"></div>
-                                                    <div class="col-md-8 col-lg-12">
-                                                        <div class="form-group">
-                                                            <input type="name" class="form-control" id="plan2Nume" placeholder="nume">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="email" class="form-control" id="plan2Email" placeholder="email" input-type="email">
-                                                        </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="db-wrapper">
+                                <div class="db-pricing-eleven db-bk-color-two" id="pricePlan2">
+                                    <div class="price price-disabled">
+                                        60
+                                        <inf>ron</inf>
+                                        <small>pe luna</small>
+                                    </div>
+                                    <div class="type type-disabled">
+                                        Plan Personalizat
+                                    </div>
+                                    <ul>
+                                        <li><i class="glyphicon glyphicon-print"></i>Retete pentru fiecare saptamana</li>
+                                        <li><i class="glyphicon glyphicon-time"></i>Saptamana din plan incepe cand ai nevoie</li>
+                                        <li><i class="glyphicon glyphicon-ok"></i>Retete favorite incluse mai des</li>
+                                        <!-- <li><i class="glyphicon glyphicon-ok"></i>Plan editabil</li> -->
+                                        <li><i class="glyphicon glyphicon-ok"></i>Istoricul planurilor anterioare</li>
+                                        <li><i class="glyphicon glyphicon-remove glyphicon-disabled"></i>Disponoibil in curand</li>
+                                    </ul>
+                                    <div class="pricing-footer">
+                                        <form role="form">
+                                            <div class="row">
+                                                <div class="col-md-2 visible-md hidden-lg"></div>
+                                                <div class="col-md-8 col-lg-12">
+                                                    <div class="form-group">
+                                                        <input type="name" class="form-control" id="plan2Nume" placeholder="nume">
                                                     </div>
-                                                    <div class="col-md-2 visible-md hidden-lg"></div>
-                                                    <a class="btn btn-default btn-blur wrap" href="#" role="button">Anunta-ma cand e disponibil</a>
+                                                    <div class="form-group">
+                                                        <input type="email" class="form-control" id="plan2Email" placeholder="email" input-type="email">
+                                                    </div>
                                                 </div>
-                                            </form>
-                                        </div>
+                                                <div class="col-md-2 visible-md hidden-lg"></div>
+                                                <a class="btn btn-default btn-blur wrap" href="#" role="button">Anunta-ma cand e disponibil</a>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -341,45 +304,46 @@
                     </div>
                 </div>
             </div>
-            <div class="row" id="cinesuntem">
-                <div class="col-xs-12 col-sm-12 col-lg-12">
-                    <img class="img-circle" src="../../assets/images/family.jpg" alt="Popestii 2014" width="140" height="140">
-                    <h2>Cine suntem noi</h2>
-                    <p>Gandesc in imagini si liste. Imi place sa organizez lucrurile, dar nu ma mobilizez tot timpul sa le pun in aplicare. Am pornit proiectul "Plan de masa" ca sa ma constrang sa fac un plan in fiecare saptamana. Cateodata sunt delasatoare, si zic ca saptamana asta merge si asa, din zbor. Dar cand vad ca stau iar 20 minute sa caut o reteta cu ce ingrediente am in camara, imi zic ca de maine fac un plan. Dar maine vine si trece si ajung iar sa pierd mai mult timp cautand retete decat punandu-le in aplicare. Sau incropesc cu ce am la dispozitie, dar rareori imi iese cum ma gandesc.</p>
-                    <p>In saptamanile cu plan, am in frigider exact ce trebuie, si se termina exact cand e planificat. Includ tot timpul o zi-tampon, pentru lucruri neprevazute. Pe parcursul ultimilor 3 ani, de cand fac planuri de masa, cheltuim cu 20% in medie mai putin in saptamanile cu plan. Asta pe langa satisfactia ca nu am nici un rest de mancare care ajunge la gunoi.</p>
-                    <div class="row" id="contactFormDiv">
-                        <div class="col-xs-12 col-sm-2 col-md-3 visible-sm visible-md visible-lg"></div>
-                        <div class="col-xs-12 col-sm-8 col-md-6">
-                            <form>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="contactNume" placeholder="nume">
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-control" id="contactEmail" placeholder="email">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="contactText" placeholder="mesaj">
-                                </div>
-                                <!--                           <button type="submit" class="btn btn-default">Submit</button> -->
-                                <a class="btn btn-default btn-blur" href="#" role="button">Vreau sa stiu mai multe</a>
-                            </form>
-                        </div>
-                        <div class="col-xs-12 col-sm-2 col-md-3 visible-md visible-lg"></div>
-                    </div>
-                    <!--           <p></p> -->
-                </div>
-                <!-- /.col-lg-4 -->
-            </div>
-            <!-- /.row -->
-            <!-- FOOTER -->
-            <footer>
-                <p class="pull-right"><a href="#">Inapoi sus</a></p>
-                <p>&copy; 2015 Plan de masa &middot;
-                    <a href="http://www.facebook.com/plandemasa"> <span class="social-media-small"> <i class="fa fa-facebook-official"></i></span></a>
-                    &middot; <a href="#">Termeni</a>
-                </p>
-            </footer>
         </div>
+        <div class="row" id="cinesuntem">
+            <div class="col-xs-12 col-sm-12 col-lg-12">
+                <img class="img-circle" src="../../assets/images/family.jpg" alt="Popestii 2014" width="140" height="140">
+                <h2>Cine suntem noi</h2>
+                <p>Gandesc in imagini si liste. Imi place sa organizez lucrurile, dar nu ma mobilizez tot timpul sa le pun in aplicare. Am pornit proiectul "Plan de masa" ca sa ma constrang sa fac un plan in fiecare saptamana. Cateodata sunt delasatoare, si zic ca saptamana asta merge si asa, din zbor. Dar cand vad ca stau iar 20 minute sa caut o reteta cu ce ingrediente am in camara, imi zic ca de maine fac un plan. Dar maine vine si trece si ajung iar sa pierd mai mult timp cautand retete decat punandu-le in aplicare. Sau incropesc cu ce am la dispozitie, dar rareori imi iese cum ma gandesc.</p>
+                <p>In saptamanile cu plan, am in frigider exact ce trebuie, si se termina exact cand e planificat. Includ tot timpul o zi-tampon, pentru lucruri neprevazute. Pe parcursul ultimilor 3 ani, de cand fac planuri de masa, cheltuim cu 20% in medie mai putin in saptamanile cu plan. Asta pe langa satisfactia ca nu am nici un rest de mancare care ajunge la gunoi.</p>
+                <div class="row" id="contactFormDiv">
+                    <div class="col-xs-12 col-sm-2 col-md-3 visible-sm visible-md visible-lg"></div>
+                    <div class="col-xs-12 col-sm-8 col-md-6">
+                        <form>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="contactNume" placeholder="nume">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" id="contactEmail" placeholder="email">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="contactText" placeholder="mesaj">
+                            </div>
+                            <!--                           <button type="submit" class="btn btn-default">Submit</button> -->
+                            <a class="btn btn-default btn-blur" href="#" role="button">Vreau sa stiu mai multe</a>
+                        </form>
+                    </div>
+                    <div class="col-xs-12 col-sm-2 col-md-3 visible-md visible-lg"></div>
+                </div>
+                <!--           <p></p> -->
+            </div>
+            <!-- /.col-lg-4 -->
+        </div>
+        <!-- /.row -->
+        <!-- FOOTER -->
+        <footer>
+            <p class="pull-right"><a href="#">Inapoi sus</a></p>
+            <p>&copy; 2015 Plan de masa &middot;
+                <a href="http://www.facebook.com/plandemasa"> <span class="social-media-small"> <i class="fa fa-facebook-official"></i></span></a>
+                &middot; <a href="#">Termeni</a>
+            </p>
+        </footer>
+    </div>
     </div>
     <!-- /.container -->
 
@@ -388,15 +352,12 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.0/masonry.pkgd.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     <script src="../../assets/js/custom.js"></script>
-    <!-- <script src="../../assets/js/bigdata.js"></script> TODO: remove after testing for ui-angular -->
     <script src="../../assets/js/google_analytics.js"></script>
-    <!-- <script src="../../bower_components/angular-ui-grid/ui-grid.js"></script> -->
     <script src="../../bower_components/angular-touch/angular-touch.js"></script>
-    <script src="../../bower_components/angular-ui-grid/ui-grid.js"></script>
-    <!-- <script src="../../bower_components/ng-grid/ng-grid-2.0.14.debug.js"></script> -->
 
     <!-- Pinterest widget -->
     <script defer="defer" type="text/javascript" async src="//assets.pinterest.com/js/pinit.js" data-pin-build="parsePins"></script>
