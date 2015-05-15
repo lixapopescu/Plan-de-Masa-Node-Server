@@ -1,4 +1,4 @@
-var mainControllerCallback = function($scope, $window, uiGridConstants, $http, $interval, $q, $filter) {
+var mainControllerCallback = function($scope, $window, $http, $filter) {
     var vm = this;
 
     // var getReteteByDay = function(vm, day, $filter) {
@@ -48,15 +48,12 @@ var mainControllerCallback = function($scope, $window, uiGridConstants, $http, $
 
 };
 
-angular.module('routerApp', ['routerRoutes', 'ngTouch', 'ui.grid', 'ui.grid.exporter', 'ui.grid.selection'])
+angular.module('routerApp', ['routerRoutes', 'ngTouch'])
     // create the controller and inject Angular's 
     // this will be the controller for the ENTIRE site
     .controller('mainController', ['$scope',
         '$window',
-        'uiGridConstants',
         '$http',
-        '$interval',
-        '$q', //for promises
         '$filter',
         mainControllerCallback
     ])
