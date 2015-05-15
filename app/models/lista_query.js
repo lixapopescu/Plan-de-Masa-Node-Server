@@ -2,7 +2,7 @@ var schemas = require('./retete');
 var Plan = schemas.Plan;
 
 var getListaAggregate = function(request, response, sapt) {
-    console.log('inside: ' + sapt);
+    console.log('generate static shopping list: ' + sapt);
     Plan.aggregate({
                 $unwind: "$zile"
             }, {
@@ -69,7 +69,7 @@ var getListaAggregate = function(request, response, sapt) {
                     }
                 }
             })
-        .exec(function(err, lista) {//TODO: error handeling
+        .exec(function(err, lista) {//TODO: error handling
             response.json(lista);
         });
 

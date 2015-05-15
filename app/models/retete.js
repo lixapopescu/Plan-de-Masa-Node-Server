@@ -25,6 +25,22 @@ var InstructiuniSchema = new Schema({
     },
 });
 
+//Lista Schema
+var ListaSchema = new Schema({
+    _id: {
+        type: String,
+        required: true
+    },
+    ingrediente: [{
+        nume: String,
+        total: Number,
+        um: String,
+        reteta_abrev: [{nume: String}]
+    }]
+},{
+    collection: "lista"
+});
+
 //Retete schema
 var ReteteSchema = new Schema({
     nume: {
@@ -78,7 +94,9 @@ var PlanuriSchema = new Schema({
 //prepare to export all models from this file
 var Plan = mongoose.model("Planuri", PlanuriSchema);
 var Reteta = mongoose.model("Retete", ReteteSchema);
+var Lista = mongoose.model("Lista", ListaSchema);
 module.exports = {
     Plan: Plan,
-    Reteta: Reteta
+    Reteta: Reteta,
+    Lista: Lista
 }

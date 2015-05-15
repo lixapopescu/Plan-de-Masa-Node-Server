@@ -63,74 +63,17 @@
 
 <body ng-app="routerApp" ng-controller="mainController as main">
     <script href="../../assets/js/facebook.js"></script>
-    <div class="container">
-
-        <div class="row">
-            <div>
-                <h2>
-                Plan {{main.plan.prima_zi | date: 'dd/MM/yyyy'}} - {{main.plan.ultima_zi | date: 'dd/MM/yyyy'}} 
-                <a href="{{main.plan.pinterest_url}}" target="_blank">                
-                <i class="fa fa-pinterest pinterest-logo"></i></a>
-                </h2>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-            <div class="row" ng-repeat="zi in main.plan.zile | orderBy: '+index'">
-                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                    {{zi.nume}}
-                </div>
-                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 reteta-plan">
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 reteta-titlu">
-                            <a href="{{zi.retete.origine_url}}" target="_blank">{{zi.retete.nume}}</a>
-                        </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                    <img src="{{zi.retete.poza}}" alt="" height="130px">
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 image-footer">
-                                    <span class="fa fa-copyright"></span>
-                                    <a href="{{zi.retete.origine_url}}" target="_blank">
-                                        <span ng-if="!!zi.retete.origine">{{zi.retete.origine}}</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="container" class="clearfix">
-            <div class="">
-                <div ng-repeat="categorie in main.lista | orderBy: '-ingrediente.length'">
-                    <div class="box col1">
-                        <div class="capital">
-                            {{categorie._id}} ({{categorie.ingrediente.length}})
-                        </div>
-                        <div>
-                            <div ng-repeat="produs in categorie.ingrediente | orderBy: '+ nume'">
-                                <i class="fa fa-square-o"></i>
-                                {{produs.nume}}
-                                <span ng-if="produs.total > 0">: {{produs.total}} {{produs.um}}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="alert">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <strong>In lucru</strong>
         <br/> Linkurile si emailul <strike>inca nu le-am programat</strike> le-am programat partial, si lucrez zilnic la site.
-        <br/> Ca sa fii la curent cu ultimele dezvoltari, urmareste pagina noastra de <a href="http://www.facebook.com/plandemasa">Facebook <span class="social-media"><i class="fa fa-facebook-official"></i></span> </a>
-        <br/> Participa la <a href="https://www.facebook.com/plandemasa/posts/424297831065177">discutie</a>, vrem sa stim <big>ce vrei sa imbunatatesti</big> la cum gatesti acum.
+        <br/> Ca sa fii la curent cu ultimele dezvoltari, urmareste pagina noastra de
+        <a href="http://www.facebook.com/plandemasa">Facebook
+            <span class="social-media"><i class="fa fa-facebook-official"></i></span>
+        </a>
+        <br/> Participa la
+        <a href="https://www.facebook.com/plandemasa/posts/424297831065177">discutie</a>, vrem sa stim <big>ce vrei sa imbunatatesti</big> la cum gatesti acum.
         <br/> Povesteste-ne despre:
         <ul class="list-unstyled">
             <li class="list-inline">&bull; cand intri in bucatarie, de unde iti iei retetele </li>
@@ -138,7 +81,7 @@
             <li class="list-inline">&bull; cat timp iti ia sa gatesti, zilnic </li>
         </ul>
     </div>
-    <nav class="navbar navbar-inverse navbar-default">
+    <nav class="navbar navbar-inverse navbar-default navbar-fixed">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
@@ -150,20 +93,36 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#dece">De ce un plan de masa</a></li>
-                <li><a href="#ceprimesti">Ce primesti saptamanal</a></li>
-                <li><a href="#pricePlans">Cat costa</a></li>
-                <li><a href="#cinesuntem">Cine suntem</a></li>
+                <li>
+                    <a href="#dece">De ce un plan de masa</a>
+                </li>
+                <li>
+                    <a href="#ceprimesti">Ce primesti saptamanal</a>
+                </li>
+                <li>
+                    <a href="#pricePlans">Cat costa</a>
+                </li>
+                <li>
+                    <a href="#cinesuntem">Cine suntem</a>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="https://www.pinterest.com/plandemasa"><span class="social-media"><i class="fa fa-pinterest"></i></span></a></li>
-                <li><a href="https://www.facebook.com/plandemasa"><span class="social-media"><i class="fa fa-facebook-official"></i></span></a></li>
+                <li>
+                    <a href="https://www.pinterest.com/plandemasa">
+                        <span class="social-media"><i class="fa fa-pinterest"></i></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.facebook.com/plandemasa">
+                        <span class="social-media"><i class="fa fa-facebook-official"></i></span>
+                    </a>
+                </li>
             </ul>
         </div>
         <!--/.nav-collapse -->
     </nav>
+
     <div class="jumbotron">
-        <!--img class="img-responsive img-rounded" src="../../assets/images/salata_fructe.jpg" alt="Salata de fructe"-->
         <picture>
             <!--[if IE 9]><video style="display: none;"><![endif]-->
             <source srcset="../../assets/images/salata_fructe_xlarge.jpg" media="(min-width: 768px)" />
@@ -174,6 +133,84 @@
         </picture>
     </div>
     <!-- div class="jumbotron" -->
+    <div class="container">
+        <div class="row">
+            <div>
+                <h2>
+                    Plan {{main.plan.prima_zi | date: 'dd/MM/yyyy'}} - {{main.plan.ultima_zi | date: 'dd/MM/yyyy'}}
+                    <a href="{{main.plan.pinterest_url}}" target="_blank">
+                        <i class="fa fa-pinterest pinterest-logo"></i></a>
+                </h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="row" ng-repeat="zi in main.plan.zile | orderBy: '+index'">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                        {{zi.nume}}
+                    </div>
+                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 reteta-plan">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <a href="{{zi.retete.origine_url}}" target="_blank" class="reteta-titlu">{{zi.retete.nume}}</a>
+                                <span class="fa-stack fa-lg reteta-abreviere-logo">
+                                    <i class="fa fa-circle-thin fa-stack-2x"></i>
+                                    <i class="fa fa-stack-1x">{{zi.abreviatie}}</i>
+                                </span>
+
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <a href="{{zi.retete.origine_url}}" target="_blank">
+                                            <img src="{{zi.retete.poza}}" alt="{{main.plan.nume}}: {{zi.nume}} - {{zi.retete.nume}}" height="130px">
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 image-footer">
+                                        <span class="fa fa-copyright"></span>
+                                        <a href="{{zi.retete.origine_url}}" target="_blank">
+                                            <span ng-if="!!zi.retete.origine">{{zi.retete.origine}}</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="container" class="clearfix">
+                <div class="">
+                    <div ng-repeat="categorie in main.lista | orderBy: '-ingrediente.length'">
+                        <div class="box col1">
+                            <div class="capital">
+                                {{categorie._id}} ({{categorie.ingrediente.length-main.countCumparate(categorie.ingrediente)}})
+                            </div>
+                            <div>
+                                <div ng-repeat="produs in categorie.ingrediente | orderBy: '+ nume'" class="produs">
+                                    <span ng-if="!produs.cumparat" ng-click="main.toggleCumparat(produs)">
+                                        <i class="fa fa-square-o"></i> {{produs.nume}}
+                                    </span>
+                                    <span ng-if="produs.cumparat" ng-click="main.toggleCumparat(produs)">
+                                        <i class="fa fa-check-square-o"></i>
+                                        <span class="cumparat">{{produs.nume}}</span>
+                                    </span>
+                                    <span ng-if="produs.total > 0">: {{produs.total}} {{produs.um}}</span>
+                                    <span ng-repeat="abr in produs.reteta_abrev">
+                                        <span class="fa-stack fa-lg reteta-abreviere-logo">
+                                            <i class="fa fa-circle-thin fa-stack-2x"></i>
+                                            <i class="fa fa-stack-1x">{{abr}}</i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Angular content -->
     <div>
@@ -202,7 +239,9 @@
                         <li class="list-inline">&bull; Cand gatesti, ai toate ingredientele la indemana.</li>
                         <li class="list-inline">&bull; Ai toate retetele pregatite</li>
                     </ul>
-                    <p><a class="btn btn-default btn-blur" href="plan_detalii.html" role="button">Detalii...</a></p>
+                    <p>
+                        <a class="btn btn-default btn-blur" href="plan_detalii.html" role="button">Detalii...</a>
+                    </p>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-12" id="ceprimesti">
                     <img class="img-circle" src="../../assets/images/plandemasaminiatura.jpg" alt="Plan de masa miniatura, din carnetel" width="140" height="140">
@@ -213,7 +252,9 @@
                         <li class="list-inline">&bull; Lista de cumparaturi, impartita pe categorii</li>
                         <li class="list-inline">&bull; Alimentatie traditionala</li>
                     </ul>
-                    <p><a class="btn btn-default btn-blur" href="#" role="button">Detalii...</a></p>
+                    <p>
+                        <a class="btn btn-default btn-blur" href="#" role="button">Detalii...</a>
+                    </p>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6" id="pricePlans">
@@ -337,10 +378,15 @@
         <!-- /.row -->
         <!-- FOOTER -->
         <footer>
-            <p class="pull-right"><a href="#">Inapoi sus</a></p>
+            <p class="pull-right">
+                <a href="#">Inapoi sus</a>
+            </p>
             <p>&copy; 2015 Plan de masa &middot;
-                <a href="http://www.facebook.com/plandemasa"> <span class="social-media-small"> <i class="fa fa-facebook-official"></i></span></a>
-                &middot; <a href="#">Termeni</a>
+                <a href="http://www.facebook.com/plandemasa">
+                    <span class="social-media-small"> <i class="fa fa-facebook-official"></i></span>
+                </a>
+                &middot;
+                <a href="#">Termeni</a>
             </p>
         </footer>
     </div>
@@ -360,7 +406,7 @@
     <script src="../../bower_components/angular-touch/angular-touch.js"></script>
 
     <!-- Pinterest widget -->
-    <script defer="defer" type="text/javascript" async src="//assets.pinterest.com/js/pinit.js" data-pin-build="parsePins"></script>
+    <!-- <script defer="defer" type="text/javascript" async src="//assets.pinterest.com/js/pinit.js" data-pin-build="parsePins"></script> -->
 </body>
 
 </html>

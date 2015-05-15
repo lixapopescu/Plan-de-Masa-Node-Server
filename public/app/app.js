@@ -1,49 +1,28 @@
 var mainControllerCallback = function($scope, $window, $http, $filter) {
     var vm = this;
 
-    // var getReteteByDay = function(vm, day, $filter) {
-    //     return $filter('filter')(vm.plan.zile, {
-    //         index: day
-    //     });
-    // }
+    vm.toggleCumparat = function(produs) {
+        produs.cumparat = !produs.cumparat;
+    }
 
-    // var getLink = function(reteta) {
-    //     return '<a href="#">' + reteta.nume + '</a>';
-    // }
-
-    // $scope.planGrid = {
-    //     columnDefs: [{
-    //         name: "Luni",
-    //         // cellTemplate: '<div> <a href="#">' + this.nume + '</a> </div>'
-    //         field: "getLuni()",
-    //         cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><a href="{{row.getProperty(col.field)}}">Visible text</a></div>',
-    //         enableCellEdit: false
-    //     }, {
-    //         field: "Marti"
-    //     }, {
-    //         field: "Miercuri"
-    //     }]
-    // };
+    vm.countCumparate = function(produse){
+        var produseCumparate = $filter('filter')(produse, {cumparat: true});
+        return produseCumparate.length;
+    }
 
     $http.get('/api/plan/21/lista')
         .success(function(data) {
             vm.lista = data;
-            // console.log(vm.lista);
+            angular.forEach(vm.lista, function(sublista) {
+                angular.forEach(sublista.ingrediente, function(produs) {
+                    produs.cumparat = false;
+                })
+            });
         });
 
     $http.get('/api/plan/21')
         .success(function(data) {
             vm.plan = data;
-
-            // $scope.planGrid.data = [{
-            //     "Luni": $filter('filter')(vm.plan.zile, {
-            //         index: 1
-            //     })[0].retete.nume,
-            //     "getLuni": function() {
-            //         var reteta = getReteteByDay(vm, 1, $filter)[0].retete;
-            //         return reteta.nume;
-            //     }
-            // }];
         });
 
 };
