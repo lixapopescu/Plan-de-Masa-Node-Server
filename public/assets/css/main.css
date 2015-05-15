@@ -316,6 +316,7 @@ a {
 }
 .produs {
   padding-top: 4px;
+  cursor: default;
 }
 .cumparat {
   text-decoration: line-through;

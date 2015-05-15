@@ -191,12 +191,13 @@
                                 <div ng-repeat="produs in categorie.ingrediente | orderBy: '+ nume'" class="produs">
                                     <span ng-if="!produs.cumparat" ng-click="main.toggleCumparat(produs)">
                                         <i class="fa fa-square-o"></i> {{produs.nume}}
+                                        <span ng-if="produs.total > 0">: {{produs.total}} {{produs.um}}</span>
                                     </span>
                                     <span ng-if="produs.cumparat" ng-click="main.toggleCumparat(produs)">
                                         <i class="fa fa-check-square-o"></i>
                                         <span class="cumparat">{{produs.nume}}</span>
+                                        <span class="cumparat" ng-if="produs.total > 0">: {{produs.total}} {{produs.um}}</span>
                                     </span>
-                                    <span ng-if="produs.total > 0">: {{produs.total}} {{produs.um}}</span>
                                     <span ng-repeat="abr in produs.reteta_abrev">
                                         <span class="fa-stack fa-lg reteta-abreviere-logo">
                                             <i class="fa fa-circle-thin fa-stack-2x"></i>
