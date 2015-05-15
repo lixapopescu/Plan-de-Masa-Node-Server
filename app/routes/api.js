@@ -6,9 +6,7 @@ var winston = require('winston');
 
 var Reteta = schemas.Reteta;
 var Plan = schemas.Plan;
-
-
-
+var ListaQuery = require('../models/lista_query');
 
 module.exports = function(app, express) {
 
@@ -29,7 +27,9 @@ module.exports = function(app, express) {
         .get(function(request, response) {
             winston.info("/reteta");
             Reteta.find({}, function(err, retete) {
-                winston.info("find all retete", {err: err});
+                winston.info("find all retete", {
+                    err: err
+                });
                 if (err) response.send(err);
                 response.json(retete);
             });
@@ -38,7 +38,10 @@ module.exports = function(app, express) {
     //check misspellings
     apiRouter.route('/retete')
         .get(function(request, response) {
-            response.json({message: '/retete path is undefined. Try using /reteta instead.', code: 100});
+            response.json({
+                message: '/retete path is undefined. Try using /reteta instead.',
+                code: 100
+            });
         });
 
     apiRouter.route('/plan/:saptamana')
@@ -63,6 +66,10 @@ module.exports = function(app, express) {
                         response.json(plan);
                 });
         });
+    apiRouter.route('/plan/:saptamana/lista')
+        .get(function(request, response) {
+            ListaQuery(request, response, request.params.saptamana);
+        });
     apiRouter.route('/plan')
         //get all meal plans (accessed at GET base_url/api/plan)
         .get(function(request, response) {
@@ -79,6 +86,7 @@ module.exports = function(app, express) {
             //TODO json message
             response.send('/planuri path is undefined. Try using /plan instead.');
         });
+
     // apiRouter.route('/reteta/:reteta_nume')
     // .get(function(request, response));
 

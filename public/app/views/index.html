@@ -68,26 +68,21 @@
 <body ng-app="routerApp" ng-controller="mainController as main">
     <script href="../../assets/js/facebook.js"></script>
     <div class="container">
-            <div class="row">
-                <div><!-- <h2>{{main.plan.nume}}</h2>:  <-->
-                    <h2>
+        <div class="row">
+            <div>
+                <!-- <h2>{{main.plan.nume}}</h2>:  <-->
+                <h2>
                 Plan {{main.plan.prima_zi | date: 'dd/MM/yyyy'}} - {{main.plan.ultima_zi | date: 'dd/MM/yyyy'}}</h2></div>
-            </div>
+        </div>
         <div class="row">
             <div class="row" id="pin-container">
-                    <a 
-                    data-pin-do="embedBoard" 
-                    href="https://www.pinterest.com/plandemasa/plan-21-2015/" 
-                    data-pin-scale-width="120" 
-                    data-pin-scale-height="120" 
-                    data-pin-board-width="1200" 
-                    id="pinBoard"       >        Urmareste dosarul "Plan #20 / 2015" de la Plan de Masa pe Pinterest.</a>
+                <a data-pin-do="embedBoard" href="https://www.pinterest.com/plandemasa/plan-21-2015/" data-pin-scale-width="120" data-pin-scale-height="120" data-pin-board-width="1200" id="pinBoard">        Urmareste dosarul "Plan #20 / 2015" de la Plan de Masa pe Pinterest.</a>
 
 
-            </div>        
+            </div>
         </div>
-        <div class="ui-grid-render-container ng-isolate-scope ui-grid-render-container-body" height="200px">
-                
+        <div class="row ui-grid-render-container ng-isolate-scope ui-grid-render-container-body" height="200px">
+
             <div class="row ui-grid-header ng-scope ui-grid-top-panel ui-grid-header-viewport">
                 <!-- <div ng-repeat=""> </div> -->
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
@@ -112,10 +107,10 @@
             <div class="row">
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     <div ng-repeat="zi in main.plan.zile | filter: {index: '1'}">
-                       <!--  <a data-pin-do="embedPin" href="{{zi.pinterest_url}}" height="30px"></a> -->
+                        <!--  <a data-pin-do="embedPin" href="{{zi.pinterest_url}}" height="30px"></a> -->
                         <a href="{{zi.retete.origine_url}}" target="_blank">{{zi.retete.nume}}</a>
 
-                        
+
                     </div>
                 </div>
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
@@ -128,6 +123,54 @@
                         <a href="{{zi.retete.origine_url}}" target="_blank">{{zi.retete.nume}}</a>
                     </div>
                 </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <div ng-repeat="zi in main.plan.zile | filter: {index: '4'}">
+                        <a href="{{zi.retete.origine_url}}" target="_blank">{{zi.retete.nume}}</a>
+                    </div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <div ng-repeat="zi in main.plan.zile | filter: {index: '6'}">
+                        <a href="{{zi.retete.origine_url}}" target="_blank">{{zi.retete.nume}}</a>
+                    </div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <div ng-repeat="zi in main.plan.zile | filter: {index: '7'}">
+                        <a href="{{zi.retete.origine_url}}" target="_blank">{{zi.retete.nume}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <h3>Lista de cumparaturi</h3>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" ng-repeat="categorie in main.lista | orderBy: '-ingrediente.length'">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 capital">
+                        {{categorie._id}} ({{categorie.ingrediente.length}})
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="row" ng-repeat="produs in categorie.ingrediente">
+                            {{produs.nume}}
+                            <span ng-if="produs.total > 0">: {{produs.total}} {{produs.um}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                Legume ({{main.lista.length}})
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <ul ng-repeat="produs in main.lista | filter: {_id: 'legume'}">
+                    {{produs.ingrediente.length}}
+                </ul>
             </div>
         </div>
 

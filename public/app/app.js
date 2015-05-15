@@ -52,7 +52,12 @@ var mainControllerCallbackGrid = function($scope, $window, uiGridConstants, $htt
 var mainControllerCallback = function($scope, $window, uiGridConstants, $http, $interval, $q) {
     var vm = this;
 
-    // 
+    $http.get('/api/plan/21/lista')
+        .success(function(data) {
+            vm.lista = data;
+            console.log(vm.lista);
+        });
+    
 
     $http.get('/api/plan/21')
         .success(function(data) {
