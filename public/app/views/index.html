@@ -161,19 +161,6 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                Legume ({{main.lista.length}})
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <ul ng-repeat="produs in main.lista | filter: {_id: 'legume'}">
-                    {{produs.ingrediente.length}}
-                </ul>
-            </div>
-        </div>
-
         <div class="alert">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
             <strong>In lucru</strong>
