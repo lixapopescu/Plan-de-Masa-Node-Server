@@ -12,6 +12,16 @@ var mainControllerCallback = function($scope, $window, $http, $filter, $modal) {
         return produseCumparate.length;
     }
 
+    vm.countCumparateReteta = function(reteta) {
+        var allIngredients = _.flatten(_.pluck(vm.lista, 'ingrediente'));
+        var allIngredientsBought = _.where(allIngredients, {cumparat: true});
+        var count = 0;
+        _.each(allIngredientsBought, function(ingred){
+            count += _.contains(ingred.reteta_abrev, reteta);
+        });
+        return count;
+    }
+
     $http.get('/api/plan/21/lista')
         .success(function(data) {
             vm.lista = data;
@@ -25,6 +35,10 @@ var mainControllerCallback = function($scope, $window, $http, $filter, $modal) {
     $http.get('/api/plan/21')
         .success(function(data) {
             vm.plan = data;
+            angular.forEach(vm.plan.zile, function(retete_o_zi) {
+                var ingrediente = _.union(_.flatten(_.pluck(retete_o_zi.retete.ingrediente, 'lista')));
+                retete_o_zi.retete.numar_ingrediente = _.union(_.pluck(ingrediente, 'nume')).length;
+            });
         });
 
     $scope.items = ['item1', 'item2', 'item3'];
@@ -95,4 +109,6 @@ angular.module('plandemasaApp', ['routerRoutes', 'ngTouch', 'ui.bootstrap'])
             $modalInstance.close();
         };
 
-    });;
+    })
+    .controller('PlanController', function($scope){
+    });

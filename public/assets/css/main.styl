@@ -443,5 +443,61 @@ a {
     font-size: 1.1em;
 }
 
+.ingredient-comentariu{
+    font-size: 0.8em;
+}
+
 //Original Bootstrap's CSS depends on empty href attributes to style cursors for several components (pagination, tabs etc.). But in AngularJS adding empty href attributes to link tags will cause unwanted route changes. This is why we need to remove empty href attributes from directive templates and as a result styling is not applied correctly. The remedy is simple, just add the following styling to your application:
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+//testing with flexbox 
+.flex-container {
+  display: -webkit-flex; /* Safari */
+  display: flex;
+}
+
+.flex-container .item{
+    padding-top: 10px;
+}
+
+
+//testing with flexbox and masonry
+div#masonry {
+    display: -ms-flexbox;
+    -ms-flex-direction: column;
+    -ms-flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 100vw;
+    font-size: 0;
+}
+div#masonry img {
+    width: 33.3%;
+    transition: .8s opacity;
+}
+div#masonry:hover img { opacity: 0.3; }
+div#masonry:hover img:hover { opacity: 1; }
+
+//
+// *, *:before, *:after {box-sizing:  border-box !important;}
+
+
+.row-fluid {
+ -moz-column-width: 18em;
+ -webkit-column-width: 18em;
+ -moz-column-gap: 1em;
+ -webkit-column-gap:1em; 
+  
+}
+
+.item {
+ display: inline-block;
+ padding:  .25rem;
+ width:  100%; 
+}
+
+.well {
+ position:relative;
+ display: block;
+}

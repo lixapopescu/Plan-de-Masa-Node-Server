@@ -340,9 +340,54 @@ a {
   font-weight: bold;
   font-size: 1.1em;
 }
+.ingredient-comentariu {
+  font-size: 0.8em;
+}
 .nav,
 .pagination,
 .carousel,
 .panel-title a {
   cursor: pointer;
+}
+.flex-container {
+  display: -webkit-flex; /* Safari */
+  display: flex;
+}
+.flex-container .item {
+  padding-top: 10px;
+}
+div#masonry {
+  display: -ms-flexbox;
+  -ms-flex-direction: column;
+  -ms-flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 100vw;
+  font-size: 0;
+}
+div#masonry img {
+  width: 33.3%;
+  transition: 0.8s opacity;
+}
+div#masonry:hover img {
+  opacity: 0.3;
+}
+div#masonry:hover img:hover {
+  opacity: 1;
+}
+.row-fluid {
+  -moz-column-width: 18em;
+  -webkit-column-width: 18em;
+  -moz-column-gap: 1em;
+  -webkit-column-gap: 1em;
+}
+.item {
+  display: inline-block;
+  padding: 0.25rem;
+  width: 100%;
+}
+.well {
+  position: relative;
+  display: block;
 }

@@ -162,6 +162,10 @@
                                     </span>
                                 </div>
                                 <div><i class="fa fa-user"></i> {{zi.retete.persoane}}</div>
+                                <div>
+                                    <i class="fa fa-shopping-cart"></i> {{main.countCumparateReteta(zi.abreviatie)}} / {{zi.retete.numar_ingrediente}}
+                                    <i class="fa fa-check" ng-if="main.countCumparateReteta(zi.abreviatie) == zi.retete.numar_ingrediente"></i>
+                                </div>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
                                 <div class="row">
@@ -183,34 +187,37 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="container" class="clearfix">
-                <div class="">
-                    <div ng-repeat="categorie in main.lista | orderBy: '-ingrediente.length'">
-                        <div class="box col1">
-                            <div class="capital">
-                                {{categorie._id}} ({{categorie.ingrediente.length-main.countCumparate(categorie.ingrediente)}})
-                            </div>
-                            <div>
-                                <div ng-repeat="produs in categorie.ingrediente | orderBy: '+ nume'" class="produs">
-                                    <span ng-if="!produs.cumparat" ng-click="main.toggleCumparat(produs)">
-                                        <i class="fa fa-square-o"></i> {{produs.nume}}
-                                        <span ng-if="produs.total > 0">: {{produs.total}} {{produs.um}}</span>
-                                    </span>
-                                    <span ng-if="produs.cumparat" ng-click="main.toggleCumparat(produs)">
-                                        <i class="fa fa-check-square-o"></i>
-                                        <span class="cumparat">{{produs.nume}}</span>
-                                        <span class="cumparat" ng-if="produs.total > 0">: {{produs.total}} {{produs.um}}</span>
-                                    </span>
-                                    <span ng-repeat="abr in produs.reteta_abrev">
-                                        <span class="fa-stack fa-lg reteta-abreviere-logo">
-                                            <i class="fa fa-circle-thin fa-stack-2x"></i>
-                                            <i class="fa fa-stack-1x">{{abr}}</i>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <div class="container-fluid">
+                    <div class="row row-fluid">
+                        <div ng-repeat="categorie in main.lista | orderBy: '-ingrediente.length'" class="item">
+                            <div class="box well">
+                                <div class="capital">
+                                    {{categorie._id}} ({{categorie.ingrediente.length-main.countCumparate(categorie.ingrediente)}})
+                                </div>
+                                <div>
+                                    <div ng-repeat="produs in categorie.ingrediente | orderBy: '+ nume'" class="produs">
+                                        <span ng-if="!produs.cumparat" ng-click="main.toggleCumparat(produs)">
+                                            <i class="fa fa-square-o"></i> {{produs.nume}}
+                                            <span ng-if="produs.total > 0">: {{produs.total}} {{produs.um}}</span>
                                         </span>
-                                    </span>
+                                        <span ng-if="produs.cumparat" ng-click="main.toggleCumparat(produs)">
+                                            <i class="fa fa-check-square-o"></i>
+                                            <span class="cumparat">{{produs.nume}}</span>
+                                            <span class="cumparat" ng-if="produs.total > 0">: {{produs.total}} {{produs.um}}</span>
+                                        </span>
+                                        <span ng-repeat="abr in produs.reteta_abrev">
+                                            <span class="fa-stack fa-lg reteta-abreviere-logo">
+                                                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                                                <i class="fa fa-stack-1x">{{abr}}</i>
+                                            </span>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -244,7 +251,7 @@
                         <li class="list-inline">&bull; Ai toate retetele pregatite</li>
                     </ul>
                     <p>
-                        <a class="btn btn-default btn-blur" href="plan_detalii.html" role="button">Detalii...</a>
+                        <a class="btn btn-default btn-blur" href="plan_detalii" role="button">Detalii...</a>
                     </p>
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-12" id="ceprimesti">
@@ -409,6 +416,7 @@
     <script src="../../assets/js/google_analytics.js"></script>
     <script src="../../bower_components/angular-touch/angular-touch.js"></script>
     <script src="../../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="../../bower_components/underscore/underscore-min.js"></script>
 
     <!-- Pinterest widget -->
     <!-- <script defer="defer" type="text/javascript" async src="//assets.pinterest.com/js/pinit.js" data-pin-build="parsePins"></script> -->

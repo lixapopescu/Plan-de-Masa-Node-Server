@@ -11,6 +11,7 @@
                     <li ng-repeat="ingredient in categ_ingredient.lista | orderBy: '+ordine'">
                         {{ingredient.nume}}
                         <span ng-if="ingredient.cantitate">: {{ingredient.cantitate}} {{ingredient.um}} </span>
+                        <span ng-if="ingredient.comentariu" class="ingredient-comentariu">({{ingredient.comentariu}})</span>    
                     </li>
                 </ul>
             </div>

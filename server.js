@@ -54,11 +54,14 @@ app.use('/api', require('./app/routes/api')(app, express));
 //paths
 // app.get('/', routes.index);
 // app.get('/users', user.index);
-app.get('/bigData.json', function(req, res) {
-    res.sendFile(path.join(__dirname + '/bigData.json'));
+app.get('/teste.html', function(req, res) {
+    res.sendFile(path.join(__dirname + '/public/app/views/teste.html'));
 });
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
+});
+app.get('*', function(req, res) {
+    res.redirect('/');
 });
 
 // START THE SERVER

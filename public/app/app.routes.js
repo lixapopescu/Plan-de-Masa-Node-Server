@@ -12,12 +12,6 @@ angular.module('routerRoutes', ['ngRoute'])
         //     controllerAs: 'home'
         // })
 
-        .when('/ce_gatesc_saptamana_asta', {
-        	templateUrl: 'app/views/pages/pinterestweekly.html',
-        	controller: 'pinterestWeeklyController',
-        	controllerAs: 'pin'
-        })
-
         // route for the about page
         .when('/about', {
             templateUrl : 'app/views/pages/about.html',
@@ -30,6 +24,11 @@ angular.module('routerRoutes', ['ngRoute'])
             templateUrl : 'app/views/pages/contact.html',
             controller  : 'contactController',
             controllerAs: 'contact'
+        })
+        .when('/plan_detalii', {
+            templateUrl : 'app/views/pages/plan_detalii.html',
+            controller  : 'planDetaliiController',
+            controllerAs: 'planDetCtrl'
         });
 
     $locationProvider.html5Mode(true);
