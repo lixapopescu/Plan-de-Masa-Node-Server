@@ -10,10 +10,17 @@ pricing-background-enabled = #e2e2e2;
 pricing-background-disabled = #e2e2e2;
 text-color-darker = #474747;
 text-color-lighter = #A7A7A7;
-grey = #D8D5D2;
+box-background = #DFDCD7;
+box-border = #f5f5f5;
 border-color = grey;
 border-width = 1px;
 pinterest-logo-color = #BD2126;
+
+/* Mixins */
+border-radius(n)
+  -webkit-border-radius n
+  -moz-border-radius n
+  border-radius n
 
 /* GLOBAL STYLES
 -------------------------------------------------- */
@@ -369,11 +376,10 @@ a {
     font-weight: bold;
 }
 
-//for masonry boxes
+//for category boxes in shopping list
 .box {
   margin: 5px;
   padding: 5px;
-  background: grey;
   font-size: 0.9em;
   line-height: 1.4em;
   float: left;
@@ -394,16 +400,45 @@ a {
     font-size: 0.8em;
 }
 
-.reteta-titlu {
-    font-size: 1.4em;    
+@media screen and (min-width: 992px) {
+    .plan {
+        transition: .8s opacity;
+    }
+    .plan:hover .well-reteta { opacity: 0.3; }
+    .plan:hover .well-reteta:hover { opacity: 1; }
 }
 
-.reteta-titlu{
-    color: text-color;
+.reteta-detalii {
+    left: 0;
+    top: 0;
+    padding-left: 10px;
+    width: 100%;
+    margin: 5px;
+    z-index: 1;
+}
+
+.reteta-detalii .reteta-zi{
+    font-size: 0.8em;
+}
+
+.reteta-detalii .reteta-titlu{
+    font-size: 1.2em;
     cursor: pointer;
 }
 .reteta-titlu:hover{
       text-decoration: underline;
+}
+
+.reteta-copyright{
+    font-size: 0.8em;
+}
+
+.reteta-image{
+    // width: -webkit-calc(100% - 0.8em); 
+    // width:    -moz-calc(100% - 0.8em);
+    // width:         calc(100% - 0.8em);            
+    max-width: 100%;
+    max-height:100%;
 }
 
 .pinterest-logo {
@@ -447,57 +482,38 @@ a {
     font-size: 0.8em;
 }
 
-//Original Bootstrap's CSS depends on empty href attributes to style cursors for several components (pagination, tabs etc.). But in AngularJS adding empty href attributes to link tags will cause unwanted route changes. This is why we need to remove empty href attributes from directive templates and as a result styling is not applied correctly. The remedy is simple, just add the following styling to your application:
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
-
-//testing with flexbox 
-.flex-container {
-  display: -webkit-flex; /* Safari */
-  display: flex;
-}
-
-.flex-container .item{
-    padding-top: 10px;
-}
-
-
-//testing with flexbox and masonry
-div#masonry {
-    display: -ms-flexbox;
-    -ms-flex-direction: column;
-    -ms-flex-wrap: wrap;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    height: 100vw;
-    font-size: 0;
-}
-div#masonry img {
-    width: 33.3%;
-    transition: .8s opacity;
-}
-div#masonry:hover img { opacity: 0.3; }
-div#masonry:hover img:hover { opacity: 1; }
-
-//
+//Fluid layout
 // *, *:before, *:after {box-sizing:  border-box !important;}
 
-
 .row-fluid {
- -moz-column-width: 18em;
- -webkit-column-width: 18em;
- -moz-column-gap: 1em;
- -webkit-column-gap:1em; 
-  
+     -moz-column-width: 14em;
+     -webkit-column-width: 14em;
+     -moz-column-gap: 1em;
+     -webkit-column-gap:1em;   
 }
 
 .item {
- display: inline-block;
- padding:  .25rem;
- width:  100%; 
+     display: inline-block;
+     // padding:  .25rem;
+     // width:  100%; 
 }
 
-.well {
- position:relative;
- display: block;
+//flex container for recipe
+.well-reteta {
+    position:relative;
+    display: flex;
+    flex-direction: column;
+    max-height: 50vh;
+    padding: 0.8em;
+    padding-top: 0em;
+    -webkit-box-align: center;
+    align-items: center;
+    justify-content: center;
+    // border-radius(20px);
 }
+
+.well-reteta img{
+
+}
+
+//text over image for recipes http://www.cleancss.com/css-beautify/ http://www.cvwdesign.com/blog/css-tip-placing-text-on-top-of-an-image

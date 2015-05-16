@@ -136,7 +136,7 @@
     <div class="container">
 
         <div class="row">
-            <div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <h2>
                     Plan {{main.plan.prima_zi | date: 'dd/MM/yyyy'}} - {{main.plan.ultima_zi | date: 'dd/MM/yyyy'}}
                     <a href="{{main.plan.pinterest_url}}" target="_blank">
@@ -146,48 +146,38 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                <div class="row" ng-repeat="zi in main.plan.zile | orderBy: '+index'">
-                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                        {{zi.nume}}
-                    </div>
-                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 reteta-plan">
-                        <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                <div>
-                                    <span ng-click="openModal('lg', {{zi.retete}})" class="reteta-titlu">{{zi.retete.nume}}</span>
-                                    <span class="fa-stack fa-lg reteta-abreviere-logo">
-                                        <i class="fa fa-circle-thin fa-stack-2x"></i>
-                                        <i class="fa fa-stack-1x">{{zi.abreviatie}}</i>
-                                    </span>
-                                </div>
-                                <div><i class="fa fa-user"></i> {{zi.retete.persoane}}</div>
-                                <div>
-                                    <i class="fa fa-shopping-cart"></i> {{main.countCumparateReteta(zi.abreviatie)}} / {{zi.retete.numar_ingrediente}}
-                                    <i class="fa fa-check" ng-if="main.countCumparateReteta(zi.abreviatie) == zi.retete.numar_ingrediente"></i>
-                                </div>
+            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-6 plan">
+                <div class="row-fluid">
+                    <div class="row item" ng-repeat="zi in main.plan.zile | orderBy: '+index'">
+                        <div class="image-wrapper well well-reteta">
+                            <img src="{{zi.retete.poza}}" alt="{{main.plan.nume}}: {{zi.nume}} - {{zi.retete.nume}}" class="reteta-image">
+                            <div class="reteta-detalii">
+                                <span class="reteta-zi">{{zi.nume}}</span>
+                                <br>
                             </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right">
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                        <a href="{{zi.retete.origine_url}}" target="_blank">
-                                            <img src="{{zi.retete.poza}}" alt="{{main.plan.nume}}: {{zi.nume}} - {{zi.retete.nume}}" height="130px">
-                                        </a>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 image-footer">
-                                        <span class="fa fa-copyright"></span>
-                                        <a href="{{zi.retete.origine_url}}" target="_blank">
-                                            <span ng-if="!!zi.retete.origine">{{zi.retete.origine}}</span>
-                                        </a>
-                                    </div>
-                                </div>
+                            <div class="reteta-detalii">
+                                <span ng-click="openModal('lg', {{zi.retete}})" class="reteta-titlu">{{zi.retete.nume}}</span>
+                                <span class="fa-stack fa-lg reteta-abreviere-logo">
+                                    <i class="fa fa-circle-thin fa-stack-2x"></i>
+                                    <i class="fa fa-stack-1x">{{zi.abreviatie}}</i>
+                                </span>
+                            </div>
+                            <div class="reteta-detalii">
+                                <i class="fa fa-user"></i> {{zi.retete.persoane}}
+                                <i class="fa fa-shopping-cart"></i> {{main.countCumparateReteta(zi.abreviatie)}} / {{zi.retete.numar_ingrediente}}
+                                <i class="fa fa-check" ng-if="main.countCumparateReteta(zi.abreviatie) == zi.retete.numar_ingrediente"></i>
+                            </div>
+                            <div class="reteta-detalii reteta-copyright">
+                                <span class="fa fa-copyright"></span>
+                                <a href="{{zi.retete.origine_url}}" target="_blank">
+                                    <span ng-if="!!zi.retete.origine">{{zi.retete.origine}}</span>
+                                </a>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-6">
                 <div class="container-fluid">
                     <div class="row row-fluid">
                         <div ng-repeat="categorie in main.lista | orderBy: '-ingrediente.length'" class="item">
@@ -409,7 +399,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.0/masonry.pkgd.min.js"></script>
+    <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.0/masonry.pkgd.min.js"></script> -->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     <script src="../../assets/js/custom.js"></script>
