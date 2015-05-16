@@ -87,10 +87,13 @@ angular.module('plandemasaApp', ['routerRoutes', 'ngTouch', 'ui.bootstrap'])
         }
     ])
     // home page specific controller
-    .controller('homeController', function() {
-        var vm = this;
-        vm.message = 'This is the home page!';
-    })
+    .controller('homeController', ['$scope',
+        '$window',
+        '$http',
+        '$filter',
+        '$modal',
+        mainControllerCallback
+    ])
     // about page controller
     .controller('aboutController', function() {
         var vm = this;

@@ -1,5 +1,79 @@
-    <div class="jumbotron text-center">
-        <h1>Home Page</h1>
+<div class="container">
 
-        <p>{{ home.message }}</p>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h2>
+                Plan {{home.plan.prima_zi | date: 'dd/MM/yyyy'}} - {{home.plan.ultima_zi | date: 'dd/MM/yyyy'}}
+                <a href="{{home.plan.pinterest_url}}" target="_blank">
+                    <i class="fa fa-pinterest pinterest-logo"></i></a>
+            </h2>
+        </div>
     </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-6 plan">
+            <div class="row-fluid">
+                <div class="row item" ng-repeat="zi in home.plan.zile | orderBy: '+index'">
+                    <div class="image-wrapper well well-reteta">
+                        <img src="{{zi.retete.poza}}" alt="{{home.plan.nume}}: {{zi.nume}} - {{zi.retete.nume}}" class="reteta-image">
+                        <div class="reteta-detalii">
+                            <span class="reteta-zi">{{zi.nume}}</span>
+                            <br>
+                        </div>
+                        <div class="reteta-detalii">
+                            <span ng-click="openModal('lg', {{zi.retete}})" class="reteta-titlu">{{zi.retete.nume}}</span>
+                            <span class="fa-stack fa-lg reteta-abreviere-logo">
+                                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                                <i class="fa fa-stack-1x">{{zi.abreviatie}}</i>
+                            </span>
+                        </div>
+                        <div class="reteta-detalii">
+                            <i class="fa fa-user"></i> {{zi.retete.persoane}}
+                            <i class="fa fa-shopping-cart"></i> {{home.countCumparateReteta(zi.abreviatie)}} / {{zi.retete.numar_ingrediente}}
+                            <i class="fa fa-check" ng-if="home.countCumparateReteta(zi.abreviatie) == zi.retete.numar_ingrediente"></i>
+                        </div>
+                        <div class="reteta-detalii reteta-copyright">
+                            <span class="fa fa-copyright"></span>
+                            <a href="{{zi.retete.origine_url}}" target="_blank">
+                                <span ng-if="!!zi.retete.origine">{{zi.retete.origine}}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-6">
+            <div class="container-fluid">
+                <div class="row row-fluid">
+                    <div ng-repeat="categorie in home.lista | orderBy: '-ingrediente.length'" class="item">
+                        <div class="box well">
+                            <div class="capital">
+                                {{categorie._id}} ({{categorie.ingrediente.length-home.countCumparate(categorie.ingrediente)}})
+                            </div>
+                            <div>
+                                <div ng-repeat="produs in categorie.ingrediente | orderBy: '+ nume'" class="produs">
+                                    <span ng-if="!produs.cumparat" ng-click="home.toggleCumparat(produs)">
+                                        <i class="fa fa-square-o"></i> {{produs.nume}}
+                                        <span ng-if="produs.total > 0">: {{produs.total}} {{produs.um}}</span>
+                                    </span>
+                                    <span ng-if="produs.cumparat" ng-click="home.toggleCumparat(produs)">
+                                        <i class="fa fa-check-square-o"></i>
+                                        <span class="cumparat">{{produs.nume}}</span>
+                                        <span class="cumparat" ng-if="produs.total > 0">: {{produs.total}} {{produs.um}}</span>
+                                    </span>
+                                    <span ng-repeat="abr in produs.reteta_abrev">
+                                        <span class="fa-stack fa-lg reteta-abreviere-logo">
+                                            <i class="fa fa-circle-thin fa-stack-2x"></i>
+                                            <i class="fa fa-stack-1x">{{abr}}</i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

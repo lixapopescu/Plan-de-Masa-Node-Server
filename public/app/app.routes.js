@@ -5,12 +5,12 @@ angular.module('routerRoutes', ['ngRoute'])
 .config(function($routeProvider, $locationProvider) {
     $routeProvider
 
-        // route for the home page
-        // .when('/', {
-        //     templateUrl : 'app/views/pages/home.html',
-        //     controller  : 'homeController',
-        //     controllerAs: 'home'
-        // })
+        //route for the home page
+        .when('/', {
+            templateUrl : 'app/views/pages/home.html',
+            controller  : 'homeController',
+            controllerAs: 'home'
+        })
 
         // route for the about page
         .when('/about', {

@@ -64,23 +64,6 @@
 <body ng-app="plandemasaApp" ng-controller="mainController as main">
     <script href="../../assets/js/facebook.js"></script>
 
-    <div class="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        <strong>In lucru</strong>
-        <br/> Linkurile si emailul <strike>inca nu le-am programat</strike> le-am programat partial, si lucrez zilnic la site.
-        <br/> Ca sa fii la curent cu ultimele dezvoltari, urmareste pagina noastra de
-        <a href="http://www.facebook.com/plandemasa">Facebook
-            <span class="social-media"><i class="fa fa-facebook-official"></i></span>
-        </a>
-        <br/> Participa la
-        <a href="https://www.facebook.com/plandemasa/posts/424297831065177">discutie</a>, vrem sa stim <big>ce vrei sa imbunatatesti</big> la cum gatesti acum.
-        <br/> Povesteste-ne despre:
-        <ul class="list-unstyled">
-            <li class="list-inline">&bull; cand intri in bucatarie, de unde iti iei retetele </li>
-            <li class="list-inline">&bull; pentru cate persoane gatesti </li>
-            <li class="list-inline">&bull; cat timp iti ia sa gatesti, zilnic </li>
-        </ul>
-    </div>
     <nav class="navbar navbar-inverse navbar-default navbar-fixed">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -133,85 +116,6 @@
         </picture>
     </div>
     <!-- div class="jumbotron" -->
-    <div class="container">
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <h2>
-                    Plan {{main.plan.prima_zi | date: 'dd/MM/yyyy'}} - {{main.plan.ultima_zi | date: 'dd/MM/yyyy'}}
-                    <a href="{{main.plan.pinterest_url}}" target="_blank">
-                        <i class="fa fa-pinterest pinterest-logo"></i></a>
-                </h2>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-6 plan">
-                <div class="row-fluid">
-                    <div class="row item" ng-repeat="zi in main.plan.zile | orderBy: '+index'">
-                        <div class="image-wrapper well well-reteta">
-                            <img src="{{zi.retete.poza}}" alt="{{main.plan.nume}}: {{zi.nume}} - {{zi.retete.nume}}" class="reteta-image">
-                            <div class="reteta-detalii">
-                                <span class="reteta-zi">{{zi.nume}}</span>
-                                <br>
-                            </div>
-                            <div class="reteta-detalii">
-                                <span ng-click="openModal('lg', {{zi.retete}})" class="reteta-titlu">{{zi.retete.nume}}</span>
-                                <span class="fa-stack fa-lg reteta-abreviere-logo">
-                                    <i class="fa fa-circle-thin fa-stack-2x"></i>
-                                    <i class="fa fa-stack-1x">{{zi.abreviatie}}</i>
-                                </span>
-                            </div>
-                            <div class="reteta-detalii">
-                                <i class="fa fa-user"></i> {{zi.retete.persoane}}
-                                <i class="fa fa-shopping-cart"></i> {{main.countCumparateReteta(zi.abreviatie)}} / {{zi.retete.numar_ingrediente}}
-                                <i class="fa fa-check" ng-if="main.countCumparateReteta(zi.abreviatie) == zi.retete.numar_ingrediente"></i>
-                            </div>
-                            <div class="reteta-detalii reteta-copyright">
-                                <span class="fa fa-copyright"></span>
-                                <a href="{{zi.retete.origine_url}}" target="_blank">
-                                    <span ng-if="!!zi.retete.origine">{{zi.retete.origine}}</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-6">
-                <div class="container-fluid">
-                    <div class="row row-fluid">
-                        <div ng-repeat="categorie in main.lista | orderBy: '-ingrediente.length'" class="item">
-                            <div class="box well">
-                                <div class="capital">
-                                    {{categorie._id}} ({{categorie.ingrediente.length-main.countCumparate(categorie.ingrediente)}})
-                                </div>
-                                <div>
-                                    <div ng-repeat="produs in categorie.ingrediente | orderBy: '+ nume'" class="produs">
-                                        <span ng-if="!produs.cumparat" ng-click="main.toggleCumparat(produs)">
-                                            <i class="fa fa-square-o"></i> {{produs.nume}}
-                                            <span ng-if="produs.total > 0">: {{produs.total}} {{produs.um}}</span>
-                                        </span>
-                                        <span ng-if="produs.cumparat" ng-click="main.toggleCumparat(produs)">
-                                            <i class="fa fa-check-square-o"></i>
-                                            <span class="cumparat">{{produs.nume}}</span>
-                                            <span class="cumparat" ng-if="produs.total > 0">: {{produs.total}} {{produs.um}}</span>
-                                        </span>
-                                        <span ng-repeat="abr in produs.reteta_abrev">
-                                            <span class="fa-stack fa-lg reteta-abreviere-logo">
-                                                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                                                <i class="fa fa-stack-1x">{{abr}}</i>
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Angular content -->
     <div>
