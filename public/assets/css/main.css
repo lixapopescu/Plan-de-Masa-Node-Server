@@ -197,9 +197,11 @@ PRICING STYLES
 }
 /**custom **/
 .btn-action {
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 1.4em;
   font-weight: 500;
+  line-height: 24px;
+  background-color: #619800;
+  color: #fff;
 }
 .wrap {
   white-space: normal;
