@@ -11,7 +11,7 @@ var getListaAggregate = function(request, response, sapt) {
                 $unwind: "$zile.retete.ingrediente.lista"
             }, {
                 $match: {
-                    saptamana: 21 //TODO: change to depend on parameter 'sapt'
+                    saptamana: parseInt(sapt) //TODO: change to depend on parameter 'sapt'
                 }
             },
             //unfold with no children

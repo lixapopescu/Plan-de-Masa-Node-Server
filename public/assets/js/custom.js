@@ -19,3 +19,11 @@ $(document).ready(function() {
 });
 // $("#pricePlan1").find(".type").position().top
 // $("#pricePlan1").find(".pricing-footer").position().top = $("#pricePlan1").height() - $("#pricePlan1").find(".pricing-footer").height()
+
+//http://stackoverflow.com/questions/6117814/get-week-of-year-in-javascript-like-in-php
+Date.prototype.getWeekNumber = function(){
+    var d = new Date(+this);
+    d.setHours(0,0,0);
+    d.setDate(d.getDate()+4-(d.getDay()||7));
+    return Math.ceil((((d-new Date(d.getFullYear(),0,1))/8.64e7)+1)/7);
+};
