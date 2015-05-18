@@ -51,11 +51,11 @@
                             <div>
                                 <div ng-repeat="produs in categorie.ingrediente | orderBy: '+ nume'" class="produs">
                                     <span ng-if="!produs.cumparat" ng-click="home.toggleCumparat(produs)">
-                                        <i class="fa fa-square-o"></i> {{produs.nume}}
+                                        <i class="fa fa-square-o fa-fw"></i> {{produs.nume}}
                                         <span ng-if="produs.total > 0">: {{produs.total}} {{produs.um}}</span>
                                     </span>
                                     <span ng-if="produs.cumparat" ng-click="home.toggleCumparat(produs)">
-                                        <i class="fa fa-check-square-o"></i>
+                                        <i class="fa fa-check-square-o fa-fw"></i>
                                         <span class="cumparat">{{produs.nume}}</span>
                                     <span class="cumparat" ng-if="produs.total > 0">: {{produs.total}} {{produs.um}}</span>
                                     </span>
