@@ -22,7 +22,7 @@ var mainControllerCallback = function($scope, $window, $http, $filter, $modal) {
         return count;
     }
 
-    $http.get('/api/plan/21/lista')
+    $http.get('/api/plan/2015/05/18/lista')
         .success(function(data) {
             vm.lista = data;
             angular.forEach(vm.lista, function(sublista) {
@@ -32,7 +32,7 @@ var mainControllerCallback = function($scope, $window, $http, $filter, $modal) {
             });
         });
 
-    $http.get('/api/plan/21')
+    $http.get('/api/plan/2015/05/18')
         .success(function(data) {
             vm.plan = data;
             angular.forEach(vm.plan.zile, function(retete_o_zi) {

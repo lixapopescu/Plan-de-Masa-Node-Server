@@ -1,8 +1,9 @@
 var schemas = require('./retete');
 var Plan = schemas.Plan;
+var Utils = require('../routes/utils');
 
-var getListaAggregate = function(request, response, sapt) {
-    console.log('generate static shopping list: ' + sapt);
+var getListaAggregate = function(request, response, an, luna, zi) { //based on year/month/day
+    // console.log('generate static shopping list: ' + sapt);
     Plan.aggregate({
                 $unwind: "$zile"
             }, {
@@ -11,7 +12,8 @@ var getListaAggregate = function(request, response, sapt) {
                 $unwind: "$zile.retete.ingrediente.lista"
             }, {
                 $match: {
-                    saptamana: parseInt(sapt) //TODO: change to depend on parameter 'sapt'
+                    // saptamana: parseInt(sapt)
+                    prima_zi: Utils.getDateFromString(an, luna, zi)
                 }
             },
             //unfold with no children
