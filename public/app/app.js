@@ -1,3 +1,12 @@
+    //get current week by starting date aka Monday
+    //return in format yyyy/MM/dd to query the API easier
+    var currentMonday = function() {
+        var today = new Date();
+        var mondayAdjustement = (today.getDay() > 0) ? (-today.getDay() + 1) : -6; //adjust for week starting on Monday instead of Sunday
+        return today.getFullYear() + '/' + (today.getMonth() + 1) + '/' + (today.getDate() + mondayAdjustement);
+    }
+
+
 var mainControllerCallback = function($scope, $window, $http, $filter, $modal) {
     var vm = this;
 
@@ -14,15 +23,19 @@ var mainControllerCallback = function($scope, $window, $http, $filter, $modal) {
 
     vm.countCumparateReteta = function(reteta) {
         var allIngredients = _.flatten(_.pluck(vm.lista, 'ingrediente'));
-        var allIngredientsBought = _.where(allIngredients, {cumparat: true});
+        var allIngredientsBought = _.where(allIngredients, {
+            cumparat: true
+        });
         var count = 0;
-        _.each(allIngredientsBought, function(ingred){
+        _.each(allIngredientsBought, function(ingred) {
             count += _.contains(ingred.reteta_abrev, reteta);
         });
         return count;
     }
 
-    $http.get('/api/plan/2015/05/18/lista')
+
+    // $http.get('/api/plan/2015/05/18/lista')
+    $http.get('api/plan/' + currentMonday() + '/lista')
         .success(function(data) {
             vm.lista = data;
             angular.forEach(vm.lista, function(sublista) {
@@ -32,7 +45,7 @@ var mainControllerCallback = function($scope, $window, $http, $filter, $modal) {
             });
         });
 
-    $http.get('/api/plan/2015/05/18')
+    $http.get('/api/plan/' + currentMonday())
         .success(function(data) {
             vm.plan = data;
             angular.forEach(vm.plan.zile, function(retete_o_zi) {
@@ -113,5 +126,4 @@ angular.module('plandemasaApp', ['routerRoutes', 'ngTouch', 'ui.bootstrap'])
         };
 
     })
-    .controller('PlanController', function($scope){
-    });
+    .controller('PlanController', function($scope) {});
