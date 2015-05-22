@@ -2,12 +2,14 @@
     //return in format yyyy/MM/dd to query the API easier
     var currentMonday = function() {
         var today = new Date();
+        console.log('today', today);
         var mondayAdjustement = (today.getDay() > 0) ? (-today.getDay() + 1) : -6; //adjust for week starting on Monday instead of Sunday
         return today.getFullYear() + '/' + (today.getMonth() + 1) + '/' + (today.getDate() + mondayAdjustement);
     }
 
 
-var mainControllerCallback = function($scope, $window, $http, $filter, $modal) {
+var planController = function($scope, $http, $filter, $modal, $routeParams) {
+    console.log('home controller');
     var vm = this;
 
     vm.toggleCumparat = function(produs) {
@@ -33,9 +35,20 @@ var mainControllerCallback = function($scope, $window, $http, $filter, $modal) {
         return count;
     }
 
+    if (!!$routeParams.an && !!$routeParams.luna && !!$routeParams.zi){
+        an = $routeParams.an;
+        luna = $routeParams.luna;
+        zi = $routeParams.zi;
+        startPlan = an + '/'+ luna + '/' + zi;
+        $scope.nextWeek = true;
+    }
+    // else console.log('an not provided', $routeParams.an);
+    else startPlan = currentMonday();
 
+    console.log('currentMonday', currentMonday());
     // $http.get('/api/plan/2015/05/18/lista')
-    $http.get('api/plan/' + currentMonday() + '/lista')
+
+    $http.get('api/plan/' + startPlan + '/lista')
         .success(function(data) {
             vm.lista = data;
             angular.forEach(vm.lista, function(sublista) {
@@ -45,7 +58,7 @@ var mainControllerCallback = function($scope, $window, $http, $filter, $modal) {
             });
         });
 
-    $http.get('/api/plan/' + currentMonday())
+    $http.get('/api/plan/' + startPlan)
         .success(function(data) {
             vm.plan = data;
             angular.forEach(vm.plan.zile, function(retete_o_zi) {
@@ -54,10 +67,8 @@ var mainControllerCallback = function($scope, $window, $http, $filter, $modal) {
             });
         });
 
-    $scope.items = ['item1', 'item2', 'item3'];
     $scope.animationsEnabled = true;
     $scope.openModal = function(size, reteta) {
-
         var modalInstance = $modal.open({
             animation: $scope.animationsEnabled,
             templateUrl: 'app/views/pages/recipeModal.html',
@@ -79,44 +90,19 @@ var mainControllerCallback = function($scope, $window, $http, $filter, $modal) {
     };
 };
 
-angular.module('plandemasaApp', ['routerRoutes', 'ngTouch', 'ui.bootstrap'])
-    // create the controller and inject Angular's 
-    // this will be the controller for the ENTIRE site
-    .controller('mainController', ['$scope',
-        '$window',
-        '$http',
-        '$filter',
-        '$modal',
-        mainControllerCallback
-    ])
-    .controller('pinterestWeeklyController', ['$scope',
-        '$window',
-        function($scope, $window) {
-            var vm = this;
-            vm.message = 'pinterest widget';
-            //parse Pinterest board 
-            var element = $("pinBoard");
-            $window.parsePins(element.parent()[0]);
-        }
-    ])
-    // home page specific controller
-    .controller('homeController', ['$scope',
-        '$window',
-        '$http',
-        '$filter',
-        '$modal',
-        mainControllerCallback
-    ])
-    // about page controller
-    .controller('aboutController', function() {
-        var vm = this;
-        vm.message = 'Look! I am an about page.';
-    })
-    // contact page controller
-    .controller('contactController', function() {
-        var vm = this;
-        vm.message = 'Contact us! JK. This is just a demo.';
-    })
+// var x= 2;
+
+var mainController = function($scope, $http, $filter, $modal, $routeParams) {
+    console.log('in main controller, nothing to do here for now');
+}
+
+angular.module('plandemasaApp', ['routerRoutes', 'ngTouch', 'ui.bootstrap', 'ngRoute'])
+    .controller('mainController',
+        mainController
+    )
+    .controller('homeController', 
+        planController
+    )
     .controller('RecipeModalInstanceCtrl', function($scope, $modalInstance, reteta) {
         var vm = this;
         $scope.reteta = reteta;
@@ -126,4 +112,11 @@ angular.module('plandemasaApp', ['routerRoutes', 'ngTouch', 'ui.bootstrap'])
         };
 
     })
-    .controller('PlanController', function($scope) {});
+    .controller('testController', function($routeParams){
+        console.log('inside controller', $routeParams.id);
+        // $scope.id =
+    })
+    //selected plan
+    .controller('planController', function($routeParams) {
+        console.log('plan controller');
+    });

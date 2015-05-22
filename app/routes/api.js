@@ -81,11 +81,11 @@ module.exports = function(app, express) {
 
     apiRouter.route('/plan/:an/:luna/:zi') //format yyyy/MM/dd, for first day of plan
         .get(function(request, response) {
+                    console.log('Here Route /plan/:an/:luna/:zi');            
             Plan.findOne({
                     prima_zi: Utils.getDateFromString(request.params.an, request.params.luna, request.params.zi)
                 })
                 .exec(function(err, plan) {
-                    console.log('Route /plan/:an/:luna/:zi');
                     console.log(request.params.an, request.params.luna, request.params.zi);
                     if (err) response.send(err);
                     if (!plan) {

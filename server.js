@@ -51,18 +51,29 @@ mongoose.connect(config.database);
 app.use('/mail', require('./app/routes/mail')(app, express));
 app.use('/api', require('./app/routes/api')(app, express));
 
+//get express to route angular routes 
+app.use(function(req, res) {
+  // Use res.sendfile, as it streams instead of reading the file into memory.
+  res.sendfile(__dirname + '/public/app/views/index.html');
+});
+
 //paths
 // app.get('/', routes.index);
 // app.get('/users', user.index);
-app.get('/teste.html', function(req, res) {
-    res.sendFile(path.join(__dirname + '/public/app/views/teste.html'));
-});
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
-});
-app.get('*', function(req, res) {
-    res.redirect('/');
-});
+// app.get('/teste.html', function(req, res) {
+//     res.sendFile(path.join(__dirname + '/public/app/views/teste.html'));
+// });
+// app.get('/plan/:an/:luna/:zi', function(req, res, next){
+// 	console.log('here');
+// 	// next();
+// 	res.send();
+// });
+// app.get('/', function(req, res) {
+//     res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
+// });
+// app.get('*', function(req, res) {
+//     res.redirect('/');
+// });
 
 // START THE SERVER
 // ====================================

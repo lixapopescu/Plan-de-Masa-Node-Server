@@ -1,15 +1,22 @@
 <div class="container">
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
             <h2>
                 Plan {{home.plan.prima_zi | date: 'dd/MM/yyyy'}} - {{home.plan.ultima_zi | date: 'dd/MM/yyyy'}}
                 <a href="{{home.plan.pinterest_url}}" target="_blank">
                     <i class="fa fa-pinterest pinterest-logo"></i></a>
             </h2>
         </div>
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+            <div ng-if="!nextWeek">
+                <a href="/plan/2015/05/25">
+                    <h2><i class="fa fa-chevron-right"></i></h2>
+                </a>
+            </div>
+        </div>
     </div>
     <div class="row">
-        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-5 plan">
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 plan">
             <div class="row reteta-border" ng-repeat="zi in home.plan.zile | orderBy: '+index'">
                 <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
                     <div class="reteta-detalii">
@@ -36,11 +43,11 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                        <img src="{{zi.retete.poza}}" alt="{{home.plan.nume}}: {{zi.nume}} - {{zi.retete.nume}}" class="reteta-image">
+                    <img src="{{zi.retete.poza}}" alt="{{home.plan.nume}}: {{zi.nume}} - {{zi.retete.nume}}" class="reteta-image">
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-7">
+        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
             <div class="container-fluid">
                 <div class="row row-fluid">
                     <div ng-repeat="categorie in home.lista | orderBy: '-ingrediente.length'" class="item">

@@ -1,7 +1,7 @@
 // inject ngRoute for all our routing needs
 angular.module('routerRoutes', ['ngRoute'])
 
-// configure our routes
+// configure routes. Some names optimizied for indexing
 .config(function($routeProvider, $locationProvider) {
     $routeProvider
 
@@ -11,19 +11,22 @@ angular.module('routerRoutes', ['ngRoute'])
             controller  : 'homeController',
             controllerAs: 'home'
         })
-
-        // route for the about page
-        .when('/angularContent', {
-            templateUrl : 'app/views/pages/home.html',
-            controller  : 'homeController',
+        // .when('/ce_gatesc_saptamana_viitoare', {
+        //     templateUrl : 'app/views/pages/saptamana_viitoare.html',
+        //     controller  : 'homeController',
+        //     controllerAs: 'home'
+        // })
+        .when('/plan/:an/:luna/:zi', {
+            templateUrl: 'app/views/pages/home.html',
+            controller: 'homeController',
             controllerAs: 'home'
         })
 
         // route for the contact page
-        .when('/contact', {
-            templateUrl : 'app/views/pages/contact.html',
-            controller  : 'contactController',
-            controllerAs: 'contact'
+        .when('/test/:id', {
+            templateUrl : 'app/views/pages/test.html',
+            controller  : 'testController',
+            controllerAs: 'test'
         })
         .when('/plan_detalii', {
             templateUrl : 'app/views/pages/plan_detalii.html',

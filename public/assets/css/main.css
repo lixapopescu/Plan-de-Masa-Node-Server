@@ -401,3 +401,7 @@ a {
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
+.navigation-arrow {
+  font-size: 2em;
+  align: bottom;
+}
