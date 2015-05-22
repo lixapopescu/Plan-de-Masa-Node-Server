@@ -1,5 +1,12 @@
 <div class="container">
     <div class="row">
+        <div ng-if="nextWeek">
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                <a href="/">
+                    <h2><i class="fa fa-chevron-left"></i></h2>
+                </a>
+            </div>
+        </div>
         <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
             <h2>
                 Plan {{home.plan.prima_zi | date: 'dd/MM/yyyy'}} - {{home.plan.ultima_zi | date: 'dd/MM/yyyy'}}
@@ -7,8 +14,8 @@
                     <i class="fa fa-pinterest pinterest-logo"></i></a>
             </h2>
         </div>
-        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-            <div ng-if="!nextWeek">
+        <div ng-if="!nextWeek">
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
                 <a href="/plan/2015/05/25">
                     <h2><i class="fa fa-chevron-right"></i></h2>
                 </a>
