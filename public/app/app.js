@@ -1,11 +1,11 @@
-    //get current week by starting date aka Monday
-    //return in format yyyy/MM/dd to query the API easier
-    var currentMonday = function() {
-        var today = new Date();
-        console.log('today', today);
-        var mondayAdjustement = (today.getDay() > 0) ? (-today.getDay() + 1) : -6; //adjust for week starting on Monday instead of Sunday
-        return today.getFullYear() + '/' + (today.getMonth() + 1) + '/' + (today.getDate() + mondayAdjustement);
-    }
+//get current week by starting date aka Monday
+//return in format yyyy/MM/dd to query the API easier
+var currentMonday = function() {
+    var today = new Date();
+    console.log('today', today);
+    var mondayAdjustement = (today.getDay() > 0) ? (-today.getDay() + 1) : -6; //adjust for week starting on Monday instead of Sunday
+    return today.getFullYear() + '/' + (today.getMonth() + 1) + '/' + (today.getDate() + mondayAdjustement);
+};
 
 
 var planController = function($scope, $http, $filter, $modal, $routeParams) {
@@ -35,18 +35,14 @@ var planController = function($scope, $http, $filter, $modal, $routeParams) {
         return count;
     }
 
-    if (!!$routeParams.an && !!$routeParams.luna && !!$routeParams.zi){
+
+    if (!!$routeParams.an && !!$routeParams.luna && !!$routeParams.zi) {
         an = $routeParams.an;
         luna = $routeParams.luna;
         zi = $routeParams.zi;
-        startPlan = an + '/'+ luna + '/' + zi;
+        startPlan = an + '/' + luna + '/' + zi;
         $scope.nextWeek = true;
-    }
-    // else console.log('an not provided', $routeParams.an);
-    else startPlan = currentMonday();
-
-    console.log('currentMonday', currentMonday());
-    // $http.get('/api/plan/2015/05/18/lista')
+    } else startPlan = currentMonday();
 
     $http.get('api/plan/' + startPlan + '/lista')
         .success(function(data) {
@@ -65,6 +61,23 @@ var planController = function($scope, $http, $filter, $modal, $routeParams) {
                 var ingrediente = _.union(_.flatten(_.pluck(retete_o_zi.retete.ingrediente, 'lista')));
                 retete_o_zi.retete.numar_ingrediente = _.union(_.pluck(ingrediente, 'nume')).length;
             });
+            var today = new Date();
+            $scope.today = {
+                an: today.getFullYear(),
+                luna: today.getMonth(),
+                zi: today.getDate()
+            };
+            $scope.start_date = {
+                an: parseInt($filter('date')(vm.plan.prima_zi, 'yyyy')),
+                luna: parseInt($filter('date')(vm.plan.prima_zi, 'MM')) - 1,
+                zi: parseInt($filter('date')(vm.plan.prima_zi, 'dd'))
+            };
+            $scope.isToday= function(start_date, index, today) {
+                console.log('istoday', start_date.zi, index, today.zi, ':', start_date.zi + index - 1 == today.zi);
+                return (start_date.zi + parseInt(index) - 1 == today.zi);
+            }
+            console.log('start_date.zi', $scope.start_date.zi);
+            // console.log($scope.today.zi == $scope.start_date.zi);
         });
 
     $scope.animationsEnabled = true;
@@ -100,7 +113,7 @@ angular.module('plandemasaApp', ['routerRoutes', 'ngTouch', 'ui.bootstrap', 'ngR
     .controller('mainController',
         mainController
     )
-    .controller('homeController', 
+    .controller('homeController',
         planController
     )
     .controller('RecipeModalInstanceCtrl', function($scope, $modalInstance, reteta) {
@@ -112,7 +125,7 @@ angular.module('plandemasaApp', ['routerRoutes', 'ngTouch', 'ui.bootstrap', 'ngR
         };
 
     })
-    .controller('testController', function($routeParams){
+    .controller('testController', function($routeParams) {
         console.log('inside controller', $routeParams.id);
         // $scope.id =
     })
