@@ -1,10 +1,38 @@
 //get current week by starting date aka Monday
 //return in format yyyy/MM/dd to query the API easier
+var path = '/';
+var daysPerWeek = 7; //days
+
+Date.prototype.addDays = function(days) {
+    this.setDate(this.getDate() + parseInt(days));
+    return this;
+};
+
+Date.prototype.toJson = function() {
+    return {
+        year: this.getFullYear(),
+        month: this.getMonth() + 1,
+        day: this.getDate()
+    }
+}
+
+var dateToPath = function(date) {
+    return date.year + path + date.month + path + date.day;
+}
+
 var currentMonday = function() {
     var today = new Date();
     var mondayAdjustement = (today.getDay() > 0) ? (-today.getDay() + 1) : -6; //adjust for week starting on Monday instead of Sunday
-    return today.getFullYear() + '/' + (today.getMonth() + 1) + '/' + (today.getDate() + mondayAdjustement);
+    today.addDays(mondayAdjustement);
+    return today.toJson();
 };
+
+var nextMonday = function() {
+        var thisMonday = currentMonday();
+        var nextMondayDate = new Date(thisMonday.year, thisMonday.month - 1, thisMonday.day).addDays(daysPerWeek);
+        console.log('nextMondayDate', dateToPath(nextMondayDate.toJson()));
+        return dateToPath(nextMondayDate.toJson());
+    }
 
 
 var planController = function($scope, $http, $filter, $modal, $stateParams) {
@@ -34,13 +62,16 @@ var planController = function($scope, $http, $filter, $modal, $stateParams) {
         return count;
     }
 
-    if (!!$stateParams.an && !!$stateParams.luna && !!$stateParams.zi) {
-        an = $stateParams.an;
-        luna = $stateParams.luna;
-        zi = $stateParams.zi;
-        startPlan = an + '/' + luna + '/' + zi;
+    $scope.nextMonday = nextMonday();
+
+    if (!!$stateParams.year && !!$stateParams.month && !!$stateParams.day) {
+        // an = $stateParams.an;
+        // luna = $stateParams.luna;
+        // zi = $stateParams.zi;
+        // startPlan = an + path + luna + path + zi;
+        startPlan = dateToPath($stateParams);
         $scope.nextWeek = true;
-    } else startPlan = currentMonday();
+    } else startPlan = dateToPath(currentMonday());
 
     $http.get('api/plan/' + startPlan + '/lista')
         .success(function(data) {
@@ -70,7 +101,7 @@ var planController = function($scope, $http, $filter, $modal, $stateParams) {
                 luna: parseInt($filter('date')(vm.plan.prima_zi, 'MM')) - 1,
                 zi: parseInt($filter('date')(vm.plan.prima_zi, 'dd'))
             };
-            $scope.isToday= function(start_date, index, today) {
+            $scope.isToday = function(start_date, index, today) {
                 return (start_date.zi + parseInt(index) - 1 == today.zi);
             }
         });

@@ -2,7 +2,7 @@ angular.module('routerRoutes', ['ui.router', 'ct.ui.router.extras'])
 
 .config(function($stateProvider, $stickyStateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider.otherwise('/');
-    $stickyStateProvider.enableDebug(true);
+    // $stickyStateProvider.enableDebug(true);
 
     $stateProvider
         .state('/', {
@@ -12,8 +12,8 @@ angular.module('routerRoutes', ['ui.router', 'ct.ui.router.extras'])
             controllerAs: 'home',
             deepStateRedirect: true
         })
-        .state('/plan/:an/:luna/:zi', {
-            url: '/plan/:an/:luna/:zi',
+        .state('/plan/:year/:month/:day', {
+            url: '/plan/:year/:month/:day',
             templateUrl: 'app/views/pages/home.html',
             controller: 'homeController',
             controllerAs: 'home',
