@@ -2,13 +2,12 @@
 //return in format yyyy/MM/dd to query the API easier
 var currentMonday = function() {
     var today = new Date();
-    console.log('today', today);
     var mondayAdjustement = (today.getDay() > 0) ? (-today.getDay() + 1) : -6; //adjust for week starting on Monday instead of Sunday
     return today.getFullYear() + '/' + (today.getMonth() + 1) + '/' + (today.getDate() + mondayAdjustement);
 };
 
 
-var planController = function($scope, $http, $filter, $modal, $routeParams) {
+var planController = function($scope, $http, $filter, $modal, $stateParams) {
     console.log('home controller');
     var vm = this;
 
@@ -35,11 +34,10 @@ var planController = function($scope, $http, $filter, $modal, $routeParams) {
         return count;
     }
 
-
-    if (!!$routeParams.an && !!$routeParams.luna && !!$routeParams.zi) {
-        an = $routeParams.an;
-        luna = $routeParams.luna;
-        zi = $routeParams.zi;
+    if (!!$stateParams.an && !!$stateParams.luna && !!$stateParams.zi) {
+        an = $stateParams.an;
+        luna = $stateParams.luna;
+        zi = $stateParams.zi;
         startPlan = an + '/' + luna + '/' + zi;
         $scope.nextWeek = true;
     } else startPlan = currentMonday();
@@ -73,11 +71,8 @@ var planController = function($scope, $http, $filter, $modal, $routeParams) {
                 zi: parseInt($filter('date')(vm.plan.prima_zi, 'dd'))
             };
             $scope.isToday= function(start_date, index, today) {
-                console.log('istoday', start_date.zi, index, today.zi, ':', start_date.zi + index - 1 == today.zi);
                 return (start_date.zi + parseInt(index) - 1 == today.zi);
             }
-            console.log('start_date.zi', $scope.start_date.zi);
-            // console.log($scope.today.zi == $scope.start_date.zi);
         });
 
     $scope.animationsEnabled = true;
@@ -89,7 +84,7 @@ var planController = function($scope, $http, $filter, $modal, $routeParams) {
             size: size,
             resolve: {
                 reteta: function() {
-                    console.log(reteta);
+                    // console.log(reteta);
                     return reteta;
                 }
             }
@@ -105,7 +100,7 @@ var planController = function($scope, $http, $filter, $modal, $routeParams) {
 
 // var x= 2;
 
-var mainController = function($scope, $http, $filter, $modal, $routeParams) {
+var mainController = function($scope, $http, $filter, $modal, $stateParams) {
     console.log('in main controller, nothing to do here for now');
 }
 
@@ -125,11 +120,11 @@ angular.module('plandemasaApp', ['routerRoutes', 'ngTouch', 'ui.bootstrap', 'ngR
         };
 
     })
-    .controller('testController', function($routeParams) {
-        console.log('inside controller', $routeParams.id);
+    .controller('testController', function($stateParams) {
+        console.log('inside controller', $stateParams.id);
         // $scope.id =
     })
     //selected plan
-    .controller('planController', function($routeParams) {
+    .controller('planController', function($stateParams) {
         console.log('plan controller');
     });

@@ -1,36 +1,28 @@
-// inject ngRoute for all our routing needs
-angular.module('routerRoutes', ['ngRoute'])
+angular.module('routerRoutes', ['ui.router', 'ct.ui.router.extras'])
 
-// configure routes. Some names optimizied for indexing
-.config(function($routeProvider, $locationProvider) {
-    $routeProvider
+.config(function($stateProvider, $stickyStateProvider, $urlRouterProvider, $locationProvider) {
+    $urlRouterProvider.otherwise('/');
+    $stickyStateProvider.enableDebug(true);
 
-        //route for the home page
-        .when('/', {
-            templateUrl : 'app/views/pages/home.html',
-            controller  : 'homeController',
-            controllerAs: 'home'
-        })
-        // .when('/ce_gatesc_saptamana_viitoare', {
-        //     templateUrl : 'app/views/pages/saptamana_viitoare.html',
-        //     controller  : 'homeController',
-        //     controllerAs: 'home'
-        // })
-        .when('/plan/:an/:luna/:zi', {
+    $stateProvider
+        .state('/', {
+            url: '/',
             templateUrl: 'app/views/pages/home.html',
             controller: 'homeController',
-            controllerAs: 'home'
+            controllerAs: 'home',
+            deepStateRedirect: true
         })
-
-        // route for the contact page
-        .when('/test/:id', {
-            templateUrl : 'app/views/pages/test.html',
-            controller  : 'testController',
-            controllerAs: 'test'
+        .state('/plan/:an/:luna/:zi', {
+            url: '/plan/:an/:luna/:zi',
+            templateUrl: 'app/views/pages/home.html',
+            controller: 'homeController',
+            controllerAs: 'home',
+            deepStateRedirect: true
         })
-        .when('/plan_detalii', {
-            templateUrl : 'app/views/pages/plan_detalii.html',
-            controller  : 'planDetaliiController',
+        .state('/plan_detalii', {
+            url: '/plan_detalii',
+            templateUrl: 'app/views/pages/plan_detalii.html',
+            controller: 'planDetaliiController',
             controllerAs: 'planDetCtrl'
         });
 
