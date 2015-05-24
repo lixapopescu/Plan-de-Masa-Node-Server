@@ -11,16 +11,22 @@
                     <li ng-repeat="ingredient in categ_ingredient.lista | orderBy: '+ordine'">
                         {{ingredient.nume}}
                         <span ng-if="ingredient.cantitate">: {{ingredient.cantitate}} {{ingredient.um}} </span>
-                        <span ng-if="ingredient.comentariu" class="ingredient-comentariu">({{ingredient.comentariu}})</span>    
+                        <span ng-if="ingredient.comentariu" class="ingredient-comentariu">({{ingredient.comentariu}})</span>
                     </li>
                 </ul>
             </div>
         </div>
         <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
             <div ng-repeat="instructiune in reteta.instructiuni | orderBy: '+ordine'">
-            	{{instructiune.ordine}}. 
-            	<span ng-if="!!instructiune.pentru" class="instructiune-pentru">{{instructiune.pentru}}</span>
-            	{{instructiune.text}}
+                {{instructiune.ordine}}.
+                <span ng-if="!!instructiune.pentru" class="instructiune-pentru">{{instructiune.pentru}}</span> {{instructiune.text}}
+            </div>
+            <div>
+                <i class="fa fa-road"></i>
+                <span>Vezi toata povestea retetei pe </span>
+                <a href="{{reteta.origine_url}}" target="_blank">
+                    <span ng-if="!!reteta.origine">{{reteta.origine}}</span>
+                </a>
             </div>
         </div>
     </div>
