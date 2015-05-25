@@ -28,11 +28,11 @@ var currentMonday = function() {
 };
 
 var nextMonday = function() {
-        var thisMonday = currentMonday();
-        var nextMondayDate = new Date(thisMonday.year, thisMonday.month - 1, thisMonday.day).addDays(daysPerWeek);
-        console.log('nextMondayDate', dateToPath(nextMondayDate.toJson()));
-        return dateToPath(nextMondayDate.toJson());
-    }
+    var thisMonday = currentMonday();
+    var nextMondayDate = new Date(thisMonday.year, thisMonday.month - 1, thisMonday.day).addDays(daysPerWeek);
+    console.log('nextMondayDate', dateToPath(nextMondayDate.toJson()));
+    return dateToPath(nextMondayDate.toJson());
+}
 
 
 var planController = function($scope, $http, $filter, $modal, $stateParams) {
@@ -65,15 +65,12 @@ var planController = function($scope, $http, $filter, $modal, $stateParams) {
     $scope.nextMonday = nextMonday();
 
     if (!!$stateParams.year && !!$stateParams.month && !!$stateParams.day) {
-        // an = $stateParams.an;
-        // luna = $stateParams.luna;
-        // zi = $stateParams.zi;
-        // startPlan = an + path + luna + path + zi;
-        startPlan = dateToPath($stateParams);
+        $scope.startPlan = $stateParams;
         $scope.nextWeek = true;
-    } else startPlan = dateToPath(currentMonday());
+    } else $scope.startPlan = currentMonday();
+    startPlanPath = dateToPath($scope.startPlan);
 
-    $http.get('api/plan/' + startPlan + '/lista')
+    $http.get('api/plan/' + startPlanPath + '/lista')
         .success(function(data) {
             vm.lista = data;
             angular.forEach(vm.lista, function(sublista) {
@@ -83,12 +80,14 @@ var planController = function($scope, $http, $filter, $modal, $stateParams) {
             });
         });
 
-    $http.get('/api/plan/' + startPlan)
+    $http.get('/api/plan/' + startPlanPath)
         .success(function(data) {
             vm.plan = data;
             angular.forEach(vm.plan.zile, function(retete_o_zi) {
                 var ingrediente = _.union(_.flatten(_.pluck(retete_o_zi.retete.ingrediente, 'lista')));
                 retete_o_zi.retete.numar_ingrediente = _.union(_.pluck(ingrediente, 'nume')).length;
+
+                retete_o_zi.retete.url = retete_o_zi.retete.nume.replace(/ /g, "_");
             });
             var today = new Date();
             $scope.today = {
@@ -107,55 +106,111 @@ var planController = function($scope, $http, $filter, $modal, $stateParams) {
         });
 
     $scope.animationsEnabled = true;
-    $scope.openModal = function(size, reteta) {
-        var modalInstance = $modal.open({
-            animation: $scope.animationsEnabled,
-            templateUrl: 'app/views/pages/recipeModal.html',
-            controller: 'RecipeModalInstanceCtrl',
-            size: size,
-            resolve: {
-                reteta: function() {
-                    // console.log(reteta);
-                    return reteta;
-                }
-            }
-        });
-
-        modalInstance.result.then(function(selectedItem) {
-            $scope.selected = selectedItem;
-        }, function() {
-            console.info('Modal dismissed at: ' + new Date());
-        });
-    };
 };
 
 // var x= 2;
 
-var mainController = function($scope, $http, $filter, $modal, $stateParams) {
+var mainController = function($scope, $http, $filter, $stateParams) {
     console.log('in main controller, nothing to do here for now');
 }
 
-angular.module('plandemasaApp', ['routerRoutes', 'ngTouch', 'ui.bootstrap', 'ngRoute'])
+angular.module('plandemasaApp', ['scopeRoutes', 'ngTouch', 'ui.bootstrap'])
     .controller('mainController',
         mainController
     )
     .controller('homeController',
         planController
     )
-    .controller('RecipeModalInstanceCtrl', function($scope, $modalInstance, reteta) {
-        var vm = this;
-        $scope.reteta = reteta;
-
-        $scope.ok = function() {
-            $modalInstance.close();
-        };
-
+    .controller('RecipeModalInstanceCtrl', function($http, $scope, reteta, $stateParams) {
+        if (!!reteta) {
+            //modal display
+            $scope.reteta = reteta;
+        } else {
+            //full display
+            $http.get('api/plan' + path + dateToPath($stateParams) + path + "reteta" + path + $stateParams.id)
+                .success(function(data) {
+                    $scope.reteta = data[0].reteta;
+                });
+            $scope.year = $stateParams.year;                
+            $scope.month = $stateParams.month;                
+            $scope.day = $stateParams.day;                
+        }
     })
-    .controller('testController', function($stateParams) {
-        console.log('inside controller', $stateParams.id);
-        // $scope.id =
-    })
-    //selected plan
-    .controller('planController', function($stateParams) {
-        console.log('plan controller');
+    .run(function($rootScope, $state, $modal) { //http://plnkr.co/edit/Qi1UDcFgTEeJmKa4liK2?p=preview
+        var stateBehindModal = {},
+            modalInstance = null;
+
+        $rootScope.$on("$stateChangeStart", function(evt, toState, toStateParams, fromState, fromStateParams) {
+
+            //
+            // Implementing "proxy": redirect to the state according to where it's from.
+            //
+            if (toState.proxy) {
+                evt.preventDefault();
+
+                if (fromState.name === '' || fromState.name === toState.proxy.external) {
+                    // Visiting directly via URL or from the external state,
+                    // redirect to external (full) state.
+                    $state.go(toState.proxy.external, toStateParams); // PINTEREST behaviour
+                    // $state.go(toState.proxy.internal, toStateParams);
+                } else {
+                    // Visiting from another state, redirect to internal (modal) state
+                    $state.go(toState.proxy.internal, toStateParams);
+                }
+
+                return;
+            }
+
+            // Implementing "isModal":
+            // perform the required action to transitions between "modal states" and "non-modal states".
+            //
+
+            if (!fromState.isModal && toState.isModal) {
+                //
+                // Non-modal state ---> modal state
+                //
+
+                stateBehindModal = {
+                    state: fromState,
+                    params: fromStateParams
+                };
+
+                // Open up modal
+                // modalInstance = $modal.open({
+                //     template: '<div ui-view="modal"></div>'
+                // });
+
+                modalInstance = $modal.open({
+                    // templateUrl: 'modal1.html',
+                    template: '<div ui-view="modal"></div>',
+                    // backdrop: 'static',
+                    controller: function($modalInstance, $scope) {
+                        $scope.close = function() {
+                            $modalInstance.dismiss('close');
+                        };
+                    }
+                });
+
+                modalInstance.result.finally(function() {
+                    // Reset instance to mark that the modal has been dismissed.
+                    modalInstance = null
+
+                    // Go to previous state
+                    $state.go(stateBehindModal.state, stateBehindModal.params);
+                });
+
+            } else if (fromState.isModal && !toState.isModal) {
+                //
+                // Modal state ---> non-modal state
+                //
+
+                // Directly return if the instance is already dismissed.
+                if (!modalInstance) {
+                    return;
+                }
+
+                // Dismiss the modal, triggering the reset of modalInstance
+                modalInstance.dismiss();
+            }
+        });
     });

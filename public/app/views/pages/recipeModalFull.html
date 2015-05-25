@@ -32,13 +32,5 @@
     </div>
 </div>
 <div class="modal-footer">
-    <div ng-switch on="planLink">
-        <div ng-switch-when="true">
-            <button class="btn btn-primary" ng-click="close()">Inapoi la plan</button>
-        </div>
-        <div ng-switch-default>
-            <button class="btn btn-primary" ng-click="close()">Gata</button>
-        </div>
-    </div>
-
+    <button class="btn btn-primary" ui-sref="plan({year:year, month: month, day: day})">Inapoi la plan</button>
 </div>

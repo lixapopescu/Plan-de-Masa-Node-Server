@@ -32,8 +32,9 @@
                         <br>
                     </div>
                     <div class="reteta-detalii">
-                        <span ng-click="openModal('lg', {{zi.retete}})" class="reteta-titlu">{{zi.retete.nume}}</span>
-                        <span class="fa-stack fa-lg reteta-abreviere-logo">
+                        <span ui-sref="retetaModal({year: startPlan.year, month: startPlan.month, day: startPlan.day, id: zi.retete.url, reteta: zi.retete})" class="reteta-titlu">{{zi.retete.nume}}</span>
+<!--                         <span ng-click="openModal('lg', {{zi.retete}})" class="reteta-titlu">{{zi.retete.nume}}</span>
+ -->                        <span class="fa-stack fa-lg reteta-abreviere-logo">
                                 <i class="fa fa-circle-thin fa-stack-2x"></i>
                                 <i class="fa fa-stack-1x">{{zi.abreviatie}}</i>
                             </span>

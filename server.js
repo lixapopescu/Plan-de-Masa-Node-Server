@@ -15,6 +15,7 @@ var stylus = require('stylus');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var passportLocalMongoose = require('passport-local-mongoose');
 var methodOverride = require('method-override');
+var _=require('underscore');
 //var Retete = require('./app/models/retete');
 
 //global variables
@@ -54,26 +55,8 @@ app.use('/api', require('./app/routes/api')(app, express));
 //get express to route angular routes 
 app.use(function(req, res) {
   // Use res.sendfile, as it streams instead of reading the file into memory.
-  res.sendfile(__dirname + '/public/app/views/index.html');
+  res.sendFile(__dirname + '/public/app/views/index.html');
 });
-
-//paths
-// app.get('/', routes.index);
-// app.get('/users', user.index);
-// app.get('/teste.html', function(req, res) {
-//     res.sendFile(path.join(__dirname + '/public/app/views/teste.html'));
-// });
-// app.get('/plan/:an/:luna/:zi', function(req, res, next){
-// 	console.log('here');
-// 	// next();
-// 	res.send();
-// });
-// app.get('/', function(req, res) {
-//     res.sendFile(path.join(__dirname + '/public/app/views/index.html'));
-// });
-// app.get('*', function(req, res) {
-//     res.redirect('/');
-// });
 
 // START THE SERVER
 // ====================================

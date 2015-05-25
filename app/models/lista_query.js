@@ -71,8 +71,10 @@ var getListaAggregate = function(request, response, an, luna, zi) { //based on y
                     }
                 }
             })
-        .exec(function(err, lista) {//TODO: error handling
-            response.json(lista);
+        .exec(function(err, lista) {
+            console.log('lista query');
+            if (err) response.json(err);
+            else response.json(lista);
         });
 
 };

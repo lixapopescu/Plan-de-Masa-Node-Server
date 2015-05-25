@@ -8,6 +8,7 @@ var Utils = require('./utils');
 var Reteta = schemas.Reteta;
 var Plan = schemas.Plan;
 var ListaQuery = require('../models/lista_query');
+var RecipeInPlan = require('../models/reteta_plan_query');
 
 module.exports = function(app, express) {
 
@@ -45,30 +46,6 @@ module.exports = function(app, express) {
             });
         });
 
-    // apiRouter.route('/plan/:saptamana')
-    //     //get meal plans (accessed at GET base_url/api/plan?saptamana=...)
-    //     //return FIRST occurence (using findOne)
-    //     .get(function(request, response) {
-    //         Plan.findOne({
-    //                 saptamana: request.params.saptamana
-    //             })
-    //             .exec(function(err, plan) {
-    //                 if (err) response.send(err);
-    //                 if (!plan) {
-    //                     console.log('No plan'.red);
-    //                     response.json({
-    //                         message: "Nici un plan pentru saptamana ceruta.",
-    //                         saptamana: request.params.saptamana,
-    //                         code: 101
-    //                     });
-    //                 } else
-    //                     response.json(plan);
-    //             });
-    //     });
-    // apiRouter.route('/plan/:saptamana/lista')
-    //     .get(function(request, response) {
-    //         ListaQuery(request, response, request.params.saptamana);
-    //     });
     apiRouter.route('/plan')
         //get all meal plans (accessed at GET base_url/api/plan)
         .get(function(request, response) {
@@ -81,7 +58,7 @@ module.exports = function(app, express) {
 
     apiRouter.route('/plan/:an/:luna/:zi') //format yyyy/MM/dd, for first day of plan
         .get(function(request, response) {
-                    console.log('Here Route /plan/:an/:luna/:zi');            
+            console.log('Here Route /plan/:an/:luna/:zi');
             Plan.findOne({
                     prima_zi: Utils.getDateFromString(request.params.an, request.params.luna, request.params.zi)
                 })
@@ -97,6 +74,11 @@ module.exports = function(app, express) {
                     } else
                         response.json(plan);
                 });
+        });
+    apiRouter.route('/plan/:an/:luna/:zi/reteta/:recipe_name') //format yyyy/MM/dd,
+        .get(function(request, response) {
+            console.log('find reteta in plan');
+            RecipeInPlan(response, request.params.an, request.params.luna, request.params.zi, request.params.recipe_name);
         });
     apiRouter.route('/plan/:an/:luna/:zi/lista')
         .get(function(request, response) {
