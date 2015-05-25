@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-        <div ng-if="!!nextWeek">
+        <div ng-if="!thisWeek">
             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
                 <a href="/">
                     <h2><i class="fa fa-chevron-left"></i></h2>
@@ -9,13 +9,13 @@
         </div>
         <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
             <h2>
-                Plan {{home.plan.prima_zi | date: 'dd/MM/yyyy'}} - {{home.plan.ultima_zi | date: 'dd/MM/yyyy'}}
+                Plan {{plan.prima_zi | date: 'dd/MM/yyyy'}} - {{plan.ultima_zi | date: 'dd/MM/yyyy'}}
                 {{home.start_date}}
-                <a href="{{home.plan.pinterest_url}}" target="_blank">
+                <a href="{{plan.pinterest_url}}" target="_blank">
                     <i class="fa fa-pinterest pinterest-logo"></i></a>
             </h2>
         </div>
-        <div ng-if="!nextWeek">
+        <div ng-if="!!thisWeek">
             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
                 <a href="/plan/{{nextMonday}}">
                     <h2><i class="fa fa-chevron-right"></i></h2>
@@ -25,7 +25,7 @@
     </div>
     <div class="row">
         <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 plan">
-            <div class="row reteta-border" ng-class="{todaybox: isToday(start_date,zi.index,today)}" ng-repeat="zi in home.plan.zile | orderBy: '+index'">
+            <div class="row reteta-border" ng-class="{todaybox: isToday(start_date,zi.index,today)}" ng-repeat="zi in plan.zile | orderBy: '+index'">
                 <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
                     <div class="reteta-detalii">
                         <span class="reteta-zi">{{zi.nume}}</span>
@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                    <img src="{{zi.retete.poza}}" alt="{{home.plan.nume}}: {{zi.nume}} - {{zi.retete.nume}}" class="reteta-image">
+                    <img src="{{zi.retete.poza}}" alt="{{plan.nume}}: {{zi.nume}} - {{zi.retete.nume}}" class="reteta-image">
                 </div>
             </div>
         </div>

@@ -20,6 +20,10 @@ var dateToPath = function(date) {
     return date.year + path + date.month + path + date.day;
 }
 
+var jsonToDate = function(dateJson){
+    return new Date(dateJson.year, dateJson.month, dateJson.day);
+}
+
 var currentMonday = function() {
     var today = new Date();
     var mondayAdjustement = (today.getDay() > 0) ? (-today.getDay() + 1) : -6; //adjust for week starting on Monday instead of Sunday
@@ -66,7 +70,6 @@ var planController = function($scope, $http, $filter, $modal, $stateParams) {
 
     if (!!$stateParams.year && !!$stateParams.month && !!$stateParams.day) {
         $scope.startPlan = $stateParams;
-        $scope.nextWeek = true;
     } else $scope.startPlan = currentMonday();
     startPlanPath = dateToPath($scope.startPlan);
 
@@ -82,28 +85,33 @@ var planController = function($scope, $http, $filter, $modal, $stateParams) {
 
     $http.get('/api/plan/' + startPlanPath)
         .success(function(data) {
-            vm.plan = data;
-            angular.forEach(vm.plan.zile, function(retete_o_zi) {
+            $scope.plan = data;
+            angular.forEach($scope.plan.zile, function(retete_o_zi) {
                 var ingrediente = _.union(_.flatten(_.pluck(retete_o_zi.retete.ingrediente, 'lista')));
                 retete_o_zi.retete.numar_ingrediente = _.union(_.pluck(ingrediente, 'nume')).length;
 
                 retete_o_zi.retete.url = retete_o_zi.retete.nume.replace(/ /g, "_");
             });
-            var today = new Date();
-            $scope.today = {
-                an: today.getFullYear(),
-                luna: today.getMonth(),
-                zi: today.getDate()
-            };
+
             $scope.start_date = {
-                an: parseInt($filter('date')(vm.plan.prima_zi, 'yyyy')),
-                luna: parseInt($filter('date')(vm.plan.prima_zi, 'MM')) - 1,
-                zi: parseInt($filter('date')(vm.plan.prima_zi, 'dd'))
+                year: parseInt($filter('date')($scope.plan.prima_zi, 'yyyy')),
+                month: parseInt($filter('date')($scope.plan.prima_zi, 'MM')) - 1,
+                day: parseInt($filter('date')($scope.plan.prima_zi, 'dd'))
             };
-            $scope.isToday = function(start_date, index, today) {
-                return (start_date.zi + parseInt(index) - 1 == today.zi);
-            }
+            $scope.thisWeek = (today >= jsonToDate($scope.start_date) && today < jsonToDate($scope.start_date).addDays(daysPerWeek));
         });
+
+    var today = new Date();
+    $scope.today = {
+        year: today.getFullYear(),
+        month: today.getMonth(),
+        day: today.getDate()
+    };
+
+
+    $scope.isToday = function(start_date, index, today) {
+        return (start_date.day + parseInt(index) - 1 == today.day);
+    }
 
     $scope.animationsEnabled = true;
 };
@@ -131,9 +139,9 @@ angular.module('plandemasaApp', ['scopeRoutes', 'ngTouch', 'ui.bootstrap'])
                 .success(function(data) {
                     $scope.reteta = data[0].reteta;
                 });
-            $scope.year = $stateParams.year;                
-            $scope.month = $stateParams.month;                
-            $scope.day = $stateParams.day;                
+            $scope.year = $stateParams.year;
+            $scope.month = $stateParams.month;
+            $scope.day = $stateParams.day;
         }
     })
     .run(function($rootScope, $state, $modal) { //http://plnkr.co/edit/Qi1UDcFgTEeJmKa4liK2?p=preview
