@@ -107,16 +107,16 @@
 
     <!-- <div state-vis width="400" height="200">vis</div> -->
 
-    <div class="jumbotron hidden-xs" id="jumbo">
+<!--     <div class="jumbotron hidden-xs" id="jumbo">
         <picture>
             <!--[if IE 9]><video style="display: none;"><![endif]-->
-            <source srcset="../../assets/images/salata_fructe_xlarge.jpg" media="(min-width: 768px)" />
+            <!-- <source srcset="../../assets/images/salata_fructe_xlarge.jpg" media="(min-width: 768px)" />
             <source srcset="../../assets/images/salata_fructe.jpg" media="(min-width: 640px)" />
-            <source srcset="../../assets/images/salata_fructe.jpg" />
+            <source srcset="../../assets/images/salata_fructe.jpg" /> -->
             <!--[if IE 9]></video><![endif]-->
-            <img src="../../assets/images/salata_fructe.jpg" alt="Salata de fructe" class="img-responsive" />
+            <!-- <img src="../../assets/images/salata_fructe.jpg" alt="Salata de fructe" class="img-responsive" />
         </picture>
-    </div>
+    </div> --> 
     <!-- div class="jumbotron" -->
 
     <!-- Angular content -->
@@ -125,7 +125,13 @@
             <!-- angular templating will go here -->
             <!-- this is where content will be injected -->
 
-            <div ui-view></div>
+            <div ui-view>
+                <div class="row">
+                    <div class="loading col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <h2><i class="fa fa-spinner fa-pulse"></i></h2>
+                    </div>
+                </div>
+            </div>
 
         </main>
 

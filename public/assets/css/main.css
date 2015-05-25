@@ -408,3 +408,7 @@ a {
 .todaybox {
   background-color: #bed793;
 }
+.loading {
+  text-align: center;
+  font-size: 3em;
+}
