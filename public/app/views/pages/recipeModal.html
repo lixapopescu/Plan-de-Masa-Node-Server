@@ -1,31 +1,31 @@
 <div class="modal-header">
-    <h3 class="modal-title">{{reteta.nume}}</h3>
-    <i class="fa fa-user"></i> {{reteta.persoane}}
+    <h3 class="modal-title">{{recipe._id}}</h3>
+    <i class="fa fa-user"></i> {{recipe.persons}}
 </div>
 <div class="modal-body">
     <div class="row">
         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-            <div ng-repeat="categ_ingredient in reteta.ingrediente">
-                <span ng-if="reteta.ingrediente.length > 1">{{categ_ingredient.pentru}}</span>
+            <div ng-repeat="categ_ingredient in recipe.ingredients">
+                <span ng-if="recipe.ingredients.length > 1">{{categ_ingredient.for_what}}</span>
                 <ul>
-                    <li ng-repeat="ingredient in categ_ingredient.lista | orderBy: '+ordine'">
-                        {{ingredient.nume}}
-                        <span ng-if="ingredient.cantitate">: {{ingredient.cantitate}} {{ingredient.um}} </span>
-                        <span ng-if="ingredient.comentariu" class="ingredient-comentariu">({{ingredient.comentariu}})</span>
+                    <li ng-repeat="ingredient in categ_ingredient.list | orderBy: '+category'">
+                        {{ingredient.name}}
+                        <span ng-if="ingredient.quantity">: {{ingredient.quantity}} {{ingredient.um}} </span>
+                        <span ng-if="ingredient.comment" class="ingredient-comentariu">({{ingredient.comment}})</span>
                     </li>
                 </ul>
             </div>
         </div>
         <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-            <div ng-repeat="instructiune in reteta.instructiuni | orderBy: '+ordine'">
-                {{instructiune.ordine}}.
-                <span ng-if="!!instructiune.pentru" class="instructiune-pentru">{{instructiune.pentru}}</span> {{instructiune.text}}
+            <div ng-repeat="instruction in recipe.instructions | orderBy: '+order'">
+                {{instruction.order}}.
+                <span ng-if="!!instruction.for_what" class="instructiune-pentru">{{instruction.for_what}}</span> {{instruction.text}}
             </div>
             <div>
                 <i class="fa fa-road"></i>
                 <span>Vezi toata povestea retetei pe </span>
-                <a href="{{reteta.origine_url}}" target="_blank">
-                    <span ng-if="!!reteta.origine">{{reteta.origine}}</span>
+                <a href="{{recipe.origin.url}}" target="_blank">
+                    <span ng-if="!!recipe.origin">{{recipe.origin.copyright}}</span>
                 </a>
             </div>
         </div>

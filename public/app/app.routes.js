@@ -27,13 +27,13 @@ angular.module('scopeRoutes', ['ui.router', 'ct.ui.router.extras'])
         })
         .state('retetaModal', {
             url: '/plan/:year/:month/:day/:id',
-            controller: 'RecipeModalInstanceCtrl',  
-            params:{reteta: null,},
+            controller: 'RecipeModalInstanceController',  
+            params:{recipe: null,},
             // template: '<div ui-view></div>',
             resolve: {
-                reteta: function($stateParams) {
+                recipe: function($stateParams) {
                     console.log('stateParams', $stateParams);
-                    return $stateParams.reteta
+                    return $stateParams.recipe
                 }
             },
             proxy: { // Custom config processed in $stateChangeStart
@@ -46,7 +46,7 @@ angular.module('scopeRoutes', ['ui.router', 'ct.ui.router.extras'])
             views: {
                 "modal@": {
                     templateUrl: 'app/views/pages/recipeModal.html',
-                    controller: 'RecipeModalInstanceCtrl'
+                    controller: 'RecipeModalInstanceController'
                 }
             },
             isModal: true // Custom config processed in $stateChangeStart
@@ -55,7 +55,7 @@ angular.module('scopeRoutes', ['ui.router', 'ct.ui.router.extras'])
             views: {
                 "@": {
                     templateUrl: 'app/views/pages/recipeModalFull.html',
-                    controller: 'RecipeModalInstanceCtrl'
+                    controller: 'RecipeModalInstanceController'
                 }
             }
         });

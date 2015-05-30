@@ -1,47 +1,55 @@
-var schemas = require('./retete');
-var Plan = schemas.Plan;
+// var schemas = require('./retete');
+// var Plan = schemas.Plan;
+var schemas = require('./fixedplanning');
+var FixedPlanning = schemas.FixedPlanning;
 var Utils = require('../routes/utils');
 
 var getListaAggregate = function(request, response, an, luna, zi) { //based on year/month/day
-    // console.log('generate static shopping list: ' + sapt);
-    Plan.aggregate({
-                $unwind: "$zile"
+    // console.log('generate static shopping list: ' + an + luna + zi + Utils.getDateFromString(an, luna, zi));
+    FixedPlanning.aggregate({
+                $unwind: "$days"
             }, {
-                $unwind: "$zile.retete.ingrediente"
+                $unwind: "$days.daily_planning.recipe.ingredients"
             }, {
-                $unwind: "$zile.retete.ingrediente.lista"
+                $unwind: "$days.daily_planning.recipe.ingredients.list"
             }, {
                 $match: {
-                    // saptamana: parseInt(sapt)
-                    prima_zi: Utils.getDateFromString(an, luna, zi)
+                    start_date: Utils.getDateFromString(an, luna, zi)
                 }
             },
             //unfold with no children
             {
                 $project: {
-                    nume: "$zile.retete.ingrediente.lista.nume",
-                    cant: "$zile.retete.ingrediente.lista.cantitate",
-                    um: "$zile.retete.ingrediente.lista.um",
-                    comentariu: "$zile.retete.ingrediente.lista.comentariu",
-                    categorie: "$zile.retete.ingrediente.lista.categorie",
-                    reteta_abrev: "$zile.abreviatie",
-                    zi_index: "$zile.index"
+                    name: "$days.daily_planning.recipe.ingredients.list.name",
+                    quant: "$days.daily_planning.recipe.ingredients.list.quantity",
+                    um: "$days.daily_planning.recipe.ingredients.list.um",
+                    comment: "$days.daily_planning.recipe.ingredients.list.comment",
+                    category: "$days.daily_planning.recipe.ingredients.list.category",
+                    recipe_abbrev: "$days.abbrev",
+                    recipe_id: "$days.daily_planning.recipe._id",
+                    day_index: "$days.index"
                 }
             },
             //group by categorie, nume, um
             {
                 $group: {
                     "_id": {
-                        cat: "$categorie",
-                        ing: "$nume",
+                        cat: "$category",
+                        ing: "$name",
                         um: "$um"
                     },
                     //comentarii: {$push: "$comentariu"},
-                    reteta_abrev: {
-                        $addToSet: "$reteta_abrev" //distinct values only. if not => error in angular
+                    recipe_abbrev: {
+                        $addToSet: "$recipe_abbrev" //distinct values only. if not => error in angular
+                    },
+                    recipe_ids: {
+                        $addToSet: "$recipe_id"
+                    },
+                    ingredient_comments: {
+                        $addToSet: "$comment"
                     },
                     tot: {
-                        $sum: "$cant"
+                        $sum: "$quant"
                     }
                 }
             },
@@ -49,30 +57,34 @@ var getListaAggregate = function(request, response, an, luna, zi) { //based on y
             {
                 $project: {
                     "_id": false,
-                    categorie: "$_id.cat",
+                    category: "$_id.cat",
                     ingredient: "$_id.ing",
                     total: "$tot",
                     um: "$_id.um",
-                    reteta_abrev: "$reteta_abrev"
+                    recipe_abbrev: "$recipe_abbrev",
+                    recipe_ids: "$recipe_ids",
+                    ingredient_comments: "$ingredient_comments"
                 }
             },
             //finally, group by main criteria, "$categorie"
             //and make custom element
             {
                 $group: {
-                    "_id": "$categorie",
-                    ingrediente: {
+                    "_id": "$category",
+                    ingredients: {
                         $push: {
-                            "nume": "$ingredient",
+                            "name": "$ingredient",
                             "total": "$total",
                             "um": "$um",
-                            "reteta_abrev": "$reteta_abrev"
+                            "recipe_abbrev": "$recipe_abbrev",
+                            "recipe_ids": "$recipe_ids",
+                            "ingredient_comments": "$ingredient_comments"
                         }
                     }
                 }
             })
         .exec(function(err, lista) {
-            console.log('lista query');
+            // console.log('lista query', lista);
             if (err) response.json(err);
             else response.json(lista);
         });

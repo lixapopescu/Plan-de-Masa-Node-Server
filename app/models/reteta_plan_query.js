@@ -1,26 +1,26 @@
-var schemas = require('./retete');
-var Plan = schemas.Plan;
+var schemas = require('./fixedplanning');
+var FixedPlanning = schemas.FixedPlanning;
 var Utils = require('../routes/utils');
 
 var getRecipeInPlan = function(response, year, month, day, recipe_name_underscore) {
     console.log(year, month, day, recipe_name_underscore);
-    Plan.aggregate([{
+    FixedPlanning.aggregate([{
             $match: {
-                prima_zi: new Date(year, month - 1, day)
+                start_date: new Date(year, month - 1, day)
             }
         }, {
-            $unwind: "$zile"
+            $unwind: "$days"
         }, {
             $project: {
-                reteta: "$zile.retete",
-                reteta_nume: "$zile.retete.nume",
-                zi_nume: "$zile.nume",
-                abreviatie: "$zile.abreviatie",
-                pinterest_url: "$zile.pinterest_url"
+                recipe: "$days.daily_planning.recipe",
+                recipe_name: "$days.daily_planning.recipe._id",
+                day_index: "$days.daily_planning.index",
+                abbrev: "$days.daily_planning.abbrev",
+                pinterest_url: "$days.daily_planning.pinterest_url"
             }
         }, {
             $match: {
-                reteta_nume: recipe_name_underscore.replace(/_/g, " ")
+                recipe_name: recipe_name_underscore.replace(/_/g, " ")
             }
         }])
         .exec(function(err, reteta) { 
