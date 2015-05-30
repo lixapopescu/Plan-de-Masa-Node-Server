@@ -20,7 +20,7 @@ var dateToPath = function(date) {
     return date.year + path + date.month + path + date.day;
 }
 
-var jsonToDate = function(dateJson){
+var jsonToDate = function(dateJson) {
     return new Date(dateJson.year, dateJson.month, dateJson.day);
 }
 
@@ -118,14 +118,41 @@ var planController = function($scope, $http, $filter, $modal, $stateParams) {
 
 // var x= 2;
 
-var mainController = function($scope, $http, $filter, $stateParams) {
+var mainController = function($scope, $timeout, $mdSidenav, $mdUtil, $log) {
     console.log('in main controller, nothing to do here for now');
-}
+    $scope.toggleLeft = buildToggler('left');
+    $scope.toggleRight = buildToggler('right');
 
-angular.module('plandemasaApp', ['scopeRoutes', 'ngTouch', 'ui.bootstrap'])
+    /**
+     * Build handler to open/close a SideNav; when animation finishes
+     * report completion in console
+     */
+    function buildToggler(navID) {
+        var debounceFn = $mdUtil.debounce(function() {
+            $mdSidenav(navID)
+                .toggle()
+                .then(function() {
+                    $log.debug("toggle " + navID + " is done");
+                });
+        }, 300);
+
+        return debounceFn;
+    }
+};
+
+angular.module('plandemasaApp', ['scopeRoutes', 'ngTouch', 'ui.bootstrap', 'ngMaterial'])
     .controller('mainController',
         mainController
     )
+    .controller('LeftCtrl', function($scope, $timeout, $mdSidenav, $log) {
+        $scope.close = function() {
+            $mdSidenav('left').close()
+                .then(function() {
+                    $log.debug("close LEFT is done");
+                });
+
+        };
+    })
     .controller('homeController',
         planController
     )

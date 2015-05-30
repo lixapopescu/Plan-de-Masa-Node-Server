@@ -327,12 +327,13 @@ a {
   margin: 5px;
   z-index: 1;
 }
-.reteta-detalii .reteta-zi {
+md-card-footer {
   font-size: 0.8em;
 }
-.reteta-detalii .reteta-titlu {
+.reteta-titlu {
   font-size: 1.2em;
   cursor: pointer;
+  max-width: 30vh;
 }
 .reteta-titlu:hover {
   text-decoration: underline;
@@ -340,9 +341,8 @@ a {
 .reteta-copyright {
   font-size: 0.8em;
 }
-.reteta-image {
-  max-width: 100%;
-  max-height: 30vh;
+md-card {
+  max-width: 30vh;
 }
 .pinterest-logo {
   color: #bd2126;
@@ -419,4 +419,15 @@ hr {
   background-image: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
   background-image: -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
   background-image: -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
+}
+@media only print {
+  .marketing,
+  a {
+    display: none;
+!important
+  }
+!important
+  @page {
+    margin: 0.5cm;
+  }
 }

@@ -1,92 +1,32 @@
-<div class="container">
-    <div class="row" ng-if="!!plan">
-        <div ng-if="!thisWeek">
-            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                <a href="/">
-                    <h2><i class="fa fa-chevron-left"></i></h2>
-                </a>
-            </div>
-        </div>
-        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
-            <h2>
-                Plan {{plan.prima_zi | date: 'dd/MM/yyyy'}} - {{plan.ultima_zi | date: 'dd/MM/yyyy'}}
-                {{home.start_date}}
-                <a href="{{plan.pinterest_url}}" target="_blank">
-                    <i class="fa fa-pinterest pinterest-logo"></i></a>
-            </h2>
-        </div>
-        <div ng-if="!!thisWeek">
-            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
-                <a href="/plan/{{nextMonday}}">
-                    <h2><i class="fa fa-chevron-right"></i></h2>
-                </a>
+<div layout="row" layout-align="space-around start" layout-fill>
+    <div id="recipes" layout="column" layout-align="start start" layout-wrap style="height:150vh" flex>
+        <div ng-repeat="zi in plan.zile | orderBy: '+index'">
+            <div flex>
+                <md-card>
+                    <img src="{{zi.retete.poza}}" alt="{{plan.nume}}: {{zi.nume}} - {{zi.retete.nume}}" class="md-card-image">
+                    <md-card-content>
+                        <span ui-sref="retetaModal({year: startPlan.year, month: startPlan.month, day: startPlan.day, id: zi.retete.url, reteta: zi.retete})" class="reteta-titlu">{{zi.retete.nume}}</span>
+                        <p>Card content</p>
+                    </md-card-content>
+                    <md-card-footer>
+                        {{zi.nume}}
+                    </md-card-footer>
+                </md-card>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 plan">
-            <div class="row reteta-border" ng-class="{todaybox: isToday(start_date,zi.index,today)}" ng-repeat="zi in plan.zile | orderBy: '+index'">
-                <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
-                    <div class="reteta-detalii">
-                        <span class="reteta-zi">{{zi.nume}}</span>
-                        <br>
-                    </div>
-                    <div class="reteta-detalii">
-                        <span ui-sref="retetaModal({year: startPlan.year, month: startPlan.month, day: startPlan.day, id: zi.retete.url, reteta: zi.retete})" class="reteta-titlu">{{zi.retete.nume}}</span>
-<!--                         <span ng-click="openModal('lg', {{zi.retete}})" class="reteta-titlu">{{zi.retete.nume}}</span>
- -->                        <span class="fa-stack fa-lg reteta-abreviere-logo">
-                                <i class="fa fa-circle-thin fa-stack-2x"></i>
-                                <i class="fa fa-stack-1x">{{zi.abreviatie}}</i>
-                            </span>
-                    </div>
-                    <div class="reteta-detalii">
-                        <i class="fa fa-user"></i> {{zi.retete.persoane}}
-                        <i class="fa fa-shopping-cart"></i> {{home.countCumparateReteta(zi.abreviatie)}} / {{zi.retete.numar_ingrediente}}
-                        <i class="fa fa-check" ng-if="home.countCumparateReteta(zi.abreviatie) == zi.retete.numar_ingrediente"></i>
-                    </div>
-                    <div class="reteta-detalii reteta-copyright">
-                        <span class="fa fa-copyright"></span>
-                        <a href="{{zi.retete.origine_url}}" target="_blank">
-                            <span ng-if="!!zi.retete.origine">{{zi.retete.origine}}</span>
-                        </a>
-                    </div>
+    <div id="shoppingList" layout="column" layout-align="start start" layout-wrap style="height:100vh" flex>
+        <div ng-repeat="categorie in home.lista | orderBy: '-ingrediente.length'" class="item">
+            <md-list>
+                <md-subheader>
+                    {{categorie._id}} ({{categorie.ingrediente.length-home.countCumparate(categorie.ingrediente)}})
+                </md-subheader>
+                <div ng-repeat="produs in categorie.ingrediente | orderBy: '+ nume'" class="produs">
+                    <md-list-item>
+                        {{produs.nume}}
+                    </md-list-item>
                 </div>
-                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                    <img src="{{zi.retete.poza}}" alt="{{plan.nume}}: {{zi.nume}} - {{zi.retete.nume}}" class="reteta-image">
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
-            <div class="container-fluid">
-                <div class="row row-fluid">
-                    <div ng-repeat="categorie in home.lista | orderBy: '-ingrediente.length'" class="item">
-                        <div class="box well">
-                            <div class="capital">
-                                {{categorie._id}} ({{categorie.ingrediente.length-home.countCumparate(categorie.ingrediente)}})
-                            </div>
-                            <div>
-                                <div ng-repeat="produs in categorie.ingrediente | orderBy: '+ nume'" class="produs">
-                                    <span ng-if="!produs.cumparat" ng-click="home.toggleCumparat(produs)">
-                                        <i class="fa fa-square-o fa-fw"></i> {{produs.nume}}
-                                        <span ng-if="produs.total > 0">: {{produs.total}} {{produs.um}}</span>
-                                    </span>
-                                    <span ng-if="produs.cumparat" ng-click="home.toggleCumparat(produs)">
-                                        <i class="fa fa-check-square-o fa-fw"></i>
-                                        <span class="cumparat">{{produs.nume}}</span>
-                                    <span class="cumparat" ng-if="produs.total > 0">: {{produs.total}} {{produs.um}}</span>
-                                    </span>
-                                    <span ng-repeat="abr in produs.reteta_abrev">
-                                        <span class="fa-stack fa-lg reteta-abreviere-logo">
-                                            <i class="fa fa-circle-thin fa-stack-2x"></i>
-                                            <i class="fa fa-stack-1x">{{abr}}</i>
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </md-list>
         </div>
     </div>
 </div>
