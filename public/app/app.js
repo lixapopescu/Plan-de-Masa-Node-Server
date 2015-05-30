@@ -3,11 +3,8 @@ var mainController = function($scope, $http, $filter, $stateParams) {
 }
 
 angular.module('plandemasaApp', ['scopeRoutes', 'ngTouch', 'ui.bootstrap'])
-    .controller('mainController',
-        mainController
-    )
-    .controller('homeController',
-        planController
-    )
+    .controller('mainController', mainController)
+    .controller('homeController', planController)
+    .controller('RecipeAddController', RecipeAddController)
     .controller('RecipeModalInstanceController', RecipeModalInstanceController)
     .run(RecipeModalState)

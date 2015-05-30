@@ -25,6 +25,12 @@ angular.module('scopeRoutes', ['ui.router', 'ct.ui.router.extras'])
             controller: 'planDetaliiController',
             controllerAs: 'planDetCtrl'
         })
+        .state('admin_add_recipe',{
+            url: '/admin/recipe/add',
+            templateUrl: 'app/views/pages/recipe_add.html',
+            controller: 'RecipeAddController',
+            controllerAs: 'recipeAdd'
+        })
         .state('retetaModal', {
             url: '/plan/:year/:month/:day/:id',
             controller: 'RecipeModalInstanceController',  

@@ -1,0 +1,134 @@
+<div  ng-controller="RecipeAddFormController as raf"></div>
+<form class="grid-form">
+    <fieldset>
+        <legend><i class="fa fa-plus-circle"></i> {{recipe.name}}</legend>
+
+        <div data-row-span="6">
+            <div data-field-span="2">
+                <label>Nume</label>
+                <input type="text" autofocus ng-model="recipe.name">
+            </div>
+            <div data-field-span="1">
+                <label>Poveste (caption)</label>
+                <input type="text" ng-model="recipe.story">
+            </div>
+
+            <div data-field-span="1">
+                <label>Etichete</label>
+                <input type="text">
+            </div>
+            <div data-field-span="2">
+                <label>Etichete pentru reguli</label>
+                <input type="text">
+            </div>
+        </div>
+        <div data-row-span="6">
+            <div data-field-span="2">
+                <label>Origine URL</label>
+                <input type="text" ng-model="recipe.origin.url">
+            </div>
+            <div data-field-span="1">
+                <label>Origine Copyright</label>
+                <input type="text" ng-model="recipe.origin.copyright">
+            </div>
+            <div data-field-span="2">
+                <label>Origine Poza URL</label>
+                <input type="text" ng-model="recipe.origin.image">
+            </div>
+            <div data-field-span="1">
+                <label>Origine Limba</label>
+                <input type="text" ng-model="recipe.origin.language" value="en">
+            </div>
+        </div>
+        <div data-row-span="6">
+            <div data-field-span="1">
+                <label>Poza proprie URL</label>
+                <input type="text" ng-model="recipe.image">
+            </div>
+            <div data-field-span="1">
+                <label>Nr pers</label>
+                <input type="text" ng-model="recipe.persons" value="4">
+            </div>
+            <div data-field-span="1">
+                <label>Timp (min)</label>
+                <input type="text">
+            </div>
+            <div data-field-span="1">
+                <label>Nivel(1..5)</label>
+                <input type="text" value="1">
+            </div>
+            <div data-field-span="1">
+                <label>Limba</label>
+                <input type="text" value="ro">
+            </div>
+        </div>
+
+        <br>
+        <fieldset>
+            <legend>Ingrediente</legend>
+            <div data-row-span="12">
+                <div data-field-span="11">
+                    <label>Pentru</label>
+                    <input type="text">
+                </div>
+                <div data-field-span="1">
+                    <a href=""><i class="fa fa-plus-circle fa-2x"></i></a>
+                </div>
+            </div>
+            <div data-row-span="6">
+                <div data-field-span="1">
+                    <label>Nume</label>
+                    <input type="text">
+                </div>
+                <div data-field-span="1">
+                    <label>Cant</label>
+                    <input type="text">
+                </div>
+                <div data-field-span="1">
+                    <label>um</label>
+                    <input type="text">
+                </div>
+                <div data-field-span="1">
+                    <label>Categ</label>
+                    <input type="text">
+                </div>
+                <div data-field-span="1">
+                    <label>Comentariu</label>
+                    <input type="text">
+                </div>
+                <div data-field-span="1">
+                    <a href=""><i class="fa fa-plus-circle fa-2x"></i></a>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Instructiuni</legend>
+            <div data-row-span="12">
+                <div data-field-span="1">
+                    <label>#(auto)</label>
+                    <input type="text">
+                </div>
+                <div data-field-span="1">
+                    <label>pentru</label>
+                    <input type="text">
+                </div>
+                <div data-field-span="9">
+                    <label>text</label>
+                    <input type="text">
+                </div>
+                <div data-field-span="1">
+                    <a href=""><i class="fa fa-plus-circle fa-2x"></i></a>
+                </div>
+            </div>
+        </fieldset>
+    </fieldset>
+    <br>
+    <input type="submit" ng-click="add(recipe)" class="btn" value="Salveaza" />
+
+</form>
+<br>
+<br>
+<br>
+<br>
+<br>

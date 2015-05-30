@@ -51,6 +51,7 @@ mongoose.connect(config.database);
 // ====================================
 app.use('/mail', require('./app/routes/mail')(app, express));
 app.use('/api', require('./app/routes/api')(app, express));
+app.use('/admin', require('./app/routes/admin')(app, express));
 
 //get express to route angular routes 
 app.use(function(req, res) {

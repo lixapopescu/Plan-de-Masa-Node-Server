@@ -1,6 +1,5 @@
-var bodyParser = require('body-parser'); // get body-parser
+var bodyParser = require('body-parser'); 
 var schemas = require('../models/fixedplanning');
-// var Planuri = require('../models/planuri');
 var config = require('../../config');
 var winston = require('winston');
 var Utils = require('./utils');
