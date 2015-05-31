@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 // configure our app to handle CORS requests
 app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
     next();
 });
@@ -51,7 +51,7 @@ mongoose.connect(config.database);
 // ====================================
 app.use('/mail', require('./app/routes/mail')(app, express));
 app.use('/api', require('./app/routes/api')(app, express));
-app.use('/admin', require('./app/routes/admin')(app, express));
+// app.use('/admin', require('./app/routes/admin')(app, express));
 
 //get express to route angular routes 
 app.use(function(req, res) {

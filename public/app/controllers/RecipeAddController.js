@@ -33,5 +33,21 @@ var RecipeAddController = function($scope, $http, $stateParams) {
     $scope.recipe.level = 1;
     $scope.recipe.persons = 4;
     $scope.recipe.language = "ro";
+    $scope.recipe.ingredients = [];
+    $scope.recipe.instructions = [];
 
+    $scope.add = function(recipe) {
+        if (!!recipe.labels) recipe.labels = recipe.labels.split(",").trim();
+        if (!!recipe.dish_labels) recipe.dish_labels = recipe.dish_labels.split(",");
+        console.log('add', recipe);
+        $http.put('/api/admin/recipe', {
+                recipe: recipe
+            })
+            .success(function(data, status, headers, config) {
+                console.log('put successful', data, headers());
+            })
+            .error(function(data, status, headers, config) {
+                console.log('put error', data, headers);
+            });
+    }
 }

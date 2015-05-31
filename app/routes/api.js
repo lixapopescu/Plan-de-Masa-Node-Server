@@ -90,8 +90,14 @@ module.exports = function(app, express) {
             response.send('/planuri path is undefined. Try using /plan instead.');
         });
 
-    // apiRouter.route('/reteta/:reteta_nume')
-    // .get(function(request, response));
+    apiRouter.route('/admin/recipe')
+        .put(function(request, response) {
+            console.log("incoming",request.body.recipe);
+            
+            response.json({
+                message: 'Adding a recipe'
+            });
+        });
 
     return apiRouter;
 };
