@@ -49,3 +49,8 @@ var getWeekDay = function(index, style) {
         return weekDays.short[index];
 }
 
+var getRecipeUrl = function(recipe_title) {
+    if (!!recipe_title)
+        return recipe_title.replace(/ /g, "_");
+    else return "";
+}

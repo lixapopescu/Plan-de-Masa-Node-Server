@@ -54,7 +54,7 @@ var planController = function($scope, $http, $filter, $modal, $stateParams) {
                 var ingrediente = _.union(_.flatten(_.pluck(recipe_one_day.daily_planning.recipe.ingredients, 'list')));
                 recipe_one_day.daily_planning.recipe.ingredient_number = _.union(_.pluck(ingrediente, 'name')).length;
 
-                recipe_one_day.daily_planning.recipe.url = recipe_one_day.daily_planning.recipe._id.replace(/ /g, "_");
+                recipe_one_day.daily_planning.recipe.url = getRecipeUrl(recipe_one_day.daily_planning.recipe._id);
             });
 
             $scope.start_date = {

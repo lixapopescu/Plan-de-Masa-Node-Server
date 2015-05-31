@@ -1,18 +1,16 @@
-<div  ng-controller="RecipeAddFormController as raf"></div>
+<div ng-controller="RecipeAddFormController as raf"></div>
 <form class="grid-form">
     <fieldset>
-        <legend><i class="fa fa-plus-circle"></i> {{recipe.name}}</legend>
-
+        <legend><i class="fa fa-plus-circle"></i> {{recipe._id}}</legend>
         <div data-row-span="6">
             <div data-field-span="2">
                 <label>Nume</label>
-                <input type="text" autofocus ng-model="recipe.name">
+                <input type="text" autofocus ng-model="recipe._id">
             </div>
             <div data-field-span="1">
                 <label>Poveste (caption)</label>
                 <input type="text" ng-model="recipe.story">
             </div>
-
             <div data-field-span="1">
                 <label>Etichete</label>
                 <input type="text">
@@ -37,7 +35,7 @@
             </div>
             <div data-field-span="1">
                 <label>Origine Limba</label>
-                <input type="text" ng-model="recipe.origin.language" value="en">
+                <input type="text" ng-model="recipe.origin.language" >
             </div>
         </div>
         <div data-row-span="6">
@@ -47,7 +45,7 @@
             </div>
             <div data-field-span="1">
                 <label>Nr pers</label>
-                <input type="text" ng-model="recipe.persons" value="4">
+                <input type="text" ng-model="recipe.persons">
             </div>
             <div data-field-span="1">
                 <label>Timp (min)</label>
@@ -55,77 +53,81 @@
             </div>
             <div data-field-span="1">
                 <label>Nivel(1..5)</label>
-                <input type="text" value="1">
+                <input type="text" ng-model="recipe.level">
             </div>
             <div data-field-span="1">
                 <label>Limba</label>
-                <input type="text" value="ro">
+                <input type="text" ng-model="recipe.language">
             </div>
         </div>
-
         <br>
         <fieldset>
             <legend>Ingrediente</legend>
-            <div data-row-span="12">
-                <div data-field-span="11">
-                    <label>Pentru</label>
-                    <input type="text">
+            <div ng-repeat="list in getNumber(ingredientListCount) track by $index" ng-init="parentIndex = $index">
+                <div data-row-span="12">
+                    <div data-field-span="11">
+                        <label>Pentru ({{parentIndex}})</label>
+                        <input type="text">
+                    </div>
+                    <div data-field-span="1">
+                        <a href="" ng-if="$index==ingredientListCount-1" ng-click="addIngredientList()"><i class="fa fa-plus-circle fa-2x"></i></a>
+                    </div>
                 </div>
-                <div data-field-span="1">
-                    <a href=""><i class="fa fa-plus-circle fa-2x"></i></a>
-                </div>
-            </div>
-            <div data-row-span="6">
-                <div data-field-span="1">
-                    <label>Nume</label>
-                    <input type="text">
-                </div>
-                <div data-field-span="1">
-                    <label>Cant</label>
-                    <input type="text">
-                </div>
-                <div data-field-span="1">
-                    <label>um</label>
-                    <input type="text">
-                </div>
-                <div data-field-span="1">
-                    <label>Categ</label>
-                    <input type="text">
-                </div>
-                <div data-field-span="1">
-                    <label>Comentariu</label>
-                    <input type="text">
-                </div>
-                <div data-field-span="1">
-                    <a href=""><i class="fa fa-plus-circle fa-2x"></i></a>
+                <div ng-repeat="ing in getNumber(ingredientCount[parentIndex]) track by $index">
+                    <div data-row-span="6">
+                        <div data-field-span="1">
+                            <label>Nume {{$index}}</label>
+                            <input type="text">
+                        </div>
+                        <div data-field-span="1">
+                            <label>Cant</label>
+                            <input type="text">
+                        </div>
+                        <div data-field-span="1">
+                            <label>um</label>
+                            <input type="text">
+                        </div>
+                        <div data-field-span="1">
+                            <label>Categ</label>
+                            <input type="text">
+                        </div>
+                        <div data-field-span="1">
+                            <label>Comentariu</label>
+                            <input type="text">
+                        </div>
+                        <div data-field-span="1">
+                            <a href="" ng-if="$index==ingredientCount[parentIndex]-1" ng-click="addIngredient(parentIndex)"><i class="fa fa-plus-circle fa-2x"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </fieldset>
-
+        <br>
         <fieldset>
             <legend>Instructiuni</legend>
-            <div data-row-span="12">
-                <div data-field-span="1">
-                    <label>#(auto)</label>
-                    <input type="text">
-                </div>
-                <div data-field-span="1">
-                    <label>pentru</label>
-                    <input type="text">
-                </div>
-                <div data-field-span="9">
-                    <label>text</label>
-                    <input type="text">
-                </div>
-                <div data-field-span="1">
-                    <a href=""><i class="fa fa-plus-circle fa-2x"></i></a>
+            <div ng-repeat="i in getNumber(instructionCount) track by $index">
+                <div data-row-span="12">
+                    <div data-field-span="1">
+                        <label>#</label>
+                        <input type="text" ng-model="$index">
+                    </div>
+                    <div data-field-span="1">
+                        <label>pentru</label>
+                        <input type="text">
+                    </div>
+                    <div data-field-span="9">
+                        <label>text</label>
+                        <input type="text">
+                    </div>
+                    <div data-field-span="1">
+                        <a href="" ng-if="$index==instructionCount-1" ng-click="addInstruction()"><i class="fa fa-plus-circle fa-2x"></i></a>
+                    </div>
                 </div>
             </div>
         </fieldset>
     </fieldset>
     <br>
     <input type="submit" ng-click="add(recipe)" class="btn" value="Salveaza" />
-
 </form>
 <br>
 <br>

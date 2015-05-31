@@ -1,3 +1,4 @@
-var RecipeAddFormController = function($scope){
-	console.log("RecipeAddFormController");
+var RecipeAddFormController = function($scope) {
+    console.log("RecipeAddFormController");
+    
 }
