@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row" ng-if="!!plan">
+    <div class="row" ng-if="!!plan.start_date">
         <div ng-if="!thisWeek">
             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
                 <a href="/">
@@ -22,70 +22,81 @@
                 </a>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 plan">
-            <div class="row reteta-border" ng-class="{todaybox: isToday(start_date,day.index,today)}" ng-repeat="day in plan.days | orderBy: '+index'">
-                <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
-                    <div class="reteta-detalii">
-                        <span class="reteta-zi">{{getWeekDay(day.index, 's')}}</span>
-                        <br>
-                    </div>
-                    <div class="reteta-detalii">
-                        <span ui-sref="retetaModal({year: startPlan.year, month: startPlan.month, day: startPlan.day, id: day.daily_planning.recipe.url, recipe: day.daily_planning.recipe})" class="reteta-titlu">{{day.daily_planning.recipe._id}}</span>
-                        <span class="fa-stack fa-lg reteta-abreviere-logo">
+        <div class="row">
+            <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 plan">
+                <div class="row reteta-border" ng-class="{todaybox: isToday(start_date,day.index,today)}" ng-repeat="day in plan.days | orderBy: '+index'">
+                    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                        <div class="reteta-detalii">
+                            <span class="reteta-zi">{{getWeekDay(day.index, 's')}}</span>
+                            <br>
+                        </div>
+                        <div class="reteta-detalii">
+                            <span ui-sref="retetaModal({year: startPlan.year, month: startPlan.month, day: startPlan.day, id: day.daily_planning.recipe.url, recipe: day.daily_planning.recipe})" class="reteta-titlu">{{day.daily_planning.recipe._id}}</span>
+                            <span class="fa-stack fa-lg reteta-abreviere-logo">
                                 <i class="fa fa-circle-thin fa-stack-2x"></i>
                                 <i class="fa fa-stack-1x">{{day.abbrev}}</i>
                             </span>
+                        </div>
+                        <div class="reteta-detalii">
+                            <i class="fa fa-user"></i> {{day.daily_planning.recipe.persons}}
+                            <i class="fa fa-shopping-cart"></i> {{home.countBoughtForRecipe(day.abbrev)}} / {{day.daily_planning.recipe.ingredient_number}}
+                            <i class="fa fa-check" ng-if="home.countBoughtForRecipe(day.abbrev) == day.daily_planning.recipe.ingredient_number"></i>
+                        </div>
+                        <div class="reteta-detalii reteta-copyright">
+                            <span class="fa fa-copyright"></span>
+                            <a href="{{day.daily_planning.recipe.origin.url}}" target="_blank">
+                                <span ng-if="!!day.daily_planning.recipe.origin.copyright">{{day.daily_planning.recipe.origin.copyright}}</span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="reteta-detalii">
-                        <i class="fa fa-user"></i> {{day.daily_planning.recipe.persons}}
-                        <i class="fa fa-shopping-cart"></i> {{home.countBoughtForRecipe(day.abbrev)}} / {{day.daily_planning.recipe.ingredient_number}}
-                        <i class="fa fa-check" ng-if="home.countBoughtForRecipe(day.abbrev) == day.daily_planning.recipe.ingredient_number"></i>
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <img src="{{day.daily_planning.recipe.origin.image}}" alt="{{plan.name}}: {{getWeekDay(day.index, 'l')}} - {{day.daily_planning.recipe._id}}" class="reteta-image">
                     </div>
-                    <div class="reteta-detalii reteta-copyright">
-                        <span class="fa fa-copyright"></span>
-                        <a href="{{day.daily_planning.recipe.origin.url}}" target="_blank">
-                            <span ng-if="!!day.daily_planning.recipe.origin.copyright">{{day.daily_planning.recipe.origin.copyright}}</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                    <img src="{{day.daily_planning.recipe.origin.image}}" alt="{{plan.name}}: {{getWeekDay(day.index, 'l')}} - {{day.daily_planning.recipe._id}}" class="reteta-image">
                 </div>
             </div>
-        </div>
-        <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
-            <div class="container-fluid">
-                <div class="row row-fluid">
-                    <div ng-repeat="category in home.list | orderBy: '-ingredients.length'" class="item">
-                        <div class="box well">
-                            <div class="capital">
-                                {{category._id}} ({{category.ingredients.length-home.countBought(category.ingredients)}})
-                            </div>
-                            <div>
-                                <div ng-repeat="product in category.ingredients | orderBy: '+ name'" class="product">
-                                    <span ng-if="!product.bought" ng-click="home.toggleBought(product)">
+            <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
+                <div class="container-fluid">
+                    <div class="row row-fluid">
+                        <div ng-repeat="category in home.list | orderBy: '-ingredients.length'" class="item">
+                            <div class="box well">
+                                <div class="capital">
+                                    {{category._id}} ({{category.ingredients.length-home.countBought(category.ingredients)}})
+                                </div>
+                                <div>
+                                    <div ng-repeat="product in category.ingredients | orderBy: '+ name'" class="product">
+                                        <span ng-if="!product.bought" ng-click="home.toggleBought(product)">
                                         <i class="fa fa-square-o fa-fw"></i> {{product.name}}
                                         <span ng-if="product.total > 0">: {{product.total}} {{product.um}}</span>
-                                    </span>
-                                    <span ng-if="product.bought" ng-click="home.toggleBought(product)">
+                                        </span>
+                                        <span ng-if="product.bought" ng-click="home.toggleBought(product)">
                                         <i class="fa fa-check-square-o fa-fw"></i>
                                         <span class="cumparat">{{product.name}}</span>
-                                    <span class="cumparat" ng-if="product.total > 0">: {{product.total}} {{product.um}}</span>
-                                    </span>
-                                    <span ng-repeat="abr in product.recipe_abbrev">
+                                        <span class="cumparat" ng-if="product.total > 0">: {{product.total}} {{product.um}}</span>
+                                        </span>
+                                        <span ng-repeat="abr in product.recipe_abbrev">
                                         <span class="fa-stack fa-lg reteta-abreviere-logo">
                                             <i class="fa fa-circle-thin fa-stack-2x"></i>
                                             <i class="fa fa-stack-1x">{{abr}}</i>
                                         </span>
-                                    </span>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row" ng-if="!plan.start_date">
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+            <a href="/">
+                <h2><i class="fa fa-chevron-left"></i></h2>
+            </a>
+        </div>
+        <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
+            Inca nu e nici o reteta planificata.
+            <h2>Propune tu <a href="https://www.facebook.com/plandemasa">una</a></h2>.
         </div>
     </div>
 </div>

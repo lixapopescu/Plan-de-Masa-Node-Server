@@ -1,12 +1,12 @@
 // var schemas = require('./retete');
 // var Plan = schemas.Plan;
-var schemas = require('./fixedplanning');
-var FixedPlanning = schemas.FixedPlanning;
+// var schemas = require('./fixedplanning');
+// var FixedPlanning = schemas.FixedPlanning;
 var Utils = require('../routes/utils');
 
-var getListaAggregate = function(request, response, an, luna, zi) { //based on year/month/day
+var getListaAggregate = function(db, request, response, an, luna, zi) { //based on year/month/day
     // console.log('generate static shopping list: ' + an + luna + zi + Utils.getDateFromString(an, luna, zi));
-    FixedPlanning.aggregate({
+    db.fixed_planning.aggregate({
                 $unwind: "$days"
             }, {
                 $unwind: "$days.daily_planning.recipe.ingredients"
@@ -82,8 +82,7 @@ var getListaAggregate = function(request, response, an, luna, zi) { //based on y
                         }
                     }
                 }
-            })
-        .exec(function(err, lista) {
+            }, function(err, lista) {
             // console.log('lista query', lista);
             if (err) response.json(err);
             else response.json(lista);
