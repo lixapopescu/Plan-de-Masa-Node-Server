@@ -36,6 +36,8 @@ var RecipeAddController = function($scope, $http, $stateParams) {
     $scope.recipe.ingredients = [];
     $scope.recipe.instructions = [];
 
+    $scope.day = {};
+
     $scope.add = function(recipe) {
         if (!!recipe.labels) recipe.labels = recipe.labels.split(",").trim();
         if (!!recipe.dish_labels) recipe.dish_labels = recipe.dish_labels.split(",");
@@ -44,10 +46,10 @@ var RecipeAddController = function($scope, $http, $stateParams) {
                 recipe: recipe
             })
             .success(function(data, status, headers, config) {
-                console.log('put successful', data, headers());
+                console.log('put successful', data);
             })
             .error(function(data, status, headers, config) {
-                console.log('put error', data, headers);
+                console.log('put error', data);
             });
     }
 }

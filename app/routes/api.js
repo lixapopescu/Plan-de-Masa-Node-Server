@@ -9,6 +9,8 @@ var FixedPlanning = schemas.FixedPlanning;
 var ListaQuery = require('../models/lista_query');
 var RecipeInPlan = require('../models/reteta_plan_query');
 
+var db = require('mongojs')(config.database, ['recipes']);
+
 module.exports = function(app, express) {
 
     var apiRouter = express.Router();
@@ -92,10 +94,22 @@ module.exports = function(app, express) {
 
     apiRouter.route('/admin/recipe')
         .put(function(request, response) {
-            console.log("incoming",request.body.recipe);
-            
+            var r = request.body.recipe;
+            if (!r.created){
+                r.created = {};
+                r.created.user = "website";
+                r.created.date = new Date();
+            }
+            if (!r.modified){
+                r.modified = {};
+                r.modified.user = "website";
+            }
+            if (r.modified){
+                r.modified.date = new Date();
+            }
+            db.recipes.save(request.body.recipe);
             response.json({
-                message: 'Adding a recipe'
+                recipe: request.body.recipe._id
             });
         });
 

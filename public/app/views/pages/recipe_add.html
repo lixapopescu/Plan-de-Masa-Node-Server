@@ -125,6 +125,28 @@
                 </div>
             </div>
         </fieldset>
+        <br>
+        <fieldset>
+        	<legend>Pentru ziua (optional)</legend>
+        	<div data-row-span="12">
+        		<div data-field-span="2">
+        			<label>Ziua index (0..6)</label>
+        			<input type="text" ng-model="day.index">
+        		</div>
+        		<div data-field-span="2">
+        			<label>Data (dd/MM/yyyy)</label>
+        			<input type="text" ng-model="day.dateString">
+        		</div>
+        		<div data-field-span="2">
+        			<label>Abrev</label>
+        			<input type="text" ng-model="day.abbrev">
+        		</div>
+        		<div data-field-span="2">
+        			<label>Pinterest URL</label>
+        			<input type="text" ng-model="day.pinterest_url">
+        		</div>
+        	</div>
+        </fieldset>
     </fieldset>
     <br>
     <input type="submit" ng-click="add(recipe)" class="btn" value="Salveaza" />
