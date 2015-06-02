@@ -38,12 +38,13 @@ var RecipeAddController = function($scope, $http, $stateParams) {
 
     $scope.day = {};
 
-    $scope.add = function(recipe) {
-        if (!!recipe.labels) recipe.labels = recipe.labels.split(",").trim();
+    $scope.add = function(recipe, day) {
+        if (!!recipe.labels) recipe.labels = recipe.labels.split(",");
         if (!!recipe.dish_labels) recipe.dish_labels = recipe.dish_labels.split(",");
         console.log('add', recipe);
         $http.put('/api/admin/recipe', {
-                recipe: recipe
+                recipe: recipe,
+                day: day
             })
             .success(function(data, status, headers, config) {
                 console.log('put successful', data);

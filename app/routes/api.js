@@ -1,4 +1,4 @@
-var bodyParser = require('body-parser'); 
+var bodyParser = require('body-parser');
 //var schemas = require('../models/fixedplanning');
 var config = require('../../config');
 var winston = require('winston');
@@ -9,7 +9,7 @@ var Utils = require('./utils');
 var ListaQuery = require('../models/lista_query');
 var RecipeInPlan = require('../models/reteta_plan_query');
 
-var db = require('mongojs')(config.database, ['recipes', 'fixed_planning']);
+var db = require('mongojs')(config.database, ['recipes', 'fixed_planning', 'planning']);
 
 module.exports = function(app, express) {
 
@@ -59,21 +59,21 @@ module.exports = function(app, express) {
         .get(function(request, response) {
             console.log('Here Route /plan/:year/:month/:day');
             db.fixed_planning.findOne({
-                    start_date: Utils.getDateFromString(request.params.year, request.params.month, request.params.day)
-                }, function(err, plan) {
-                    console.log(request.params.year, request.params.month, request.params.day);
-                    if (err) response.send(err);
-                    if (!plan) {
-                        response.json({
-                            message: "Nici un plan pentru data ceruta.",
-                            year: request.params.year,
-                            month: request.params.month,
-                            day: request.params.day,
-                            code: 101
-                        });
-                    } else
-                        response.json(plan);
-                });
+                start_date: Utils.getDateFromString(request.params.year, request.params.month, request.params.day)
+            }, function(err, plan) {
+                console.log(request.params.year, request.params.month, request.params.day);
+                if (err) response.send(err);
+                if (!plan) {
+                    response.json({
+                        message: "Nici un plan pentru data ceruta.",
+                        year: request.params.year,
+                        month: request.params.month,
+                        day: request.params.day,
+                        code: 101
+                    });
+                } else
+                    response.json(plan);
+            });
         });
     apiRouter.route('/plan/:year/:month/:day/reteta/:recipe_name') //format yyyy/MM/dd,
         .get(function(request, response) {
@@ -94,19 +94,44 @@ module.exports = function(app, express) {
     apiRouter.route('/admin/recipe')
         .put(function(request, response) {
             var r = request.body.recipe;
-            if (!r.created){
+            if (!r.username) {
+                r.username = "website";
+            }
+            if (!r.created) {
                 r.created = {};
                 r.created.user = "website";
                 r.created.date = new Date();
             }
-            if (!r.modified){
+            if (!r.modified) {
                 r.modified = {};
                 r.modified.user = "website";
             }
-            if (r.modified){
+            if (r.modified) {
                 r.modified.date = new Date();
             }
             db.recipes.save(request.body.recipe);
+
+            if (request.body.day) {
+                var d = request.body.day;
+                d.recipe = recipe;
+                if (!d.username) {
+                    d.username = "website";
+                }
+                if (!d.created) {
+                    d.created = {};
+                    d.created.user = "website";
+                    d.created.date = new Date();
+                }
+                if (!d.modified) {
+                    d.modified = {};
+                    d.modified.user = "website";
+                }
+                if (d.modified) {
+                    d.modified.date = new Date();
+                }
+                db.planning.save(d);
+            }
+
             response.json({
                 recipe: request.body.recipe._id
             });

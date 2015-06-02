@@ -75,7 +75,7 @@ var planController = function($scope, $http, $filter, $modal, $stateParams) {
 
 
     $scope.isToday = function(start_date, index, today) {
-        return (start_date.day + parseInt(index) - 1 == today.day);
+        return (start_date.day + parseInt(index) == today.day);
     }
 
     $scope.animationsEnabled = true;
