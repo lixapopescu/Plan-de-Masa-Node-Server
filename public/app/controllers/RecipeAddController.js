@@ -41,7 +41,7 @@ var RecipeAddController = function($scope, $http, $stateParams) {
     $scope.add = function(recipe, day, fixed) {
         if (!!recipe.labels) recipe.labels = recipe.labels.split(",");
         if (!!recipe.dish_labels) recipe.dish_labels = recipe.dish_labels.split(",");
-        _.forEach(recipe.ingredients, function (ing){
+        _.forEach(recipe.ingredients, function(ing) {
             ing.list = listToArray(ing.list);
         });
         listToArray(recipe.instructions);

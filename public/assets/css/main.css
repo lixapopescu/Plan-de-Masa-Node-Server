@@ -423,3 +423,13 @@ hr {
 .grid-form [data-row-span] [data-field-span] label:first-child {
   text-transform: none !important;
 }
+.grid-form label {
+  font-size: 0.7rem !important;
+  margin-bottom: 0px !important;
+}
+.grid-form input {
+  font-size: 1.2rem !important;
+}
+.grid-form [data-row-span] [data-field-span] {
+  padding: 0px;
+}

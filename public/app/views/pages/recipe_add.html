@@ -73,7 +73,7 @@
                         <a href="" ng-if="$index==ingredientListCount-1" ng-click="addIngredientList()"><i class="fa fa-plus-circle fa-2x"></i></a>
                     </div>
                 </div>
-                <div ng-repeat="ing in getNumber(ingredientCount[parentIndex]) track by $index" >
+                <div ng-repeat="ing in getNumber(ingredientCount[parentIndex]) track by $index">
                     <div data-row-span="6">
                         <div data-field-span="1">
                             <label>Nume {{$index}}</label>
@@ -140,7 +140,7 @@
                 <div data-field-span="2">
                     <label>Plan end date (dd/MM/yyyy)</label>
                     <input type="text" ng-model="fixed.end_date">
-                </div>  
+                </div>
                 <div data-field-span="2">
                     <label>Ziua index (0..6)</label>
                     <input type="number" ng-model="fixed.index">
