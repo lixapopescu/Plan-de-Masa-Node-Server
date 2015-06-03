@@ -18,8 +18,8 @@ var RecipeAddController = function($scope, $http, $stateParams) {
 
     $scope.addIngredientList = function() {
         console.log('addIngredientList', $scope.ingredientListCount);
+        $scope.ingredientCount[$scope.ingredientListCount] = 1;
         $scope.ingredientListCount++;
-        $scope.ingredientCount[$scope.ingredientListCount - 1] = 1;
     }
 
     $scope.addInstruction = function() {
@@ -38,19 +38,27 @@ var RecipeAddController = function($scope, $http, $stateParams) {
 
     $scope.day = {};
 
-    $scope.add = function(recipe, day) {
+    $scope.add = function(recipe, day, fixed) {
         if (!!recipe.labels) recipe.labels = recipe.labels.split(",");
         if (!!recipe.dish_labels) recipe.dish_labels = recipe.dish_labels.split(",");
+        _.forEach(recipe.ingredients, function (ing){
+            ing.list = listToArray(ing.list);
+        });
+        listToArray(recipe.instructions);
         console.log('add', recipe);
+        addToast('info', 'Reteta trimisa');
         $http.put('/api/admin/recipe', {
                 recipe: recipe,
-                day: day
+                day: day,
+                fixed: fixed
             })
             .success(function(data, status, headers, config) {
                 console.log('put successful', data);
+                addToast('success', 'Reteta adaugata');
             })
             .error(function(data, status, headers, config) {
                 console.log('put error', data);
+                addToast('error', 'Ups, a fost o eroare. Mai incearca o data.');
             });
     }
 }

@@ -51,6 +51,38 @@ var getWeekDay = function(index, style) {
 
 var getRecipeUrl = function(recipe_title) {
     if (!!recipe_title)
-        return recipe_title.replace(/ /g, "_");
+        return encodeURI(recipe_title.replace(/ /g, "_"));
     else return "";
+}
+
+var addToast = function(type, message) {
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-bottom-center",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+    toastr[type](message);
+    console.log("toast launched");
+}
+
+//input {"0": "value0", "1": "value1", "2": "value2"}
+var listToArray = function(list){
+    var arr = [];
+    _.each(list, function(item){
+        arr.push(item);
+    });
+    console.log('listToArray', arr);
+    return arr;
 }

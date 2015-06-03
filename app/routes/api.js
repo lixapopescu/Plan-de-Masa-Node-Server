@@ -8,8 +8,11 @@ var Utils = require('./utils');
 // var FixedPlanning = schemas.FixedPlanning;
 var ListaQuery = require('../models/lista_query');
 var RecipeInPlan = require('../models/reteta_plan_query');
+var addRecipe = require('./addRecipe');
 
 var db = require('mongojs')(config.database, ['recipes', 'fixed_planning', 'planning']);
+
+var default_user = "website";
 
 module.exports = function(app, express) {
 
@@ -93,49 +96,7 @@ module.exports = function(app, express) {
 
     apiRouter.route('/admin/recipe')
         .put(function(request, response) {
-            var r = request.body.recipe;
-            if (!r.username) {
-                r.username = "website";
-            }
-            if (!r.created) {
-                r.created = {};
-                r.created.user = "website";
-                r.created.date = new Date();
-            }
-            if (!r.modified) {
-                r.modified = {};
-                r.modified.user = "website";
-            }
-            if (r.modified) {
-                r.modified.date = new Date();
-            }
-            db.recipes.save(request.body.recipe);
-
-            if (request.body.day) {
-                var d = request.body.day;
-                d.recipe = recipe;
-                if (!d.username) {
-                    d.username = "website";
-                }
-                if (!d.created) {
-                    d.created = {};
-                    d.created.user = "website";
-                    d.created.date = new Date();
-                }
-                if (!d.modified) {
-                    d.modified = {};
-                    d.modified.user = "website";
-                }
-                if (d.modified) {
-                    d.modified.date = new Date();
-                }
-                db.planning.save(d);
-            }
-
-            response.json({
-                recipe: request.body.recipe._id
-            });
+            addRecipe(request, response, db, default_user);
         });
-
     return apiRouter;
 };
