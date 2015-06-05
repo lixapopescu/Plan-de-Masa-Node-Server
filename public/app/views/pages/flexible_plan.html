@@ -1,16 +1,21 @@
 <div layout="column" layout-margin layout-fill layout-padding>
     <div flex>Plan</div>
-    <div layout="row" flex="50">
+    <div layout="row" flex="50" id="recipeList">
         <div layout="row" layout-gt-sm="row" layout-md="row" layout-sm="column" layout-wrap>
             <div ng-repeat="day in dailyPlans | orderBy: '+date'" flex-gt-sm="25">
-                <md-card  ng-class="{todayBox: day.dayDistance == 0}" id="{{day.dayDistanceLabel}}">
+                <md-card ng-class="{todayBox: day.dayDistance == 0}" id="{{day.dayDistanceLabel}}">
                     <div layout="row" layout-align="space-between start">
-                        <div >{{day.dayDistanceLabel}} </div>
-                        <div >{{day.dayLabel}} {{day.date | date: 'dd/MM'}}</div>
+                        <div>{{day.dayDistanceLabel}} </div>
+                        <div>{{day.dayLabel}} {{day.date | date: 'dd/MM'}}</div>
                     </div>
                     <img ng-src="{{day.recipe.origin.image}}" alt="{{day.recipe._id}}" class="reteta-image reteta-titlu" ui-sref="retetaModal({recipe: day.recipe})">
                     <md-card-content>
                         <p ui-sref="retetaModal({recipe: day.recipe})" class="reteta-titlu">{{day.recipe._id}}</p>
+                        <p> <span class="fa-stack fa-lg reteta-abreviere-logo">
+                                <i class="fa fa-circle-thin fa-stack-2x"></i>
+                                <i class="fa fa-stack-1x">{{day.abbrev}}</i>
+                            </span>
+                        </p>
                     </md-card-content>
                     <md-card-footer>
                         <span class="fa fa-copyright"></span>
@@ -24,5 +29,5 @@
             <!-- </md-content> -->
         </div>
     </div>
-    <div flex="50">lliiiiiiiiiiiiiiiiiiiiiiiiist</div>
+    <div flex="50" id="shoppingList">lliiiiiiiiiiiiiiiiiiiiiiiiist</div>
 </div>
