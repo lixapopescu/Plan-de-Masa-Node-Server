@@ -78,6 +78,21 @@ module.exports = function(app, express) {
                     response.json(plan);
             });
         });
+    apiRouter.route('/plan/:start_year/:start_month/:start_day/:end_year/:end_month/:end_day')
+        .get(function(request, response) {
+            // response.json('Custom start/end');
+            console.log('start', Utils.getDateFromString(request.params.start_year, request.params.start_month, request.params.start_day));
+                console.log('end', Utils.getDateFromString(request.params.end_year, request.params.end_month, request.params.end_day));
+            db.planning.find({
+                date: {
+                    $gte: Utils.getDateFromString(request.params.start_year, request.params.start_month, request.params.start_day),
+                    $lte: Utils.getDateFromString(request.params.end_year, request.params.end_month, request.params.end_day)
+                }
+            }, function(err, plan_array) {
+                // console.log('plan_array', plan_array);
+                response.json(plan_array);
+            });
+        });
     apiRouter.route('/plan/:year/:month/:day/reteta/:recipe_name') //format yyyy/MM/dd,
         .get(function(request, response) {
             console.log('find reteta in plan');
@@ -97,6 +112,27 @@ module.exports = function(app, express) {
     apiRouter.route('/admin/recipe')
         .put(function(request, response) {
             addRecipe(request, response, db, default_user);
+        });
+
+    apiRouter.route('/plan/last')
+        .get(function(request, response) {
+            db.fixed_planning.find({
+                username: default_user
+            }).sort({
+                end_date: -1
+            }).limit(1).forEach(function(err, doc) {
+                if (err) console.log(err);
+                if (!!doc) {
+                    console.log('doc', doc);
+                    console.log('dateToJson', Utils.dateToJson(new Date()));
+                    response.json({
+                        name: doc.name,
+                        start_date: Utils.dateToJson(doc.start_date),
+                        end_date: Utils.dateToJson(doc.end_date)
+                    })
+                }
+            });
+            // response.send('testing ok');
         });
     return apiRouter;
 };

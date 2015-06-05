@@ -64,7 +64,14 @@ angular.module('scopeRoutes', ['ui.router', 'ct.ui.router.extras'])
                     controller: 'RecipeModalInstanceController'
                 }
             }
-        });
+        })
+        .state('flexible_plan',{
+            url: '/plan/:start_year/:start_month/:start_day/:end_year/:end_month/:end_day',
+            templateUrl: 'app/views/pages/flexible_plan.html',
+            controller: 'FlexiblePlanController',
+            controllerAs: 'flexplan'
+        })
+        ;
 
     $locationProvider.html5Mode(true);
 });

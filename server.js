@@ -65,9 +65,12 @@ app.use('/mail', require('./app/routes/mail')(app, express));
 app.use('/api', require('./app/routes/api')(app, express));
 // app.use('/admin', require('./app/routes/admin')(app, express));
 
+app.get('/teste', function(request, response){
+	response.sendFile(__dirname + '/public/app/views/teste.html');
+});
+
 //get express to route angular routes 
 app.use(function(req, res) {
-    // Use res.sendfile, as it streams instead of reading the file into memory.
     res.sendFile(__dirname + '/public/app/views/index.html');
 });
 

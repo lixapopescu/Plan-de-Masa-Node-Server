@@ -9,7 +9,16 @@ var getDateFromStringFull = function(dateString){
     return getDateFromString(s[2], s[1], s[0]);
 }
 
+var dateToJson = function(date) {
+    return {
+        year: date.getFullYear(),
+        month: date.getMonth() + 1,
+        day: date.getDate()
+    }
+}
+
 module.exports = {
 	getDateFromString: getDateFromString,
-	getDateFromStringFull: getDateFromStringFull
+	getDateFromStringFull: getDateFromStringFull,
+	dateToJson: dateToJson
 }
