@@ -1,8 +1,8 @@
 <div layout="column" layout-margin layout-fill layout-padding>
     <div flex>Plan</div>
     <div layout="row" flex="50">
-        <div layout="row" layout-sm="column" layout-wrap>
-            <div ng-repeat="day in dailyPlans | orderBy: '+date'" flex-lg="25">
+        <div layout="row" layout-gt-sm="row" layout-md="row" layout-sm="column" layout-wrap>
+            <div ng-repeat="day in dailyPlans | orderBy: '+date'" flex-gt-sm="25">
                 <md-card  ng-class="{todayBox: day.dayDistance == 0}" id="{{day.dayDistanceLabel}}">
                     <div layout="row" layout-align="space-between start">
                         <div >{{day.dayDistanceLabel}} </div>
