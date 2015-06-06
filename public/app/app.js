@@ -2,7 +2,7 @@ var mainController = function($scope, $http, $filter, $stateParams) {
     console.log('in main controller, nothing to do here for now');
 }
 
-angular.module('plandemasaApp', ['scopeRoutes', 'ngTouch', 'ui.bootstrap'])
+angular.module('plandemasaApp', ['scopeRoutes', 'ngTouch', 'ui.bootstrap', 'ngFlowGrid'])
     .controller('mainController', mainController)
     .controller('homeController', planController)
     .controller('RecipeAddController', RecipeAddController)

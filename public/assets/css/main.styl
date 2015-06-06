@@ -568,3 +568,21 @@ md-card-footer, md-card-footer a {
     font-size: 1rem;
     color: text-color;
 }
+
+//ngFlowGrid
+.flowGrid:before,.flowGrid:after{
+    content: "";
+    display: table;
+}
+.flowGrid:after{
+    clear:both;
+}
+.flowGridItem{ margin-bottom:10px;}
+.flowGridItem img{width:100%;}
+.flowGridColumn{
+    float: left;
+    padding-left: 10px;
+}
+.flowGridColumn:last-of-type{
+    padding-right: 10px;
+}

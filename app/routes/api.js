@@ -9,6 +9,7 @@ var Utils = require('./utils');
 var ListaQuery = require('../models/lista_query');
 var RecipeInPlan = require('../models/reteta_plan_query');
 var addRecipe = require('./addRecipe');
+var FlexibleList = require('../models/FlexibleList');
 
 var db = require('mongojs')(config.database, ['recipes', 'fixed_planning', 'planning']);
 
@@ -82,7 +83,7 @@ module.exports = function(app, express) {
         .get(function(request, response) {
             // response.json('Custom start/end');
             console.log('start', Utils.getDateFromString(request.params.start_year, request.params.start_month, request.params.start_day));
-                console.log('end', Utils.getDateFromString(request.params.end_year, request.params.end_month, request.params.end_day));
+            console.log('end', Utils.getDateFromString(request.params.end_year, request.params.end_month, request.params.end_day));
             db.planning.find({
                 date: {
                     $gte: Utils.getDateFromString(request.params.start_year, request.params.start_month, request.params.start_day),
@@ -92,6 +93,17 @@ module.exports = function(app, express) {
                 // console.log('plan_array', plan_array);
                 response.json(plan_array);
             });
+        });
+    apiRouter.route('/plan/:start_year/:start_month/:start_day/:end_year/:end_month/:end_day/list')
+        .get(function(request, response) {
+            FlexibleList(db,
+                response,
+                request.params.start_year,
+                request.params.start_month,
+                request.params.start_day,
+                request.params.end_year,
+                request.params.end_month,
+                request.params.end_day);
         });
     apiRouter.route('/plan/:year/:month/:day/reteta/:recipe_name') //format yyyy/MM/dd,
         .get(function(request, response) {

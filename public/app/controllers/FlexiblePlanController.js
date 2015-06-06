@@ -18,7 +18,7 @@ var attachAbbrev = function(dailyPlans) {
     })
 }
 
-var FlexiblePlanController = function($http, $stateParams, $scope) {
+var FlexiblePlanController = function($http, $stateParams, $scope, fgDelegate) {
     console.log('in flex plan controller', $stateParams);
     var apiPath = jsonToPath($stateParams);
 
@@ -31,4 +31,18 @@ var FlexiblePlanController = function($http, $stateParams, $scope) {
             attachAbbrev(data);
             $scope.dailyPlans = data;
         });
+
+    $http.get('api/plan' + apiPath + '/list')
+        .success(function(data) {
+            console.log(data);
+            $scope.list = data;
+        });
+
+    $scope.updateGrid = function() {
+        var homePageGrid = fgDelegate.getFlow('homePageGrid');
+
+        // then you can:
+        homePageGrid.minItemWidth += 20;
+        homePageGrid.refill(true);
+    }
 }

@@ -29,5 +29,11 @@
             <!-- </md-content> -->
         </div>
     </div>
-    <div flex="50" id="shoppingList">lliiiiiiiiiiiiiiiiiiiiiiiiist</div>
+    <div flex="50" id="shoppingList">
+        <ul class="flowGrid" ng-flow-grid="homePageGrid">
+            <li class="flowGridItem" ng-repeat="categ in list">
+                {{categ._id}}
+            </li>
+        </ul>
+    </div>
 </div>
