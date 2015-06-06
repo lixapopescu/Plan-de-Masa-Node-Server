@@ -281,10 +281,6 @@ a {
   -moz-transform: rotate(180deg);
   -o-transform: rotate(180deg);
 }
-.capital {
-  text-transform: capitalize;
-  font-weight: bold;
-}
 .box {
   margin: 5px;
   padding: 5px;
@@ -412,42 +408,34 @@ hr {
   background-image: -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
   background-image: -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
 }
-.grid-form [data-row-span] [data-field-span] label:first-child {
-  text-transform: none !important;
-}
-.grid-form label {
-  font-size: 0.7rem !important;
-  margin-bottom: 0px !important;
-}
-.grid-form input {
-  font-size: 1.2rem !important;
-}
-.grid-form [data-row-span] [data-field-span] {
-  padding: 0px;
-}
 md-card-footer,
 md-card-footer a {
   font-size: 1rem;
   color: #5a5a5a;
 }
-.flowGrid:before,
-.flowGrid:after {
-  content: "";
-  display: table;
+@media screen and (min-width: 600px) {
+  #shoppingList {
+    height: 100vh;
+    width: 100vw;
+  }
 }
-.flowGrid:after {
-  clear: both;
+@media screen and (min-width: 600px) and (max-width: 960px) {
+  #shoppingList {
+    height: 100vh;
+  }
 }
-.flowGridItem {
-  margin-bottom: 10px;
+@media screen and (min-width: 960px) and (max-width: 1200px) {
+  #shoppingList {
+    height: 80vh;
+  }
 }
-.flowGridItem img {
-  width: 100%;
+@media screen and (min-width: 1200px) {
+  #shoppingList {
+    height: 50vh;
+  }
 }
-.flowGridColumn {
-  float: left;
-  padding-left: 10px;
-}
-.flowGridColumn:last-of-type {
-  padding-right: 10px;
+.category-title {
+  text-transform: capitalize;
+  font-weight: bold;
+  padding-bottom: 5px;
 }

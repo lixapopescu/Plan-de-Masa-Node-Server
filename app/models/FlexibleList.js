@@ -32,11 +32,13 @@ var getFlexibleList = function(db, response, start_year, start_month, start_day,
                     ing: "$name",
                     um: "$um"
                 },
-                recipe_ids: {
-                    $addToSet: "$recipe_id"
-                },
-                ingredient_comments: {
-                    $addToSet: "$comment"
+                details: {
+                    $push: {
+                        recipe_id: "$recipe_id",
+                        comment: "$comment",
+                        quantity: "$quant",
+                        um: "$um"
+                    }
                 },
                 tot: {
                     $sum: "$quant"
@@ -51,8 +53,7 @@ var getFlexibleList = function(db, response, start_year, start_month, start_day,
                 ingredient: "$_id.ing",
                 total: "$tot",
                 um: "$_id.um",
-                recipe_ids: "$recipe_ids",
-                ingredient_comments: "$ingredient_comments"
+                details: "$details"
             }
         },
         //finally, group by main criteria, "$categorie"
@@ -65,12 +66,12 @@ var getFlexibleList = function(db, response, start_year, start_month, start_day,
                         "name": "$ingredient",
                         "total": "$total",
                         "um": "$um",
-                        "recipe_ids": "$recipe_ids",
-                        "ingredient_comments": "$ingredient_comments"
+                        "details": "$details"
                     }
                 }
             }
-        },function(err, lista) {
+        },
+        function(err, lista) {
             // console.log('lista query', lista);
             if (err) response.json(err);
             else response.json(lista);
