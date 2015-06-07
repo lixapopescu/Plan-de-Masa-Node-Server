@@ -542,6 +542,10 @@ hr {
     background-image: -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));
 }
 
+.link-no-highlight {
+    color: text-color;
+}
+
 
 md-card-footer, md-card-footer a {
     font-size: 1rem;
@@ -571,4 +575,15 @@ md-card-footer, md-card-footer a {
     text-transform: capitalize;
     font-weight: bold;
     padding-bottom: 5px;
+}
+
+//for swiping
+#recipeList{
+    pointer-events: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; 
 }

@@ -8,17 +8,17 @@ angular.module('scopeRoutes', ['ui.router', 'ct.ui.router.extras'])
         .state('/', {
             url: '/',
             templateUrl: 'app/views/pages/home.html',
-            controller: 'homeController',
-            controllerAs: 'home',
-            deepStateRedirect: true
+            templateUrl: 'app/views/pages/flexible_plan.html',
+            controller: 'FlexiblePlanController',
+            controllerAs: 'flexplan'
         })
-        .state('plan', {
-            url: '/plan/:year/:month/:day',
-            templateUrl: 'app/views/pages/home.html',
-            controller: 'homeController',
-            controllerAs: 'home',
-            deepStateRedirect: true
-        })
+        // .state('plan', {
+        //     url: '/plan/:year/:month/:day',
+        //     templateUrl: 'app/views/pages/home.html',
+        //     controller: 'homeController',
+        //     controllerAs: 'home',
+        //     deepStateRedirect: true
+        // })
         .state('/plan_detalii', {
             url: '/plan_detalii',
             templateUrl: 'app/views/pages/plan_detalii.html',

@@ -1,9 +1,25 @@
 <div layout="column" layout-margin layout-fill layout-padding>
-    <div flex>Plan</div>
-    <div layout="row" flex="50" id="recipeList">
+    <div flex>
+        <h2>
+            <div layout="row" layout-align="space-between center">
+                <div>
+                    <i class="fa fa-calendar"></i>
+                    {{globalPlan.start.label}} 
+                    <i class="fa fa-long-arrow-right"></i> 
+                    {{globalPlan.last.label}}
+                </div>
+                <div>
+                    <a href="#shoppingList" class="link-no-highlight">
+                        <i class="fa fa-cart-arrow-down"></i>
+                    </a>
+                </div>
+            </div>
+        </h2>
+    </div>
+    <div layout="row" flex="50" id="recipeList" md-swipe-left="onSwipeLeft()">
         <div layout="row" layout-gt-sm="row" layout-md="row" layout-sm="column" layout-wrap>
             <div ng-repeat="day in dailyPlans | orderBy: '+date'" flex-gt-sm="25">
-                <md-card ng-class="{todayBox: day.dayDistance == 0}" id="{{day.dayDistanceLabel}}">
+                <md-card ng-class="{todaybox: day.dayDistance == 0}" id="{{day.dayDistanceLabel}}">
                     <div layout="row" layout-align="space-between start">
                         <div>{{day.dayDistanceLabel}} </div>
                         <div>{{day.dayLabel}} {{day.date | date: 'dd/MM'}}</div>
@@ -56,7 +72,7 @@
                                             <i class="fa fa-stack-1x">{{det.abbrev}}</i>
                                         </span>
                         </span>
-                        <div ng-if="!category.folded && !product.unfoldable" ng-repeat="det in product.details">
+                        <div ng-if="!category.folded && !product.unfoldable" ng-repeat="det in product.details | orderBy: '+abbrev'">
                             <li>
                                 <span class="fa-stack fa-lg reteta-abreviere-logo">
                                 <i class="fa fa-circle-thin fa-stack-2x"></i>

@@ -21,7 +21,8 @@
     "imagesloaded": "~3.1.8",
     "ui-router-extras": "~0.0.13",
     "gridforms": "~1.0.4",
-    "allmighty-autocomplete": "*"
+    "allmighty-autocomplete": "*",
+    "material-date-picker": "~1.1.5"
   },
   "devDependencies": {}
 }
