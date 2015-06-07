@@ -32,7 +32,7 @@ angular.module('scopeRoutes', ['ui.router', 'ct.ui.router.extras'])
             controllerAs: 'recipeAdd'
         })
         .state('retetaModal', {
-            url: '/plan/:year/:month/:day/:id',
+            url: '/reteta/:year/:month/:day/:url',
             controller: 'RecipeModalInstanceController',  
             params:{recipe: null,},
             // template: '<div ui-view></div>',

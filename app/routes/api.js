@@ -105,10 +105,20 @@ module.exports = function(app, express) {
                 request.params.end_month,
                 request.params.end_day);
         });
-    apiRouter.route('/plan/:year/:month/:day/reteta/:recipe_name') //format yyyy/MM/dd,
+    // apiRouter.route('/plan/:year/:month/:day/reteta/:recipe_name') //format yyyy/MM/dd,
+    //     .get(function(request, response) {
+    //         console.log('find reteta in plan');
+    //         RecipeInPlan(db, response, request.params.year, request.params.month, request.params.day, request.params.recipe_name);
+    //     });
+    apiRouter.route('/plan/:year/:month/:day/recipe/:recipe_name') //format yyyy/MM/dd,
         .get(function(request, response) {
-            console.log('find reteta in plan');
-            RecipeInPlan(db, response, request.params.year, request.params.month, request.params.day, request.params.recipe_name);
+            console.log('find recipe in plan');
+            // RecipeInPlan(db, response, request.params.year, request.params.month, request.params.day, request.params.recipe_name);
+            var recipe = db.planning.findOne({
+                "recipe._id": decodeURI(request.params.recipe_name).replace(/_/g, " "),
+                date: new Date(request.params.year, request.params.month - 1, request.params.day)
+            });
+            response.json(recipe);
         });
     apiRouter.route('/plan/:year/:month/:day/lista')
         .get(function(request, response) {

@@ -15,8 +15,9 @@ var RecipeModalInstanceController = function($http, $scope, recipe, $stateParams
         // $scope.category_list = groupIngredientList(recipe.ingredients[0].list);
     } else {
         //full display
-        $http.get('api/plan' + path + dateToPath($stateParams) + path + "reteta" + path + $stateParams.id)
+        $http.get('api/plan' + path + dateToPath($stateParams) + path + "recipe" + path + $stateParams.url)
             .success(function(data) {
+                console.log('got recipe data', $stateParams);
                 $scope.recipe = data[0].recipe;
             });
         $scope.year = $stateParams.year;

@@ -4,9 +4,10 @@
             <div layout="row" layout-align="space-between center">
                 <div>
                     <i class="fa fa-calendar"></i>
-                    {{globalPlan.start.label}} 
+                    {{globalPlan.start.distanceLabel}} 
                     <i class="fa fa-long-arrow-right"></i> 
-                    {{globalPlan.last.label}}
+                    {{globalPlan.last.distanceLabel}}
+                    <!-- ({{globalPlan.start.dayLabel}} - {{globalPlan.last.dayLabel}}) -->
                 </div>
                 <div>
                     <a href="#shoppingList" class="link-no-highlight">
@@ -18,30 +19,30 @@
     </div>
     <div layout="row" flex="50" id="recipeList" md-swipe-left="onSwipeLeft()">
         <div layout="row" layout-gt-sm="row" layout-md="row" layout-sm="column" layout-wrap>
-            <div ng-repeat="day in dailyPlans | orderBy: '+date'" flex-gt-sm="25">
-                <md-card ng-class="{todaybox: day.dayDistance == 0}" id="{{day.dayDistanceLabel}}">
+            <div ng-repeat="dailyPlan in dailyPlans | orderBy: '+date'" flex-gt-sm="25">
+                <md-card ng-class="{todaybox: dailyPlan.dayDistance == 0}" id="{{dailyPlan.dayDistanceLabel}}">
                     <div layout="row" layout-align="space-between start">
-                        <div>{{day.dayDistanceLabel}} </div>
-                        <div>{{day.dayLabel}} {{day.date | date: 'dd/MM'}}</div>
+                        <div>{{dailyPlan.dayDistanceLabel}} </div>
+                        <div>{{dailyPlan.dayLabel}} {{dailyPlan.date | date: 'dd/MM'}}</div>
                     </div>
-                    <img ng-src="{{day.recipe.origin.image}}" alt="{{day.recipe._id}}" class="reteta-image reteta-titlu" ui-sref="retetaModal({recipe: day.recipe})">
+                    <img ng-src="{{dailyPlan.recipe.origin.image}}" alt="{{dailyPlan.recipe._id}}" class="reteta-image reteta-titlu" ui-sref="retetaModal({year: dailyPlan.dateJson.year, month:dailyPlan.dateJson.month, day:dailyPlan.dayJson.dailyPlan, url: dailyPlan.recipe.url, id: dailyPlan.recipe._id, recipe: dailyPlan.recipe})">
                     <md-card-content>
-                        <p ui-sref="retetaModal({recipe: day.recipe})" class="reteta-titlu">
-                            {{day.recipe._id}}
+                        <p class="reteta-titlu" ui-sref="retetaModal({year: dailyPlan.dateJson.year, month:dailyPlan.dateJson.month, day:dailyPlan.dayJson.dailyPlan, url: dailyPlan.recipe.url, id: dailyPlan.recipe._id, recipe: dailyPlan.recipe})">
+                            {{dailyPlan.recipe._id}}
                             <span class="fa-stack fa-lg reteta-abreviere-logo">
                                 <i class="fa fa-circle-thin fa-stack-2x"></i>
-                                <i class="fa fa-stack-1x">{{day.abbrev}}</i>
+                                <i class="fa fa-stack-1x">{{dailyPlan.abbrev}}</i>
                             </span>
                         </p>
-                        <p> <i class="fa fa-user"></i> {{day.recipe.persons}}
-                            <i class="fa fa-shopping-cart"></i> {{countBoughtForRecipe(day.recipe,list)}} / {{day.recipe.ingredientNumber}}
-                            <i class="fa fa-check" ng-if="countBoughtForRecipe(day.abbrev) == day.recipe.ingredientNumber"></i>
+                        <p> <i class="fa fa-user"></i> {{dailyPlan.recipe.persons}}
+                            <i class="fa fa-shopping-cart"></i> {{countBoughtForRecipe(dailyPlan.recipe,list)}} / {{dailyPlan.recipe.ingredientNumber}}
+                            <i class="fa fa-check" ng-if="countBoughtForRecipe(dailyPlan.abbrev) == dailyPlan.recipe.ingredientNumber"></i>
                         </p>
                     </md-card-content>
                     <md-card-footer>
                         <span class="fa fa-copyright"></span>
-                        <a href="{{day.recipe.origin.url}}" target="_blank">
-                            <span ng-if="!!day.recipe.origin.copyright">{{day.recipe.origin.copyright}}</span>
+                        <a href="{{dailyPlan.recipe.origin.url}}" target="_blank">
+                            <span ng-if="!!dailyPlan.recipe.origin.copyright">{{dailyPlan.recipe.origin.copyright}}</span>
                         </a>
                     </md-card-footer>
                 </md-card>

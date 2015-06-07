@@ -12,6 +12,7 @@ var fillCustomAttributesPlan = function(dailyPlans, today) {
         dailyPlan.dayDistance = Math.round((dailyPlan.date - today) / millisecondsInDay);
         dailyPlan.dayLabel = getWeekDay(dailyPlan.date.getDay(), 's');
         dailyPlan.dayDistanceLabel = setDayDistanceLabel(dailyPlan.dayDistance);
+        dailyPlan.dateJson = dailyPlan.date.toJson();
 
         var ingredients = _.union(_.flatten(_.pluck(dailyPlan.recipe.ingredients, 'list')));
         dailyPlan.recipe.ingredientNumber = _.union(_.pluck(ingredients, 'name')).length;
@@ -109,7 +110,6 @@ var getTimespan = function(today, days_before, days_after) {
 }
 
 var setGlobalPlan = function(dailyPlans) {
-    console.log('set global plan attrs');
     var plan = {};
 
     var firstDay =
@@ -126,13 +126,14 @@ var setGlobalPlan = function(dailyPlans) {
         })
         .last()
         .value();
-    console.log('firstDay', firstDay);
-    console.log('lastDay', lastDay);
+
     plan.start = {
-        label: firstDay.dayDistanceLabel
+        distanceLabel: firstDay.dayDistanceLabel,
+        dayLabel: firstDay.dayLabel
     }
     plan.last = {
-        label: lastDay.dayDistanceLabel
+        distanceLabel: lastDay.dayDistanceLabel,
+        dayLabel: lastDay.dayLabel
     }
 
     return plan;
@@ -176,8 +177,9 @@ var FlexiblePlanController = function($http, $stateParams, $scope, $window) {
     $scope.toggleFolded = toggleFolded;
     $scope.countBought = countBought;
     $scope.countBoughtForRecipe = countBoughtForRecipe;
-    $scope.onSwipeLeft = function(ev){
-        console.log('swipe left');
-        $window.location.hash = '#shoppingList';
-    }
+    // $scope.onSwipeLeft = function(ev){
+    //     console.log('swipe left');
+    //     $window.location.hash = '#shoppingList';
+    // }
+    $scope.animationsEnabled = true;
 }
