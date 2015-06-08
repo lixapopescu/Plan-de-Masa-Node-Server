@@ -18,7 +18,7 @@
         </div>
         <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
             <div ng-repeat="instruction in recipe.instructions | orderBy: '+order'">
-                {{instruction.order}}.
+                {{instruction.order + 1}}.
                 <span ng-if="!!instruction.for_what" class="instructiune-pentru">{{instruction.for_what}}</span> {{instruction.text}}
             </div>
             <div>
@@ -32,5 +32,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ui-sref="plan({year:year, month: month, day: day})">Inapoi la plan</button>
+    <button class="btn btn-primary" ui-sref="/">Inapoi la plan</button>
+    <!-- <button class="btn btn-primary" ui-sref="plan({year:year, month: month, day: day})">Inapoi la plan</button> -->
 </div>

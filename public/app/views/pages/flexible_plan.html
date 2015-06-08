@@ -22,12 +22,12 @@
             <div ng-repeat="dailyPlan in dailyPlans | orderBy: '+date'" flex-gt-sm="25">
                 <md-card ng-class="{todaybox: dailyPlan.dayDistance == 0}" id="{{dailyPlan.dayDistanceLabel}}">
                     <div layout="row" layout-align="space-between start">
-                        <div>{{dailyPlan.dayDistanceLabel}} </div>
+                        <div>{{dailyPlan.dayDistanceLabel}}</div>
                         <div>{{dailyPlan.dayLabel}} {{dailyPlan.date | date: 'dd/MM'}}</div>
                     </div>
-                    <img ng-src="{{dailyPlan.recipe.origin.image}}" alt="{{dailyPlan.recipe._id}}" class="reteta-image reteta-titlu" ui-sref="retetaModal({year: dailyPlan.dateJson.year, month:dailyPlan.dateJson.month, day:dailyPlan.dayJson.dailyPlan, url: dailyPlan.recipe.url, id: dailyPlan.recipe._id, recipe: dailyPlan.recipe})">
+                    <img ng-src="{{dailyPlan.recipe.origin.image}}" alt="{{dailyPlan.recipe._id}}" class="reteta-image reteta-titlu" ui-sref="retetaModal({year: dailyPlan.dateJson.year, month:dailyPlan.dateJson.month, day:dailyPlan.dateJson.day, url: dailyPlan.recipe.url, id: dailyPlan.recipe._id, recipe: dailyPlan.recipe})">
                     <md-card-content>
-                        <p class="reteta-titlu" ui-sref="retetaModal({year: dailyPlan.dateJson.year, month:dailyPlan.dateJson.month, day:dailyPlan.dayJson.dailyPlan, url: dailyPlan.recipe.url, id: dailyPlan.recipe._id, recipe: dailyPlan.recipe})">
+                        <p class="reteta-titlu" ui-sref="retetaModal({year: dailyPlan.dateJson.year, month:dailyPlan.dateJson.month, day:dailyPlan.dateJson.day, url: dailyPlan.recipe.url, id: dailyPlan.recipe._id, recipe: dailyPlan.recipe})">
                             {{dailyPlan.recipe._id}}
                             <span class="fa-stack fa-lg reteta-abreviere-logo">
                                 <i class="fa fa-circle-thin fa-stack-2x"></i>

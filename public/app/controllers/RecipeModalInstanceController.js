@@ -17,8 +17,8 @@ var RecipeModalInstanceController = function($http, $scope, recipe, $stateParams
         //full display
         $http.get('api/plan' + path + dateToPath($stateParams) + path + "recipe" + path + $stateParams.url)
             .success(function(data) {
-                console.log('got recipe data', $stateParams);
-                $scope.recipe = data[0].recipe;
+                console.log('got recipe data', $stateParams, data);
+                $scope.recipe = data.recipe;
             });
         $scope.year = $stateParams.year;
         $scope.month = $stateParams.month;

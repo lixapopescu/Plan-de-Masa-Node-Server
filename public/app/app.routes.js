@@ -2,7 +2,7 @@ angular.module('scopeRoutes', ['ui.router', 'ct.ui.router.extras'])
 
 .config(function($stateProvider, $stickyStateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider.otherwise('/');
-    // $stickyStateProvider.enableDebug(true);
+    $stickyStateProvider.enableDebug(true);
 
     $stateProvider
         .state('/', {
