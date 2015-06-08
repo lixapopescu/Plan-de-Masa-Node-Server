@@ -114,11 +114,13 @@ module.exports = function(app, express) {
         .get(function(request, response) {
             console.log('find recipe in plan');
             // RecipeInPlan(db, response, request.params.year, request.params.month, request.params.day, request.params.recipe_name);
-            var recipe = db.planning.findOne({
+            db.planning.findOne({
                 "recipe._id": decodeURI(request.params.recipe_name).replace(/_/g, " "),
                 date: new Date(request.params.year, request.params.month - 1, request.params.day)
+            }, function(err, data){
+                if (err) throw err;
+                response.json(data);
             });
-            response.json(recipe);
         });
     apiRouter.route('/plan/:year/:month/:day/lista')
         .get(function(request, response) {
