@@ -22,7 +22,7 @@
     "ui-router-extras": "~0.0.13",
     "gridforms": "~1.0.4",
     "allmighty-autocomplete": "*",
-    "material-date-picker": "~1.1.5"
+    "gm.datepicker-multi-select": "~1.0.5"
   },
   "devDependencies": {}
 }

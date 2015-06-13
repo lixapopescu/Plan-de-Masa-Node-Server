@@ -1,3 +1,5 @@
+<div>
+</div>
 <div layout="column" layout-margin layout-fill layout-padding>
     <div flex>
         <h2>
@@ -25,7 +27,7 @@
                         <div>{{dailyPlan.dayDistanceLabel}}</div>
                         <div>{{dailyPlan.dayLabel}} {{dailyPlan.date | date: 'dd/MM'}}</div>
                     </div>
-                    <img ng-src="{{dailyPlan.recipe.origin.image}}" alt="{{dailyPlan.recipe._id}}" class="reteta-image reteta-titlu" ui-sref="retetaModal({year: dailyPlan.dateJson.year, month:dailyPlan.dateJson.month, day:dailyPlan.dateJson.day, url: dailyPlan.recipe.url, id: dailyPlan.recipe._id, recipe: dailyPlan.recipe})">
+                    <img ng-src="{{dailyPlan.recipe.image}}" alt="{{dailyPlan.recipe._id}}" class="reteta-image reteta-titlu" ui-sref="retetaModal({year: dailyPlan.dateJson.year, month:dailyPlan.dateJson.month, day:dailyPlan.dateJson.day, url: dailyPlan.recipe.url, id: dailyPlan.recipe._id, recipe: dailyPlan.recipe})">
                     <md-card-content>
                         <p class="reteta-titlu" ui-sref="retetaModal({year: dailyPlan.dateJson.year, month:dailyPlan.dateJson.month, day:dailyPlan.dateJson.day, url: dailyPlan.recipe.url, id: dailyPlan.recipe._id, recipe: dailyPlan.recipe})">
                             {{dailyPlan.recipe._id}}
@@ -39,7 +41,7 @@
                             <i class="fa fa-check" ng-if="countBoughtForRecipe(dailyPlan.abbrev) == dailyPlan.recipe.ingredientNumber"></i>
                         </p>
                     </md-card-content>
-                    <md-card-footer>
+                    <md-card-footer ng-show="dailyPlan.recipe.origin.url">
                         <span class="fa fa-copyright"></span>
                         <a href="{{dailyPlan.recipe.origin.url}}" target="_blank">
                             <span ng-if="!!dailyPlan.recipe.origin.copyright">{{dailyPlan.recipe.origin.copyright}}</span>

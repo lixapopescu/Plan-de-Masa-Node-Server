@@ -18,6 +18,7 @@ var fillCustomAttributesPlan = function(dailyPlans, today) {
         dailyPlan.recipe.ingredientNumber = _.union(_.pluck(ingredients, 'name')).length;
 
         dailyPlan.recipe.url = getRecipeUrl(dailyPlan.recipe._id);
+        dailyPlan.recipe.image = dailyPlan.recipe.image ? dailyPlan.recipe.image : dailyPlan.recipe.origin.image; //my photo has priority
     });
     return setGlobalPlan(dailyPlans);
 }
@@ -182,4 +183,6 @@ var FlexiblePlanController = function($http, $stateParams, $scope, $window) {
     //     $window.location.hash = '#shoppingList';
     // }
     $scope.animationsEnabled = true;
+
+
 }

@@ -21,11 +21,11 @@
                 {{instruction.order + 1}}.
                 <span ng-if="!!instruction.for_what" class="instructiune-pentru">{{instruction.for_what}}</span> {{instruction.text}}
             </div>
-            <div>
+            <div ng-if="!!recipe.origin.url">
                 <i class="fa fa-road"></i>
                 <span>Vezi toata povestea retetei pe </span>
                 <a href="{{recipe.origin.url}}" target="_blank">
-                    <span ng-if="!!recipe.origin">{{recipe.origin.copyright}}</span>
+                    <span>{{recipe.origin.copyright}}</span>
                 </a>
             </div>
         </div>
