@@ -146,8 +146,8 @@ var FlexiblePlanController = function($http, $stateParams, $scope, $window) {
 
     $scope.today = new Date();
     $scope.today.setHours(0, 0, 0, 0);
-    $scope.days_before = 0;
-    $scope.days_after = 7;
+    $scope.days_before = 6;
+    $scope.days_after = 8;
 
     var apiPath;
     if (!$stateParams.start_day) {
